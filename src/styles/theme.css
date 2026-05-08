@@ -318,9 +318,6 @@
     color: var(--color-universal-modal-header-text);
   }
 
-  .universal-modal-close-btn:hover {
-    background-color: rgb(1 32 108 / 0.08);
-  }
 
   .universal-modal-close-btn:focus-visible {
     outline: 2px solid var(--color-brand-primary);
