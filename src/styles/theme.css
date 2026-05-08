@@ -99,6 +99,8 @@
   --radius-control-xs: 9px;
   --radius-control-sm: 10px;
   --radius-control: 12px;
+  --radius-xl: 15px;
+  --radius-hero-banner: 16px;
   --radius-card-sm: 14px;
   --radius-card: 18px;
   --radius-panel: 20px;
@@ -153,70 +155,67 @@
   --text-page-title: 1.5rem;
   --text-page-title-md: 1.875rem;
   --tracking-page-title: -0.025em;
-}
 
-@theme {
+  /* Former Tailwind `@theme` tokens (must be real CSS vars). */
   --font-sans: var(--font-family-sans);
   --color-prime-light: #123B94;
   --color-prime-dark: #0d2a6a;
-  --radius-xl: 15px;
 
   --animate-scan: scan 1.5s linear infinite;
   --animate-float: float 5s ease-in-out infinite;
   /* Hero announcement bar: faster scroll + start in view (no long off-screen lead-in). */
   --animate-marquee: marquee 11s linear infinite;
-
-  @keyframes scan {
-    0% {
-      transform: translateY(-100%);
-      opacity: 0;
-    }
-
-    50% {
-      opacity: 1;
-      text-shadow: var(--shadow-scan);
-    }
-
-    100% {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-  }
-
-  @keyframes float {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-
   --animate-home-big-wins-reveal: home-big-wins-reveal 0.45s ease-out both;
+}
 
-  @keyframes home-big-wins-reveal {
-    from {
-      opacity: 0.35;
-      transform: translateY(8px);
-    }
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
 
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  50% {
+    opacity: 1;
+    text-shadow: var(--shadow-scan);
+  }
+
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes home-big-wins-reveal {
+  from {
+    opacity: 0.35;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -614,7 +613,7 @@
     width: 100%;
     aspect-ratio: 1200 / 350;
     overflow: hidden;
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-hero-banner);
     background-color: var(--color-surface-base);
     border: 1px solid var(--color-border-default);
     box-shadow: var(--shadow-live-banner);
