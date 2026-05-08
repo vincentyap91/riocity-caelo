@@ -25,6 +25,7 @@ const EsportsPage = React.lazy(() => import('./components/EsportsPage'));
 const LotteryPage = React.lazy(() => import('./components/LotteryPage'));
 const FishingPage = React.lazy(() => import('./components/FishingPage'));
 const PokerPage = React.lazy(() => import('./components/PokerPage'));
+const HotGamesPage = React.lazy(() => import('./components/HotGamesPage'));
 const GameDetailPage = React.lazy(() => import('./components/game-detail/GameDetailPage'));
 const PromotionPage = React.lazy(() => import('./components/PromotionPage'));
 const VipPage = React.lazy(() => import('./components/VipPage'));
@@ -89,6 +90,9 @@ function resolvePageFromPath() {
     }
     if (pathname === '/fishing' || pathname === '/fish-hunt') {
       return 'fishing';
+    }
+    if (pathname === '/hot-games' || pathname === '/hot') {
+      return 'hot-games';
     }
     if (pathname === '/poker') {
       return 'poker';
@@ -419,6 +423,7 @@ function AppInner() {
       'e-sports': '/e-sports',
       lottery: '/lottery',
       fishing: '/fishing',
+      'hot-games': '/hot-games',
       poker: '/poker',
       promotion: '/promotion',
       vip: '/vip',
@@ -593,6 +598,8 @@ function AppInner() {
         <LotteryPage onNavigate={handleNavigate} />
       ) : page === 'fishing' ? (
         <FishingPage onNavigate={handleNavigate} />
+      ) : page === 'hot-games' ? (
+        <HotGamesPage onNavigate={handleNavigate} />
       ) : page === 'poker' ? (
         <PokerPage onNavigate={handleNavigate} />
       ) : page === 'promotion' ? (

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NAV_STICKY_QUICK_PLAY_BAR_CLASS } from '../../constants/navStickyOffsets';
-import { PAGE_BANNER_IMG, PAGE_BANNER_WRAP } from '../../constants/pageBannerClasses';
+import { PAGE_BANNER_IMG_FILL } from '../../constants/pageBannerClasses';
 
 const STICKY_CTA_CLASS =
     'btn-theme-cta inline-flex h-10 min-w-[140px] items-center justify-center rounded-[10px] px-5 text-sm font-bold tracking-[0.06em] transition hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-cta-focus)] focus-visible:ring-offset-2 md:h-12 md:min-w-[180px] md:px-8 md:text-base';
@@ -26,6 +26,7 @@ export default function LobbyHeroBanner({
     stickyPlayAriaLabel,
     bannerPlayAriaLabel,
     layout = 'live-casino',
+    imageClassName = '',
 }) {
     const [showStickyPlayBar, setShowStickyPlayBar] = useState(false);
     const playButtonAreaRef = useRef(null);
@@ -64,10 +65,14 @@ export default function LobbyHeroBanner({
                 </div>
             )}
 
-            <section className="w-full">
-                <div className="mx-auto w-full">
-                    <div className={PAGE_BANNER_WRAP}>
-                        <img src={bannerImage} alt={bannerAlt} className={PAGE_BANNER_IMG} />
+            <section className="w-full pt-5 md:pt-7">
+                <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8">
+                    <div className="page-hero-banner">
+                        <img
+                            src={bannerImage}
+                            alt={bannerAlt}
+                            className={`page-hero-banner__img ${PAGE_BANNER_IMG_FILL} ${imageClassName}`}
+                        />
                         {layout === 'poker' ? (
                             <>
                                 <div className="absolute inset-y-0 left-0 w-[56%] bg-[linear-gradient(90deg,rgb(234_244_255_/_0.96)_0%,rgb(234_244_255_/_0.86)_45%,transparent_100%)] sm:w-[52%] md:w-[50%]" />

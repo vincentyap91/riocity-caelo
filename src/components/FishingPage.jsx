@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import fishingBanner from '../assets/fishing-banner.jpg';
-import { PAGE_BANNER_IMG_FILL, PAGE_BANNER_WRAP_ASPECT } from '../constants/pageBannerClasses';
+import { PAGE_BANNER_IMG_FILL } from '../constants/pageBannerClasses';
 import PromotionStyleTabs from './PromotionStyleTabs';
 import { GameCardFavouriteButton, GameCardPlayBar } from './game/GameCardActions';
 import { navigateToGameDetail } from '../utils/gameDetailRoutes';
@@ -89,13 +89,13 @@ export default function FishingPage({ onNavigate }) {
 
     return (
         <main className="w-full bg-gradient-to-b from-blue-50 via-slate-50 to-slate-100 pb-14 font-sans">
-            <section className="w-full">
-                <div className="w-full mx-auto">
-                    <div className={PAGE_BANNER_WRAP_ASPECT}>
+            <section className="w-full pt-5 md:pt-7">
+                <div className={pageContainerClass}>
+                    <div className="page-hero-banner">
                         <img
                             src={fishingBanner}
                             alt="Fishing Banner"
-                            className={PAGE_BANNER_IMG_FILL}
+                            className={`page-hero-banner__img ${PAGE_BANNER_IMG_FILL}`}
                         />
                         <div className="absolute inset-y-0 left-0 w-[56%] bg-[linear-gradient(90deg,rgb(234_244_255_/_0.96)_0%,rgb(234_244_255_/_0.86)_45%,transparent_100%)] sm:w-[52%] md:w-[50%]" />
                         <div className="absolute inset-0 flex items-center justify-start">

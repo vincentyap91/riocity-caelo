@@ -3,7 +3,7 @@ import LobbyProviderCard from './game/LobbyProviderCard';
 import { navigateToGameDetail } from '../utils/gameDetailRoutes';
 import sportsBanner from '../assets/sports-banner.jpg';
 import { NAV_STICKY_QUICK_PLAY_BAR_CLASS } from '../constants/navStickyOffsets';
-import { PAGE_BANNER_IMG, PAGE_BANNER_WRAP_SPORTS } from '../constants/pageBannerClasses';
+import { PAGE_BANNER_IMG_FILL } from '../constants/pageBannerClasses';
 import { normalizeFavouriteCategory } from '../utils/favouriteGames';
 import SearchProvider from './SearchProvider';
 
@@ -107,13 +107,13 @@ export default function SportsPage({ onNavigate }) {
                 </div>
             )}
 
-            <section className="w-full">
-                <div className="w-full mx-auto">
-                    <div className={PAGE_BANNER_WRAP_SPORTS}>
+            <section className="w-full pt-5 md:pt-7">
+                <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8">
+                    <div className="page-hero-banner">
                         <img
                             src={sportsBanner}
                             alt="Sports Banner"
-                            className={PAGE_BANNER_IMG}
+                            className={`page-hero-banner__img ${PAGE_BANNER_IMG_FILL} page-hero-banner__img--show-bottom`}
                         />
                         <div className="absolute inset-y-0 left-0 w-[56%] bg-[linear-gradient(90deg,rgb(234_244_255_/_0.96)_0%,rgb(234_244_255_/_0.86)_45%,transparent_100%)] sm:w-[52%] md:w-[50%]" />
                         <div ref={playButtonAreaRef} className="absolute inset-0 flex items-center justify-start">

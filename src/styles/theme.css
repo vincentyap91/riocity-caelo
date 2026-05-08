@@ -599,6 +599,41 @@
     box-shadow: var(--shadow-cta-soft);
   }
 
+  /** Hot Games: selected state in Caelo blue/white (no color-mix) */
+  .nav-desktop-link-active-hot {
+    border: 1px solid var(--color-border-brand);
+    background-color: var(--color-brand-soft);
+    color: var(--color-text-brand);
+    box-shadow: var(--shadow-brand-soft);
+  }
+
+  /** Shared hero banner wrapper (Hot Games proportions) */
+  .page-hero-banner,
+  .hot-games-banner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1200 / 350;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background-color: var(--color-surface-base);
+    border: 1px solid var(--color-border-default);
+    box-shadow: var(--shadow-live-banner);
+  }
+
+  .page-hero-banner__img,
+  .hot-games-banner__img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /** Per-banner crop tuning: keep more bottom detail visible */
+  .page-hero-banner__img--show-bottom {
+    object-position: center bottom;
+  }
+
   /** Selected filter / category tab (PromotionStyleTabs, browse scope, etc.) */
   .btn-theme-tab-selected {
     border: 1px solid var(--color-cta-border);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Play, TrendingUp, TrendingDown } from 'lucide-react';
 import slotsBanner from '../assets/slot-banner.jpg';
-import { PAGE_BANNER_IMG_FILL, PAGE_BANNER_WRAP_ASPECT } from '../constants/pageBannerClasses';
+import { PAGE_BANNER_IMG_FILL } from '../constants/pageBannerClasses';
 import { MATCHED_SLOT_PROVIDERS } from '../constants/matchedSlotProviders';
 import { GameCardFavouriteButton, GameCardPlayBar } from './game/GameCardActions';
 import { SLOT_GAMES as slotGames } from '../constants/gameCatalogs';
@@ -115,13 +115,13 @@ export default function SlotsPage({ selectedProviderIdFromMenu, onNavigate }) {
 
     return (
         <main className="w-full bg-gradient-to-b from-blue-50 via-slate-50 to-slate-100 pb-14 font-sans">
-            <section className="w-full">
-                <div className="w-full mx-auto">
-                    <div className={PAGE_BANNER_WRAP_ASPECT}>
+            <section className="w-full pt-5 md:pt-7">
+                <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8">
+                    <div className="page-hero-banner">
                         <img
                             src={slotsBanner}
                             alt="Slots Banner - Instant Rebate"
-                            className={PAGE_BANNER_IMG_FILL}
+                            className={`page-hero-banner__img ${PAGE_BANNER_IMG_FILL}`}
                         />
                         <div className="absolute inset-y-0 left-0 w-[56%] bg-[linear-gradient(90deg,rgb(234_244_255_/_0.96)_0%,rgb(234_244_255_/_0.86)_45%,transparent_100%)] sm:w-[52%] md:w-[50%]" />
                         <div className="absolute inset-0 flex items-center justify-start">

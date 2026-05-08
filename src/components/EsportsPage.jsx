@@ -4,7 +4,7 @@ import LobbyProviderCard from './game/LobbyProviderCard';
 import { navigateToGameDetail } from '../utils/gameDetailRoutes';
 import esportsBanner from '../assets/esports.jpg';
 import { NAV_STICKY_QUICK_PLAY_BAR_CLASS } from '../constants/navStickyOffsets';
-import { PAGE_BANNER_IMG, PAGE_BANNER_WRAP } from '../constants/pageBannerClasses';
+import { PAGE_BANNER_IMG_FILL } from '../constants/pageBannerClasses';
 import tfGamingLogo from '../assets/tf-gaming.webp';
 
 const providerLogos = [
@@ -75,13 +75,13 @@ export default function EsportsPage({ onNavigate }) {
                 </div>
             )}
 
-            <section className="w-full">
-                <div className="mx-auto w-full">
-                    <div className={PAGE_BANNER_WRAP}>
+            <section className="w-full pt-5 md:pt-7">
+                <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8">
+                    <div className="page-hero-banner">
                         <img
                             src={esportsBanner}
                             alt="E-Sports Banner"
-                            className={PAGE_BANNER_IMG}
+                            className={`page-hero-banner__img ${PAGE_BANNER_IMG_FILL} page-hero-banner__img--show-bottom`}
                         />
                         <div
                             ref={playButtonAreaRef}

@@ -120,6 +120,7 @@ export default function LiveCasinoPage({ selectedProviderIdFromMenu, onNavigate 
                 tagline="Live dealers, real thrills, instant payouts."
                 stickyPlayAriaLabel={stickyPlayAriaLabel}
                 bannerPlayAriaLabel={bannerPlayAriaLabel}
+                imageClassName="page-hero-banner__img--show-bottom"
             />
 
             <section id="live-casino-providers" className="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-4 md:mt-6">

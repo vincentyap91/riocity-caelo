@@ -24,7 +24,7 @@ import referralDepositIcon from '../assets/referral_deposit_icon.png';
 import step1Image from '../assets/step1.jpg';
 import step2Image from '../assets/step2.jpg';
 import step3Image from '../assets/step3.jpg';
-import { PAGE_BANNER_IMG, PAGE_BANNER_WRAP } from '../constants/pageBannerClasses';
+import { PAGE_BANNER_IMG_FILL } from '../constants/pageBannerClasses';
 import { useReferralData } from '../context/ReferralDataContext';
 import { REFERRAL_GAME_COMMISSION_ROWS } from '../constants/referralCommissionRates';
 import DownlineReferralsPanel from './referral/DownlineReferralsPanel';
@@ -828,13 +828,13 @@ export default function ReferralPage({ authUser, onLoginClick }) {
     return (
         <main className="w-full bg-[var(--color-page-default)] pb-14">
             {/* Hero — Live Casino layout, no CTA / no provider logo */}
-            <section className="w-full">
-                <div className="w-full mx-auto">
-                    <div className={PAGE_BANNER_WRAP}>
+            <section className="w-full pt-5 md:pt-7">
+                <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8">
+                    <div className="page-hero-banner">
                         <img
                             src={affiliateBanner}
                             alt="Referral"
-                            className={PAGE_BANNER_IMG}
+                            className={`page-hero-banner__img ${PAGE_BANNER_IMG_FILL}`}
                         />
                         <div className="absolute inset-y-0 right-0 flex w-[56%] items-center justify-end pr-3 sm:w-[52%] sm:pr-4 md:w-[50%] md:justify-start md:pr-0">
                             <div className="flex w-full max-w-[500px] flex-col items-center justify-center px-2 py-2 text-center max-md:justify-center md:block md:px-8 md:py-7 md:text-center">

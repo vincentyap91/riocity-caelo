@@ -48,7 +48,7 @@ import { NAV_STICKY_SUBHEADER_TOP_CLASS } from '../constants/navStickyOffsets';
 
 const slotsNavDropdownProviders = slotProvidersForNavDropdown();
 const DESKTOP_MAIN_LINKS = [
-    'Home', 'Casino', 'Slots', 'Sports', 'E-Sports', 'Lottery',
+    'Home', 'Casino', 'Slots', 'Sports', 'E-Sports', 'Lottery', 'Hot Games',
     'Fishing', 'Poker', 'Promotion', 'Referral', 'VIP',
 ];
 const NAV_TARGETS = {
@@ -58,6 +58,7 @@ const NAV_TARGETS = {
     Sports: 'sports',
     'E-Sports': 'e-sports',
     Lottery: 'lottery',
+    'Hot Games': 'hot-games',
     Fishing: 'fishing',
     Poker: 'poker',
     Promotion: 'promotion',
@@ -71,6 +72,7 @@ const NAV_HREFS = {
     Sports: '/sports',
     'E-Sports': '/e-sports',
     Lottery: '/lottery',
+    'Hot Games': '/hot-games',
     Fishing: '/fishing',
     Poker: '/poker',
     Promotion: '/promotion',
@@ -94,6 +96,7 @@ const MOBILE_MORE_SECTIONS = [
             { id: 'all-games', label: 'All Games', page: 'all-games', icon: LayoutGrid },
             { id: 'e-sports', label: 'E-Sports', page: 'e-sports', icon: Trophy },
             { id: 'lottery', label: 'Lottery', page: 'lottery', icon: Ticket },
+            { id: 'hot-games', label: 'Hot Games', page: 'hot-games', icon: Star },
             { id: 'fishing', label: 'Fishing', page: 'fishing', icon: Fish },
             { id: 'poker', label: 'Poker', page: 'poker', icon: Dices },
         ],
@@ -782,6 +785,7 @@ export default function Navbar({
                                 (activePage === 'sports' && link === 'Sports') ||
                                 (activePage === 'e-sports' && link === 'E-Sports') ||
                                 (activePage === 'lottery' && link === 'Lottery') ||
+                                (activePage === 'hot-games' && link === 'Hot Games') ||
                                 (activePage === 'fishing' && link === 'Fishing') ||
                                 (activePage === 'poker' && link === 'Poker') ||
                                 (activePage === 'promotion' && link === 'Promotion') ||
@@ -810,7 +814,9 @@ export default function Navbar({
                                     }}
                                     className={`relative rounded-lg border border-transparent px-4 py-2 text-sm font-bold whitespace-nowrap transition-all
                                         ${isActive
-                                            ? 'nav-desktop-link-active'
+                                            ? link === 'Hot Games'
+                                                ? 'nav-desktop-link-active-hot'
+                                                : 'nav-desktop-link-active'
                                             : 'text-[var(--color-text-brand)] hover:bg-[var(--color-brand-deep)] hover:text-white hover:shadow-[0_10px_18px_rgba(8,26,66,0.18)]'}`}
                                 >
                                     {link}
