@@ -814,9 +814,7 @@ export default function Navbar({
                                     }}
                                     className={`relative rounded-lg border border-transparent px-4 py-2 text-sm font-bold whitespace-nowrap transition-all
                                         ${isActive
-                                            ? link === 'Hot Games'
-                                                ? 'nav-desktop-link-active-hot'
-                                                : 'nav-desktop-link-active'
+                                            ? 'nav-desktop-link-active'
                                             : 'text-[var(--color-text-brand)] hover:bg-[var(--color-brand-deep)] hover:text-white hover:shadow-[0_10px_18px_rgba(8,26,66,0.18)]'}`}
                                 >
                                     {link}
