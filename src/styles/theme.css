@@ -408,7 +408,10 @@
   }
 
   .auth-modal-btn--secondary:hover {
-    filter: brightness(1.06);
+    background-color: var(--color-brand-deep);
+    border-color: var(--color-brand-deep);
+    color: #ffffff;
+    filter: none;
     transform: translateY(-1px);
   }
 
