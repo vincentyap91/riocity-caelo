@@ -49,7 +49,7 @@ import WithdrawalPage from './components/WithdrawalPage';
 import RewardsPage from './components/RewardsPage';
 import Footer from './components/Footer';
 import FloatingSocials from './components/FloatingSocials';
-import LoginModal from './components/LoginModal';
+import AuthModal from './components/AuthModal';
 import './index.css';
 import LiveChatModal from './components/LiveChatModal';
 import AnnouncementModal from './components/AnnouncementModal';
@@ -201,6 +201,7 @@ function AppInner() {
   const initialAuthUser = loadAuthSession();
   const { showPushNotification } = useActionNotifications();
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [authModalView, setAuthModalView] = useState('login');
   const [liveChatOpen, setLiveChatOpen] = useState(false);
   const [authUser, setAuthUser] = useState(initialAuthUser);
   const [balanceRefreshing, setBalanceRefreshing] = useState(false);
@@ -538,8 +539,14 @@ function AppInner() {
         onNavigate={handleNavigate}
         onDownloadAppClick={handleDownloadAppClick}
         activePage={page}
-        onLoginClick={() => setLoginModalOpen(true)}
-        onRegisterClick={() => handleNavigate('register')}
+        onLoginClick={() => {
+          setAuthModalView('login');
+          setLoginModalOpen(true);
+        }}
+        onRegisterClick={() => {
+          setAuthModalView('register');
+          setLoginModalOpen(true);
+        }}
         authUser={authUser}
         onLogout={() => handleLogout({ reason: 'user' })}
         onAccountDetailsClick={() => handleNavigate('profile')}
@@ -700,23 +707,22 @@ function AppInner() {
         authUser={authUser}
         onNavigate={handleNavigate}
         onLiveChatClick={() => setLiveChatOpen(true)}
-        onLoginClick={() => setLoginModalOpen(true)}
+        onLoginClick={() => {
+          setAuthModalView('login');
+          setLoginModalOpen(true);
+        }}
       />
 
-      <LoginModal
+      <AuthModal
         open={loginModalOpen}
+        initialView={authModalView}
         onClose={() => setLoginModalOpen(false)}
-        logoText="LOGO"
-        onLogin={(userOrUsername) => {
+        onAuthSuccess={(userOrUsername) => {
           handleLogin(userOrUsername);
           setLoginModalOpen(false);
           if (page === 'register') {
             handleNavigate('home');
           }
-        }}
-        onRegisterClick={() => {
-          setLoginModalOpen(false);
-          handleNavigate('register');
         }}
         onCustomerServiceClick={() => {
           setLoginModalOpen(false);

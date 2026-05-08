@@ -220,6 +220,341 @@
 }
 
 @layer components {
+  .auth-modal-container {
+    max-width: 760px;
+  }
+
+  .auth-modal-content {
+    /* No “box in box” — let content sit on modal surface */
+    padding: 0;
+    background-color: var(--color-surface-base);
+  }
+
+  .auth-modal-split {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    min-height: 460px;
+    font-family: var(--font-family-sans);
+    border: 0;
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  /* Login has fewer fields — avoid a tall empty bottom area */
+  .auth-modal-split--login {
+    min-height: unset;
+  }
+
+  .auth-modal-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-right: 0;
+    padding: 20px 14px;
+  }
+
+  .auth-modal-art__img {
+    width: min(100%, 340px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(var(--shadow-card-raised));
+  }
+
+  .auth-modal-form {
+    padding: 18px 18px 16px;
+  }
+
+  .auth-modal-form__inner {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .auth-modal-title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--color-text-strong);
+  }
+
+  .auth-modal-title--spaced {
+    margin-top: 14px;
+  }
+
+  .auth-modal-field {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-surface-base);
+    border-radius: var(--radius-control);
+    box-shadow: var(--shadow-input);
+  }
+
+  .auth-modal-field--password {
+    gap: 8px;
+    padding-right: 10px;
+  }
+
+  .auth-modal-field--phone {
+    width: 100%;
+  }
+
+  .auth-modal-input {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    background: transparent;
+    color: var(--color-text-strong);
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    font-family: var(--font-family-sans);
+  }
+
+  .auth-modal-input::placeholder {
+    color: var(--color-text-soft);
+    font-weight: 600;
+  }
+
+  .auth-modal-input--muted {
+    background-color: var(--color-surface-muted);
+  }
+
+  .auth-modal-icon-btn {
+    display: inline-flex;
+    height: 32px;
+    width: 32px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    color: var(--color-text-muted);
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .auth-modal-icon-btn:hover {
+    background-color: var(--color-accent-50);
+    color: var(--color-text-strong);
+  }
+
+  .auth-modal-hint {
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .auth-modal-remember {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-main);
+  }
+
+  .auth-modal-checkbox {
+    height: 14px;
+    width: 14px;
+    border-radius: 3px;
+    border: 1px solid var(--color-border-default);
+    accent-color: var(--color-brand-primary);
+  }
+
+  .auth-modal-error {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-danger-main);
+  }
+
+  .auth-modal-actions {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .auth-modal-actions--single {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-modal-btn {
+    min-height: 44px;
+    border-radius: var(--radius-control);
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s ease, filter 0.15s ease, background-color 0.15s ease;
+    font-family: var(--font-family-sans);
+  }
+
+  .auth-modal-btn--primary {
+    color: #ffffff;
+    background-image: var(--gradient-cta);
+    border: 1px solid var(--color-cta-border);
+    box-shadow: var(--shadow-cta);
+  }
+
+  .auth-modal-btn--primary:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+  }
+
+  .auth-modal-btn--secondary {
+    color: var(--color-text-main);
+    background-color: var(--color-surface-muted);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .auth-modal-btn--secondary:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+  }
+
+  .auth-modal-links {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-main);
+  }
+
+  .auth-modal-link {
+    font-weight: 900;
+    color: var(--color-accent-700);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s ease;
+  }
+
+  .auth-modal-link:hover {
+    color: var(--color-accent-600);
+  }
+
+  .auth-modal-divider {
+    margin: 16px auto 0;
+    height: 1px;
+    width: 100%;
+    background-color: transparent;
+  }
+
+  .auth-modal-support {
+    margin-top: 12px;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  .auth-modal-support__link {
+    font-weight: 900;
+    color: var(--color-accent-700);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .auth-modal-phone {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 10px;
+    align-items: start;
+  }
+
+  .auth-modal-phone__code {
+    position: relative;
+  }
+
+  .auth-modal-phone__code-btn {
+    width: 100%;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: var(--radius-control);
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-surface-base);
+    box-shadow: var(--shadow-input);
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--color-text-strong);
+  }
+
+  .auth-modal-phone__menu {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 6px);
+    width: 100%;
+    border-radius: var(--radius-control);
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-surface-base);
+    box-shadow: var(--shadow-card-soft);
+    overflow: hidden;
+    z-index: 5;
+  }
+
+  .auth-modal-phone__menu-item {
+    width: 100%;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--color-text-strong);
+    background-color: var(--color-surface-base);
+    transition: background-color 0.15s ease;
+  }
+
+  .auth-modal-phone__menu-item:hover {
+    background-color: var(--color-accent-50);
+  }
+
+  .auth-modal-rules {
+    margin-top: 10px;
+    display: grid;
+    gap: 6px;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .auth-modal-rule {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  .auth-modal-rule__icon {
+    margin-top: 1px;
+    color: var(--color-text-soft);
+  }
+
+  .auth-modal-rule.is-ok {
+    color: var(--color-text-main);
+  }
+
+  .auth-modal-rule.is-ok .auth-modal-rule__icon {
+    color: var(--color-success-main);
+  }
+
+  @media (max-width: 860px) {
+    .auth-modal-split {
+      grid-template-columns: 1fr;
+      min-height: unset;
+    }
+
+    .auth-modal-art {
+      display: none;
+    }
+
+    .auth-modal-form {
+      padding: 20px 18px;
+    }
+  }
 
   /**
    * Slot / lobby game tiles: blue tint + “Play Now” only while the card (.group) is hovered or focused.

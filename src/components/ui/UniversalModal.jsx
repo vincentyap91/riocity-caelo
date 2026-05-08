@@ -11,7 +11,7 @@ import WalletRebateSummaryBar, { WALLET_REBATE_BROWSE_PANEL_CLASS } from '../Wal
 const UniversalModal = ({
     isOpen,
     onClose,
-    type = 'game', // 'game' | 'announcement'
+    type = 'game', // 'game' | 'announcement' | 'custom'
     title = '',
     bannerImage = '',
     wallet = '0.00',
@@ -24,6 +24,12 @@ const UniversalModal = ({
     onCheckboxChange,
     closeLabel = 'CLOSE',
     logoUrl = '',
+    children,
+    containerClassName = '',
+    headerClassName = '',
+    contentClassName = '',
+    hideTitle = false,
+    ariaLabel,
 }) => {
     // Prevent body scroll when modal is active
     useBodyScrollLock(isOpen);
@@ -41,6 +47,7 @@ const UniversalModal = ({
     if (!isOpen) return null;
 
     const isGame = type === 'game';
+    const isCustom = type === 'custom';
 
     return (
         <div 
@@ -52,18 +59,21 @@ const UniversalModal = ({
                 <section 
                     role="dialog"
                     aria-modal="true"
-                    className={`universal-modal-container ${isGame ? 'max-w-[760px]' : 'max-w-[520px]'}`} 
+                    aria-label={ariaLabel || title || 'Modal'}
+                    className={`universal-modal-container ${isGame ? 'max-w-[760px]' : 'max-w-[520px]'} ${containerClassName}`} 
                     onClick={e => e.stopPropagation()}
                 >
                 {/* Header Bar */}
-                <header className="universal-modal-header">
+                <header className={`universal-modal-header ${headerClassName}`}>
                     <div className="flex items-center gap-3">
                         {!isGame && logoUrl && (
                             <img src={logoUrl} alt="Logo" className="h-[24px] w-auto object-contain" />
                         )}
-                        <h2 className="universal-modal-title">
-                            {isGame ? title : (!logoUrl ? title : '')}
-                        </h2>
+                        {!hideTitle && (
+                            <h2 className="universal-modal-title">
+                                {isGame ? title : (!logoUrl ? title : '')}
+                            </h2>
+                        )}
                     </div>
                     <button 
                         type="button"
@@ -76,70 +86,76 @@ const UniversalModal = ({
                 </header>
 
                 {/* Content Body */}
-                <div className={`universal-modal-content${isGame ? ' universal-modal-content--game' : ''}`}>
-                    {/* Main Banner Image */}
-                    {bannerImage && (
-                        <div className="universal-modal-banner-wrapper">
-                            <img 
-                                src={bannerImage} 
-                                alt={title || 'Banner'} 
-                                className="universal-modal-banner-img" 
-                            />
-                        </div>
-                    )}
+                <div className={`universal-modal-content${isGame ? ' universal-modal-content--game' : ''} ${contentClassName}`}>
+                    {isCustom && children ? children : null}
 
-                    {isGame ? (
-                        <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-                            <div className={`mt-5 ${WALLET_REBATE_BROWSE_PANEL_CLASS}`}>
-                                <WalletRebateSummaryBar
-                                    wallet={wallet}
-                                    membershipRebate={membershipRebate}
-                                    compact
-                                    bare
-                                    denseMobile
-                                />
-                            </div>
-
-                            {/* Start Game Action */}
-                            <div className="universal-modal-footer">
-                                <button 
-                                    type="button"
-                                    onClick={onStartGame} 
-                                    className="universal-modal-btn-primary"
-                                >
-                                    {startLabel}
-                                </button>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-                            {/* Announcement Message */}
-                            {message && (
-                                <div className="universal-modal-message">
-                                    {message}
+                    {!isCustom && (
+                        <>
+                            {/* Main Banner Image */}
+                            {bannerImage && (
+                                <div className="universal-modal-banner-wrapper">
+                                    <img
+                                        src={bannerImage}
+                                        alt={title || 'Banner'}
+                                        className="universal-modal-banner-img"
+                                    />
                                 </div>
                             )}
-                            
-                            <div className="universal-modal-footer flex-col !items-stretch">
-                                {showCheckbox && (
-                                    <label className="universal-modal-checkbox-wrapper">
-                                        <input 
-                                            type="checkbox" 
-                                            onChange={onCheckboxChange} 
-                                            className="universal-modal-checkbox" 
+
+                            {isGame ? (
+                                <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                    <div className={`mt-5 ${WALLET_REBATE_BROWSE_PANEL_CLASS}`}>
+                                        <WalletRebateSummaryBar
+                                            wallet={wallet}
+                                            membershipRebate={membershipRebate}
+                                            compact
+                                            bare
+                                            denseMobile
                                         />
-                                        <span>{checkboxLabel}</span>
-                                    </label>
-                                )}
-                                <button 
-                                    type="button"
-                                    onClick={onClose} 
-                                    className="universal-modal-btn-secondary"
-                                >
-                                    {closeLabel}
-                                </button>
-                            </div>
-                        </div>
+                                    </div>
+
+                                    {/* Start Game Action */}
+                                    <div className="universal-modal-footer">
+                                        <button
+                                            type="button"
+                                            onClick={onStartGame}
+                                            className="universal-modal-btn-primary"
+                                        >
+                                            {startLabel}
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                    {/* Announcement Message */}
+                                    {message && (
+                                        <div className="universal-modal-message">
+                                            {message}
+                                        </div>
+                                    )}
+                                    
+                                    <div className="universal-modal-footer flex-col !items-stretch">
+                                        {showCheckbox && (
+                                            <label className="universal-modal-checkbox-wrapper">
+                                                <input
+                                                    type="checkbox"
+                                                    onChange={onCheckboxChange}
+                                                    className="universal-modal-checkbox"
+                                                />
+                                                <span>{checkboxLabel}</span>
+                                            </label>
+                                        )}
+                                        <button
+                                            type="button"
+                                            onClick={onClose}
+                                            className="universal-modal-btn-secondary"
+                                        >
+                                            {closeLabel}
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
             </section>
