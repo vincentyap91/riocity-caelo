@@ -1,6 +1,6 @@
 import React from 'react';
 import { SlidersHorizontal } from 'lucide-react';
-import WalletRebateSummaryBar from './WalletRebateSummaryBar';
+import WalletRebateSummaryBar, { WALLET_REBATE_BROWSE_PANEL_CLASS } from './WalletRebateSummaryBar';
 import SearchProvider from './SearchProvider';
 
 export default function ProductBrowseControlPanel({
@@ -17,7 +17,7 @@ export default function ProductBrowseControlPanel({
 }) {
     return (
         <section className="mt-1.5 md:mt-3">
-            <div className="rounded-[24px] border border-[rgb(223_231_242)] bg-[linear-gradient(180deg,rgba(255,255,255,0.72)_0%,rgba(247,250,255,0.82)_100%)] px-2.5 py-2 shadow-[0_8px_24px_rgba(20,43,87,0.06)] backdrop-blur-sm md:px-4 md:py-4">
+            <div className={WALLET_REBATE_BROWSE_PANEL_CLASS}>
                 <WalletRebateSummaryBar compact bare denseMobile />
 
                 <div className="mt-2 border-t border-[rgb(229_235_244)] pt-2 md:mt-3.5 md:pt-3.5">

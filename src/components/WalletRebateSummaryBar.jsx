@@ -1,6 +1,10 @@
 ﻿import React from 'react';
 import { Lock, RefreshCw } from 'lucide-react';
 
+/** Matches ProductBrowseControlPanel: outer panel around WalletRebateSummaryBar (Slots / browse). */
+export const WALLET_REBATE_BROWSE_PANEL_CLASS =
+    'rounded-[24px] border border-[rgb(223_231_242)] bg-[linear-gradient(180deg,rgba(255,255,255,0.72)_0%,rgba(247,250,255,0.82)_100%)] px-2.5 py-2 shadow-[0_8px_24px_rgba(20,43,87,0.06)] backdrop-blur-sm md:px-4 md:py-4';
+
 function SummaryItem({
     title,
     value,
@@ -39,19 +43,17 @@ function SummaryItem({
 
     return (
         <article
-            className={`surface-card flex h-full min-w-0 items-center justify-between rounded-[var(--radius-panel)] border-[var(--color-border-default)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(250,252,255,0.94)_100%)] shadow-[var(--shadow-subtle)] ${
-                compact ? compactLayoutClass : 'min-h-[86px] gap-3 px-4 py-3 sm:min-h-[92px] sm:px-4.5 sm:py-3.5'
-            }`}
+            className={`surface-card flex h-full min-w-0 items-center justify-between rounded-[var(--radius-panel)] border-[var(--color-border-default)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(250,252,255,0.94)_100%)] shadow-[var(--shadow-subtle)] ${compact ? compactLayoutClass : 'min-h-[86px] gap-3 px-4 py-3 sm:min-h-[92px] sm:px-4.5 sm:py-3.5'
+                }`}
         >
             <div className="min-w-0 flex-1">
                 <p
-                    className={`font-semibold tracking-[-0.01em] text-[var(--color-text-main)] ${
-                        compact
-                            ? denseMobile
-                                ? 'text-[11px] leading-tight sm:text-[12px] md:text-[13px]'
-                                : 'text-[12px] sm:text-[13px]'
-                            : 'text-sm'
-                    }`}
+                    className={`font-semibold tracking-[-0.01em] text-[var(--color-text-main)] ${compact
+                        ? denseMobile
+                            ? 'text-[11px] leading-tight sm:text-[12px] md:text-[13px]'
+                            : 'text-[12px] sm:text-[13px]'
+                        : 'text-sm'
+                        }`}
                 >
                     {title}
                 </p>
@@ -99,11 +101,10 @@ export default function WalletRebateSummaryBar({
     return (
         <section
             aria-label="Wallet and membership rebate summary"
-            className={`${
-                bare
-                    ? 'rounded-none border-0 bg-transparent p-0 shadow-none'
-                    : `surface-panel rounded-[calc(var(--radius-shell)-4px)] border-[var(--color-border-default)] bg-[linear-gradient(180deg,rgba(255,255,255,0.76)_0%,rgba(248,251,255,0.82)_100%)] shadow-[var(--shadow-subtle)] ${panelPad}`
-            } ${className}`}
+            className={`${bare
+                ? 'rounded-none border-0 bg-transparent p-0 shadow-none'
+                : `surface-panel rounded-[calc(var(--radius-shell)-4px)] border-[var(--color-border-default)] bg-[linear-gradient(180deg,rgba(255,255,255,0.76)_0%,rgba(248,251,255,0.82)_100%)] shadow-[var(--shadow-subtle)] ${panelPad}`
+                } ${className}`}
         >
             <div
                 className={`grid ${denseMobile ? 'grid-cols-2' : 'sm:grid-cols-2'} ${gridGap}`}

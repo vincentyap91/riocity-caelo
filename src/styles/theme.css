@@ -133,6 +133,12 @@
   --shadow-success: 0 0 8px rgba(57, 181, 74, 0.6);
   --shadow-scan: 0 0 8px #00a8e8;
   --shadow-modal: 0 24px 50px rgba(10, 42, 97, 0.22);
+  /* Universal modal — pale header + navy type; game body / wallet shell use global brand tokens */
+  --color-universal-modal-header-bg: #e8eef6;
+  --color-universal-modal-header-text: var(--color-brand-deep);
+  --color-universal-modal-game-body-bg: var(--color-surface-base);
+  --color-universal-modal-card-border: var(--color-border-brand);
+  --radius-universal-modal: 14px;
   --shadow-register-card: 0 18px 35px rgba(10, 42, 97, 0.14);
 
   --inset-highlight-soft: inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -178,6 +184,7 @@
   }
 
   @keyframes float {
+
     0%,
     100% {
       transform: translateY(0);
@@ -214,6 +221,7 @@
 }
 
 @layer components {
+
   /**
    * Slot / lobby game tiles: blue tint + “Play Now” only while the card (.group) is hovered or focused.
    * (Tailwind `md:group-hover:opacity-*` alone can lose against `md:opacity-0` in the cascade.)
@@ -245,9 +253,191 @@
     }
   }
 
+  /* ==========================================================================
+     Universal Modal System
+     ========================================================================== */
+  .universal-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    overflow-y: auto;
+    background-color: var(--color-nav-overlay);
+    backdrop-filter: blur(2px);
+  }
+
+  .universal-modal-scroll-container {
+    position: relative;
+    display: flex;
+    min-height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+  }
+
+  .universal-modal-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-universal-modal);
+    background-color: var(--color-surface-base);
+    box-shadow: var(--shadow-modal);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family-sans);
+    pointer-events: auto;
+  }
+
+  .universal-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background-color: var(--color-universal-modal-header-bg);
+    padding: 0.875rem 1.25rem;
+    color: var(--color-universal-modal-header-text);
+    border-bottom: 1px solid var(--color-universal-modal-card-border);
+  }
+
+  .universal-modal-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--color-universal-modal-header-text);
+  }
+
+  .universal-modal-close-btn {
+    display: inline-flex;
+    height: 2.25rem;
+    width: 2.25rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+    color: var(--color-universal-modal-header-text);
+  }
+
+  .universal-modal-close-btn:hover {
+    background-color: rgb(1 32 108 / 0.08);
+  }
+
+  .universal-modal-close-btn:focus-visible {
+    outline: 2px solid var(--color-brand-primary);
+    outline-offset: 2px;
+  }
+
+  .universal-modal-content {
+    padding: 1.25rem;
+  }
+
+  .universal-modal-content--game {
+    background-color: var(--color-universal-modal-game-body-bg);
+  }
+
+  .universal-modal-banner-wrapper {
+    overflow: hidden;
+    border: 1px solid var(--color-universal-modal-card-border);
+    background-color: var(--color-surface-base);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .universal-modal-banner-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .universal-modal-footer {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .universal-modal-btn-primary {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: var(--color-brand-primary);
+    padding: 0 2rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #ffffff;
+    box-shadow: var(--shadow-accent);
+    transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .universal-modal-btn-primary:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .universal-modal-btn-primary:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .universal-modal-btn-secondary {
+    display: flex;
+    width: 100%;
+    min-height: 45px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.875rem;
+    background-image: var(--gradient-cta);
+    border: 1px solid var(--color-cta-border);
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-cta);
+    transition: all 0.2s ease;
+  }
+
+  .universal-modal-btn-secondary:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
+
+  .universal-modal-btn-secondary:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .universal-modal-checkbox-wrapper {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    user-select: none;
+  }
+
+  .universal-modal-checkbox {
+    height: 1.125rem;
+    width: 1.125rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    border: 1px solid var(--color-border-brand);
+    color: var(--color-brand-primary);
+  }
+
+  .universal-modal-message {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-main);
+    text-align: center;
+  }
 }
 
 @layer utilities {
+
   /**
    * Home live-feed marquee: keyframes here so the ticker never depends on an invalid `@theme` block
    * or a failed Tailwind build. Tailwind emits the same name; identical definitions merge safely.
@@ -264,6 +454,7 @@
 
   /* Pause only for real desktop hover / keyboard focus — avoid touch “sticky hover” freezing the feed */
   @media (hover: hover) and (pointer: fine) {
+
     .home-marquee-pausable:hover .animate-home-marquee-vertical-y,
     .home-marquee-pausable:focus-within .animate-home-marquee-vertical-y,
     .home-marquee-pausable:hover .animate-home-marquee-vertical-y-tx,
@@ -527,6 +718,7 @@
   opacity: 0;
   cursor: pointer;
 }
+
 .date-input-single-icon::-webkit-date-and-time-value {
   text-align: left;
 }
