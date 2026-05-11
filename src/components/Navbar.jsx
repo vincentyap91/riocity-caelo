@@ -81,26 +81,21 @@ const NAV_HREFS = {
 };
 const MOBILE_PRIMARY_ITEMS = [
     { id: 'home', label: 'Home', page: 'home', icon: House },
+    { id: 'promotions', label: 'Promotions', page: 'promotion', icon: Megaphone },
+    { id: 'games', label: 'Games', page: 'all-games', icon: Gamepad2 },
+    { id: 'referral', label: 'Referral', page: 'referral', icon: Users },
+    { id: 'more', label: 'More', icon: LayoutGrid },
+];
+const MOBILE_GAMES_SUB_ITEMS = [
+    { id: 'hot-games', label: 'Hot Games', page: 'hot-games', icon: Star },
     { id: 'casino', label: 'Casino', page: 'live-casino', icon: Spade },
     { id: 'slots', label: 'Slots', page: 'slots', icon: Dices },
     { id: 'sports', label: 'Sports', page: 'sports', icon: Trophy },
-    { id: 'promotions', label: 'Promotions', page: 'promotion', icon: Megaphone },
-    { id: 'more', label: 'More', icon: LayoutGrid },
+    { id: 'e-sports', label: 'E-Sports', page: 'e-sports', icon: Trophy },
+    { id: 'lottery', label: 'Lottery', page: 'lottery', icon: Ticket },
 ];
+
 const MOBILE_MORE_SECTIONS = [
-    {
-        id: 'games',
-        label: 'Games',
-        icon: Gamepad2,
-        items: [
-            { id: 'all-games', label: 'All Games', page: 'all-games', icon: LayoutGrid },
-            { id: 'e-sports', label: 'E-Sports', page: 'e-sports', icon: Trophy },
-            { id: 'lottery', label: 'Lottery', page: 'lottery', icon: Ticket },
-            { id: 'hot-games', label: 'Hot Games', page: 'hot-games', icon: Star },
-            { id: 'fishing', label: 'Fishing', page: 'fishing', icon: Fish },
-            { id: 'poker', label: 'Poker', page: 'poker', icon: Dices },
-        ],
-    },
     {
         id: 'wallet',
         label: 'Wallet',
@@ -145,7 +140,6 @@ const MOBILE_MORE_SECTIONS = [
             { id: 'verification', label: 'Verification', page: 'verification', icon: ShieldCheck },
             { id: 'favourites', label: 'Favourites', page: 'favourites', icon: Heart },
             { id: 'vip', label: 'VIP', page: 'vip', icon: Trophy },
-            { id: 'referral', label: 'Referral', page: 'referral', icon: Users },
             { id: 'settings', label: 'Settings', page: 'security', icon: Settings, activePages: ['security', 'notifications'] },
         ],
     },
@@ -183,7 +177,6 @@ const MOBILE_MORE_ACTIVE_PAGES = new Set([
     'verification',
     'favourites',
     'vip',
-    'referral',
     'security',
     'notifications',
     'help-center',
@@ -223,6 +216,7 @@ export default function Navbar({
     const [profileMenuOpen, setProfileMenuOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
+    const [mobileGamesOpen, setMobileGamesOpen] = useState(false);
     const [openMobileMoreSection, setOpenMobileMoreSection] = useState(null);
     const [language, setLanguage] = useState('en-us');
     const [openProfileSection, setOpenProfileSection] = useState('account');
@@ -272,6 +266,7 @@ export default function Navbar({
         }
 
         setMobileMoreOpen(false);
+        setMobileGamesOpen(false);
         setOpenMobileMoreSection(null);
         return undefined;
     }, [mobileMenuOpen]);
@@ -458,7 +453,7 @@ export default function Navbar({
                                     >
                                         <ChevronDown
                                             size={13}
-                                            className={`transition-transform ${profileMenuOpen ? 'rotate-180' : ''}`}
+                                            className={`transition-transform ${profileMenuOpen ? 'rotate-90' : ''}`}
                                         />
                                     </button>
                                 </div>
@@ -618,7 +613,7 @@ export default function Navbar({
                                                     </div>
                                                     <ChevronDown
                                                         size={16}
-                                                        className={`text-white/80 transition-transform ${openProfileSection === 'rewards' ? 'rotate-180' : ''}`}
+                                                        className={`text-white/80 transition-transform ${openProfileSection === 'rewards' ? 'rotate-90' : ''}`}
                                                     />
                                                 </button>
 
@@ -662,7 +657,7 @@ export default function Navbar({
                                                     </div>
                                                     <ChevronDown
                                                         size={16}
-                                                        className={`text-white/80 transition-transform ${openProfileSection === 'historyRecord' ? 'rotate-180' : ''}`}
+                                                        className={`text-white/80 transition-transform ${openProfileSection === 'historyRecord' ? 'rotate-90' : ''}`}
                                                     />
                                                 </button>
                                                 {openProfileSection === 'historyRecord' && (
@@ -994,10 +989,27 @@ export default function Navbar({
                     <div className="space-y-2">
                         {MOBILE_PRIMARY_ITEMS.map(({ id, label, page, icon: Icon }) => {
                             const isMoreRow = id === 'more';
-                            const isActive = isMoreRow ? MOBILE_MORE_ACTIVE_PAGES.has(activePage) : activePage === page;
+                            const isGamesRow = id === 'games';
+                            const isActive = isMoreRow
+                                ? MOBILE_MORE_ACTIVE_PAGES.has(activePage)
+                                : isGamesRow
+                                    ? MOBILE_GAMES_SUB_ITEMS.some((item) => item.page === activePage)
+                                    : activePage === page;
+
+                            const isOpen = isMoreRow ? mobileMoreOpen : isGamesRow ? mobileGamesOpen : false;
 
                             return (
-                                <div key={id} className="overflow-hidden rounded-[18px]">
+                                <div
+                                    key={id}
+                                    className={
+                                        isGamesRow
+                                            ? `overflow-hidden rounded-xl border transition ${isActive
+                                                ? 'border-[var(--color-accent-200)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(229,246,255,0.96)_100%)] shadow-[var(--shadow-brand-soft)]'
+                                                : 'border-[var(--color-border-default)] bg-[var(--surface-base)]'
+                                            }`
+                                            : "overflow-hidden rounded-xl"
+                                    }
+                                >
                                     <button
                                         type="button"
                                         onClick={() => {
@@ -1005,32 +1017,79 @@ export default function Navbar({
                                                 handleMobileMoreToggle();
                                                 return;
                                             }
+                                            if (isGamesRow) {
+                                                setMobileGamesOpen((open) => !open);
+                                                return;
+                                            }
 
                                             handleMobileNavigate(page);
                                         }}
-                                        className={`flex min-h-[48px] w-full items-center gap-3 rounded-[18px] border px-3.5 py-2.5 text-left transition ${isActive
-                                            ? 'nav-desktop-link-active'
-                                            : 'border-[var(--color-border-default)] bg-[var(--color-surface-base)] text-[var(--color-text-main)] shadow-[var(--shadow-input)] hover:border-[var(--color-accent-200)] hover:bg-[var(--color-surface-subtle)]'
+                                        className={`flex min-h-[48px] w-full items-center gap-3 px-3.5 py-2.5 text-left transition ${isGamesRow
+                                            ? ''
+                                            : `rounded-xl border ${isActive
+                                                ? 'nav-desktop-link-active'
+                                                : 'border-[var(--color-border-default)] bg-[var(--surface-base)] text-[var(--color-text-main)] shadow-[var(--shadow-input)] hover:border-[var(--color-accent-200)] hover:bg-[var(--color-surface-subtle)]'
+                                            }`
                                             }`}
-                                        aria-expanded={isMoreRow ? mobileMoreOpen : undefined}
+                                        aria-expanded={isOpen}
                                     >
                                         <span
-                                            className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border ${isActive
+                                            className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border ${isActive && !isGamesRow
                                                 ? 'border-[var(--color-cta-border)] bg-white/20 text-[var(--color-cta-text)]'
-                                                : 'border-[var(--color-border-brand)] bg-[var(--color-accent-50)] text-[var(--color-text-brand)]'
+                                                : 'border-[var(--color-border-brand)] bg-[var(--color-accent-50)] text-[var(--surface-utility-2)]'
                                                 }`}
+                                            style={{ width: 'var(--nav-side-promo-icon-size)', height: 'var(--nav-side-promo-icon-size)' }}
                                         >
                                             <Icon size={16} />
                                         </span>
-                                        <span className="min-w-0 flex-1 text-base font-bold">{label}</span>
+                                        <span className="min-w-0 flex-1 text-base font-bold" style={{ fontFamily: 'var(--base-font-family)' }}>{label}</span>
                                         <ChevronRight
                                             size={17}
-                                            className={`shrink-0 transition-transform ${mobileMoreOpen && isMoreRow ? 'rotate-90' : ''}`}
+                                            className={`shrink-0 transition-transform ${(isMoreRow || isGamesRow) && isOpen ? 'rotate-90' : ''}`}
                                         />
                                     </button>
 
+                                    {isGamesRow && mobileGamesOpen && (
+                                        <div className="space-y-1 border-t border-[var(--color-border-brand)] px-1.5 pb-1.5 pt-1">
+                                            <div className="mb-1 px-2 pt-1.5">
+                                                <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]" style={{ fontFamily: 'var(--base-font-family)' }}>
+                                                    GAME CATEGORIES
+                                                </p>
+                                            </div>
+                                            {MOBILE_GAMES_SUB_ITEMS.map((item) => {
+                                                const itemActive = activePage === item.page;
+                                                const ItemIcon = item.icon;
+
+                                                return (
+                                                    <button
+                                                        key={item.id}
+                                                        type="button"
+                                                        onClick={() => handleMobileNavigate(item.page)}
+                                                        className={`flex min-h-[42px] w-full items-center gap-2.5 rounded-xl pl-3 pr-3 py-2 text-left transition ${itemActive
+                                                            ? 'bg-[linear-gradient(90deg,var(--color-brand-soft)_0%,rgba(255,255,255,0.96)_100%)] text-[var(--color-text-brand-soft)] shadow-[var(--shadow-brand-soft)]'
+                                                            : 'bg-transparent text-[var(--color-text-main)] hover:bg-[var(--color-accent-50)] hover:text-[var(--color-text-strong)]'
+                                                            }`}
+                                                        style={{ fontFamily: 'var(--base-font-family)' }}
+                                                    >
+                                                        <span
+                                                            className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${itemActive
+                                                                ? 'bg-white text-[var(--surface-utility-2)]'
+                                                                : 'bg-[var(--color-accent-50)] text-[var(--surface-utility-2)]'
+                                                                }`}
+                                                            style={{ width: 'var(--nav-side-promo-icon-size)', height: 'var(--nav-side-promo-icon-size)' }}
+                                                        >
+                                                            <ItemIcon size={14} />
+                                                        </span>
+                                                        <span className="min-w-0 flex-1 text-sm font-semibold">{item.label}</span>
+                                                        <ChevronRight size={14} className="shrink-0 opacity-70" />
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+
                                     {isMoreRow && mobileMoreOpen && (
-                                        <div className="mt-1.5 space-y-1.5 rounded-[18px] border border-[var(--color-border-default)] bg-[var(--color-surface-muted-soft)] p-2">
+                                        <div className="mt-1.5 space-y-1.5 rounded-xl border border-[var(--color-border-default)] bg-[var(--color-surface-muted-soft)] p-2">
                                             {MOBILE_MORE_SECTIONS.map(({ id: sectionId, label: sectionLabel, icon: SectionIcon, items }) => {
                                                 const sectionHasActiveItem = items.some((item) => isMobileMoreItemActive(item));
                                                 const sectionOpen = openMobileMoreSection === sectionId;
@@ -1038,9 +1097,9 @@ export default function Navbar({
                                                 return (
                                                     <div
                                                         key={sectionId}
-                                                        className={`overflow-hidden rounded-[16px] border transition ${sectionHasActiveItem
+                                                        className={`overflow-hidden rounded-xl border transition ${sectionHasActiveItem
                                                             ? 'border-[var(--color-accent-200)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(229,246,255,0.96)_100%)] shadow-[var(--shadow-brand-soft)]'
-                                                            : 'border-[var(--color-border-default)] bg-[var(--color-surface-base)]'
+                                                            : 'border-[var(--color-border-default)] bg-[var(--surface-base)]'
                                                             }`}
                                                     >
                                                         <button
@@ -1049,10 +1108,13 @@ export default function Navbar({
                                                             className="flex min-h-[44px] w-full items-center gap-2.5 px-3.5 py-2.5 text-left"
                                                             aria-expanded={sectionOpen}
                                                         >
-                                                            <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-[var(--color-border-brand)] bg-[var(--color-accent-50)] text-[var(--color-text-brand)]">
+                                                            <span
+                                                                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-[var(--color-border-brand)] bg-[var(--color-accent-50)] text-[var(--surface-utility-2)]"
+                                                                style={{ width: 'var(--nav-side-promo-icon-size)', height: 'var(--nav-side-promo-icon-size)' }}
+                                                            >
                                                                 <SectionIcon size={15} />
                                                             </span>
-                                                            <span className="min-w-0 flex-1 text-xs font-bold uppercase tracking-[0.14em] text-[var(--color-text-subtle)]">
+                                                            <span className="min-w-0 flex-1 text-xs font-bold uppercase tracking-[0.14em] text-[var(--color-text-subtle)]" style={{ fontFamily: 'var(--base-font-family)' }}>
                                                                 {sectionLabel}
                                                             </span>
                                                             <ChevronRight
@@ -1072,20 +1134,21 @@ export default function Navbar({
                                                                             key={item.id}
                                                                             type="button"
                                                                             onClick={() => handleMobileMoreItemClick(item)}
-                                                                            className={`flex min-h-[42px] w-full items-center gap-2.5 rounded-[14px] px-3 py-2 text-left transition ${itemActive
+                                                                            className={`flex min-h-[42px] w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition ${itemActive
                                                                                 ? 'bg-[linear-gradient(180deg,var(--color-brand-soft)_0%,rgba(255,255,255,0.96)_100%)] text-[var(--color-text-brand-soft)] shadow-[var(--shadow-brand-soft)]'
                                                                                 : 'bg-transparent text-[var(--color-text-main)] hover:bg-[var(--color-accent-50)] hover:text-[var(--color-text-strong)]'
                                                                                 }`}
                                                                         >
                                                                             <span
                                                                                 className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${itemActive
-                                                                                    ? 'bg-white text-[var(--color-text-brand)]'
-                                                                                    : 'bg-[var(--color-accent-50)] text-[var(--color-text-brand)]'
+                                                                                    ? 'bg-white text-[var(--surface-utility-2)]'
+                                                                                    : 'bg-[var(--color-accent-50)] text-[var(--surface-utility-2)]'
                                                                                     }`}
+                                                                                style={{ width: 'var(--nav-side-promo-icon-size)', height: 'var(--nav-side-promo-icon-size)' }}
                                                                             >
                                                                                 <ItemIcon size={14} />
                                                                             </span>
-                                                                            <span className="min-w-0 flex-1 text-sm font-semibold">{item.label}</span>
+                                                                            <span className="min-w-0 flex-1 text-sm font-semibold" style={{ fontFamily: 'var(--base-font-family)' }}>{item.label}</span>
                                                                             <ChevronRight size={14} className="shrink-0 opacity-70" />
                                                                         </button>
                                                                     );

@@ -1,6 +1,7 @@
 :root {
   /* Typography tokens – use these instead of hardcoded font-family */
   --font-family-primary: "Poppins", sans-serif;
+  --base-font-family: var(--font-family-primary);
   --font-family-sans: "Poppins", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   --font-family-multilingual: "Poppins", "Noto Sans SC", "Noto Sans TC", "Noto Sans Thai", "Noto Sans KR", "Noto Sans Devanagari", "Noto Sans Myanmar", "Noto Sans JP", "Segoe UI", "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Yu Gothic UI", "Leelawadee UI", "Nirmala UI", "Myanmar Text", sans-serif;
 
@@ -23,6 +24,11 @@
   --color-surface-muted-soft: rgb(248 250 252 / 0.8);
   --color-surface-subtle: #f8fbff;
   --color-surface-panel: #f0f9ff;
+
+  /* Caelo Brand Tokens */
+  --surface-base: var(--color-surface-base);
+  --surface-utility-2: var(--color-brand-primary);
+  --nav-side-promo-icon-size: 1.125rem;
 
   --color-text-strong: #0f172a;
   --color-text-main: #334155;
