@@ -1038,7 +1038,7 @@ export default function Navbar({
                                                 ? 'border-[var(--color-cta-border)] bg-white/20 text-[var(--color-cta-text)]'
                                                 : 'border-[var(--color-border-brand)] bg-[var(--color-accent-50)] text-[var(--surface-utility-2)]'
                                                 }`}
-                                            style={{ width: 'var(--nav-side-promo-icon-size)', height: 'var(--nav-side-promo-icon-size)' }}
+
                                         >
                                             <Icon size={16} />
                                         </span>
@@ -1076,7 +1076,6 @@ export default function Navbar({
                                                                 ? 'bg-white text-[var(--surface-utility-2)]'
                                                                 : 'bg-[var(--color-accent-50)] text-[var(--surface-utility-2)]'
                                                                 }`}
-                                                            style={{ width: 'var(--nav-side-promo-icon-size)', height: 'var(--nav-side-promo-icon-size)' }}
                                                         >
                                                             <ItemIcon size={14} />
                                                         </span>
@@ -1110,7 +1109,6 @@ export default function Navbar({
                                                         >
                                                             <span
                                                                 className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-[var(--color-border-brand)] bg-[var(--color-accent-50)] text-[var(--surface-utility-2)]"
-                                                                style={{ width: 'var(--nav-side-promo-icon-size)', height: 'var(--nav-side-promo-icon-size)' }}
                                                             >
                                                                 <SectionIcon size={15} />
                                                             </span>
@@ -1144,7 +1142,6 @@ export default function Navbar({
                                                                                     ? 'bg-white text-[var(--surface-utility-2)]'
                                                                                     : 'bg-[var(--color-accent-50)] text-[var(--surface-utility-2)]'
                                                                                     }`}
-                                                                                style={{ width: 'var(--nav-side-promo-icon-size)', height: 'var(--nav-side-promo-icon-size)' }}
                                                                             >
                                                                                 <ItemIcon size={14} />
                                                                             </span>
