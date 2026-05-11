@@ -63,6 +63,7 @@ import { HISTORY_RECORD_PAGE_IDS } from './constants/historyRecordPages';
 import { parseGameDetailSlugFromPathname } from './utils/gameDetailRoutes';
 import ErrorBoundary from './components/ErrorBoundary';
 import ScrollToTop from './components/ui/ScrollToTop';
+import ThemeEditor from './components/ThemeEditor';
 
 function resolvePageFromPath() {
   try {
@@ -740,6 +741,7 @@ function AppInner() {
         isOpen={announcementModalOpen}
         onClose={() => setAnnouncementModalOpen(false)}
       />
+      <ThemeEditor />
     </div>
   );
 }
