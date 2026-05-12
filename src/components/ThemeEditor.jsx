@@ -177,7 +177,8 @@ function shouldRender() {
     if (typeof window === 'undefined') return false;
     const isDev = import.meta.env?.DEV === true || import.meta.env?.MODE === 'development';
     const hasFlag = new URLSearchParams(window.location.search).get('dev') === 'true';
-    return isDev || hasFlag;
+    const isLiveUrl = window.location.hostname === 'riocity-v2.vercel.app';
+    return isDev || hasFlag || isLiveUrl;
 }
 
 // ─── Persistent Selection Styles ──────────────────────────────────────────────
