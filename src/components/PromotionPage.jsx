@@ -258,33 +258,39 @@ export default function PromotionPage({ authUser, onNavigate }) {
             <div className="mx-auto w-full max-w-screen-2xl px-4 py-4 md:px-8 md:py-6">
                 <h1 className="page-title">Promotion</h1>
 
-                    <PromotionStyleTabs
-                        variant="panel"
-                        panelClassName="mt-5"
-                        items={promotionCategories}
-                        value={activeCategory}
-                        onChange={setActiveCategory}
-                        ariaLabel="Promotion categories"
-                    />
+                <PromotionStyleTabs
+                    variant="panel"
+                    panelClassName="mt-5"
+                    items={promotionCategories}
+                    value={activeCategory}
+                    onChange={setActiveCategory}
+                    ariaLabel="Promotion categories"
+                />
 
-                    <section className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-6">
-                        {visiblePromotions.map((promotion, index) => (
-                            <article
-                                key={promotion.id}
-                                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[rgb(228_234_243)] bg-[var(--color-surface-base)] shadow-[0_4px_16px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(15,23,42,0.08)]"
-                            >
-                                <div className="relative w-full shrink-0 overflow-hidden border-b border-[rgb(228_234_243)]">
-                                    <img
-                                        src={promotion.image}
-                                        alt={promotion.title}
-                                        className="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                                    />
-                                </div>
-                                <div className="flex min-h-0 flex-1 flex-col justify-between gap-4 px-4 py-4 md:px-5 md:py-5">
-                                    <div className="space-y-2">
+                <section className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-6">
+                    {visiblePromotions.map((promotion, index) => (
+                        <article
+                            key={promotion.id}
+                            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[rgb(228_234_243)] bg-[var(--color-surface-base)] shadow-[0_4px_16px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(15,23,42,0.08)]"
+                        >
+                            <div className="relative w-full shrink-0 overflow-hidden border-b border-[rgb(228_234_243)]">
+                                <img
+                                    src={promotion.image}
+                                    alt={promotion.title}
+                                    className="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                                />
+                            </div>
+                            <div className="flex min-h-0 flex-1 flex-col justify-between gap-4 px-4 py-4 md:px-5 md:py-5">
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex items-center justify-between gap-2">
                                         <span className="inline-flex rounded-full bg-[var(--color-accent-50)] px-2.5 py-0.5 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-accent-700)]">
                                             {promotion.category}
                                         </span>
+                                        {promotion.endDate && (
+                                            <CountdownTimer endDate={promotion.endDate} size="card" align="right" />
+                                        )}
+                                    </div>
+                                    <div className="space-y-1.5">
                                         <h2 className="text-lg font-bold leading-tight tracking-tight text-[var(--color-text-strong)] md:text-xl">
                                             {promotion.title}
                                         </h2>
@@ -292,50 +298,45 @@ export default function PromotionPage({ authUser, onNavigate }) {
                                             {promotion.description}
                                         </p>
                                     </div>
-
-                                    {promotion.endDate && (
-                                        <div className="pt-0.5">
-                                            <CountdownTimer endDate={promotion.endDate} size="card" />
-                                        </div>
-                                    )}
-
-                                    <div className="flex items-center gap-3 pt-1">
-                                        <button
-                                            type="button"
-                                            onClick={() => setSelectedPromotion(promotion)}
-                                            className="inline-flex h-10 min-w-[100px] flex-1 items-center justify-center rounded-xl border border-[var(--color-border-default)] bg-white px-4 text-sm font-bold text-[var(--color-text-main)] transition hover:border-[var(--color-accent-200)] hover:bg-[var(--color-accent-50)] hover:text-[var(--color-accent-700)]"
-                                        >
-                                            More Info
-                                        </button>
-                                        <PromotionCtaButton
-                                            authUser={authUser}
-                                            onNavigate={onNavigate}
-                                            promotion={promotion}
-                                        />
-                                    </div>
                                 </div>
-                            </article>
-                        ))}
-                    </section>
 
-                    {hasMorePromotions && (
-                        <div className="mt-8 flex justify-center">
-                            <button
-                                type="button"
-                                onClick={loadMorePromotions}
-                                className="btn-theme-cta inline-flex min-h-11 items-center justify-center rounded-xl px-6 py-3 text-sm font-bold tracking-wide shadow-[0_6px_14px_rgba(242,154,0,0.28)] transition hover:-translate-y-0.5 hover:brightness-105"
-                            >
-                                Load More
-                            </button>
-                        </div>
-                    )}
+                                <div className="flex items-center gap-3 pt-1">
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedPromotion(promotion)}
+                                        className="inline-flex h-10 min-w-[100px] flex-1 items-center justify-center rounded-xl border border-[var(--color-border-default)] bg-white px-4 text-sm font-bold text-[var(--color-text-main)] transition hover:border-[var(--color-accent-200)] hover:bg-[var(--color-accent-50)] hover:text-[var(--color-accent-700)]"
+                                    >
+                                        More Info
+                                    </button>
+                                    <PromotionCtaButton
+                                        authUser={authUser}
+                                        onNavigate={onNavigate}
+                                        promotion={promotion}
+                                    />
+                                </div>
+                            </div>
+                        </article>
+                    ))}
+                </section>
 
-                    {filteredPromotions.length === 0 && (
-                        <div className="surface-card mt-8 rounded-2xl px-6 py-12 text-center">
-                            <p className="text-lg font-bold text-[var(--color-text-strong)]">No promotions in this category yet.</p>
-                            <p className="mt-2 text-sm text-[var(--color-text-muted)]">Try another category to view available offers.</p>
-                        </div>
-                    )}
+                {hasMorePromotions && (
+                    <div className="mt-8 flex justify-center">
+                        <button
+                            type="button"
+                            onClick={loadMorePromotions}
+                            className="btn-theme-cta inline-flex min-h-11 items-center justify-center rounded-xl px-6 py-3 text-sm font-bold tracking-wide shadow-[0_6px_14px_rgba(242,154,0,0.28)] transition hover:-translate-y-0.5 hover:brightness-105"
+                        >
+                            Load More
+                        </button>
+                    </div>
+                )}
+
+                {filteredPromotions.length === 0 && (
+                    <div className="surface-card mt-8 rounded-2xl px-6 py-12 text-center">
+                        <p className="text-lg font-bold text-[var(--color-text-strong)]">No promotions in this category yet.</p>
+                        <p className="mt-2 text-sm text-[var(--color-text-muted)]">Try another category to view available offers.</p>
+                    </div>
+                )}
             </div>
 
             <PromotionDetailModal

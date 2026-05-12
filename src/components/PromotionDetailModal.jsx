@@ -90,21 +90,22 @@ export default function PromotionDetailModal({
                     </div>
 
                     <div className="mt-6">
-                        {category && (
-                            <span className="inline-flex rounded-full bg-[var(--color-accent-50)] px-3 py-1 text-xs font-bold uppercase tracking-[0.1em] text-[var(--color-accent-700)]">
-                                {category}
-                            </span>
-                        )}
-                        <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                            <h3 className="text-2xl font-bold tracking-tight text-[var(--color-text-strong)]">
-                                {title}
-                            </h3>
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                            {category && (
+                                <span className="inline-flex rounded-full bg-[var(--color-accent-50)] px-3 py-1 text-xs font-bold uppercase tracking-[0.1em] text-[var(--color-accent-700)]">
+                                    {category}
+                                </span>
+                            )}
                             {endDate && (
-                                <div className="shrink-0 self-start pt-1">
-                                    <CountdownTimer endDate={endDate} size="modal" />
+                                <div className="shrink-0">
+                                    <CountdownTimer endDate={endDate} size="modal" align="right" />
                                 </div>
                             )}
                         </div>
+
+                        <h3 className="mt-4 text-2xl font-bold tracking-tight text-[var(--color-text-strong)] sm:text-3xl">
+                            {title}
+                        </h3>
                         {description && (
                             <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)] sm:text-base">
                                 {description}

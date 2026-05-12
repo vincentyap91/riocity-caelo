@@ -54,7 +54,7 @@ const DIVIDER = (
  * @param {string|Date} endDate      - The promotion end date/time.
  * @param {'card'|'modal'} size      - Typography scale ('card' = compact, 'modal' = larger).
  */
-export default function CountdownTimer({ endDate, size = 'card' }) {
+export default function CountdownTimer({ endDate, size = 'card', align = 'center' }) {
     const [timeLeft, setTimeLeft] = useState(() => getTimeRemaining(endDate));
 
     useEffect(() => {
@@ -70,28 +70,27 @@ export default function CountdownTimer({ endDate, size = 'card' }) {
     const isModal = size === 'modal';
 
     const units = [
-        { value: pad(timeLeft.days),  label: 'Days',  isSec: false },
+        { value: pad(timeLeft.days), label: 'Days', isSec: false },
         { value: pad(timeLeft.hours), label: 'Hours', isSec: false },
-        { value: pad(timeLeft.mins),  label: 'Mins',  isSec: false },
-        { value: pad(timeLeft.secs),  label: 'Sec',   isSec: true  },
+        { value: pad(timeLeft.mins), label: 'Mins', isSec: false },
+        { value: pad(timeLeft.secs), label: 'Sec', isSec: true },
     ];
 
     /* ── Sizing scales ─────────────────────────────────────────────────────── */
-    const numSize    = isModal ? '1.5rem'    : '1.25rem';
-    const labelSize  = isModal ? '0.6875rem' : '0.625rem';
-    const headerSize = isModal ? '0.8125rem' : '0.75rem';
-    const unitGap    = isModal ? '12px'      : '10px';
-    const cellPx     = isModal ? '10px'      : '8px';
+    const numSize = isModal ? '1.125rem' : '1rem';
+    const labelSize = isModal ? '0.5625rem' : '0.5rem';
+    const headerSize = isModal ? '0.6875rem' : '0.625rem';
+    const unitGap = isModal ? '6px' : '4px';
+    const cellPx = isModal ? '6px' : '4px';
 
     return (
         <div
             style={{
                 display: 'inline-flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                gap: '6px',
+                alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center',
+                gap: isModal ? '3px' : '6px',
                 fontFamily: 'var(--font-family-primary)',
-                width: '100%',
             }}
             aria-label={timeLeft.expired ? 'Promotion has ended' : 'Remaining time'}
             role="timer"
@@ -105,7 +104,7 @@ export default function CountdownTimer({ endDate, size = 'card' }) {
                     letterSpacing: '0.05em',
                     textTransform: 'uppercase',
                     lineHeight: 1.2,
-                    textAlign: 'center',
+                    textAlign: align,
                 }}
             >
                 Remaining Time
@@ -132,12 +131,9 @@ export default function CountdownTimer({ endDate, size = 'card' }) {
                         alignItems: 'stretch',
                         gap: unitGap,
                         background: 'linear-gradient(135deg, rgba(255,255,255,0.72) 0%, rgba(255,248,230,0.55) 100%)',
-                        border: '1px solid rgba(255,200,60,0.22)',
+                        border: '1px solid rgba(255,200,60,0.5)',
                         borderRadius: '10px',
-                        boxShadow:
-                            'inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(242,154,0,0.10)',
-                        backdropFilter: 'blur(6px)',
-                        padding: isModal ? '8px 14px' : '6px 10px',
+                        padding: isModal ? '5px 12px' : '4px 10px',
                     }}
                 >
                     {units.map(({ value, label, isSec }, idx) => (
