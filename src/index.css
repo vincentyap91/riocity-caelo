@@ -92,3 +92,20 @@ body {
   animation-iteration-count: infinite;
   will-change: transform, opacity;
 }
+
+@keyframes riocity-countdown-sec-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(0.94);
+  }
+}
+
+.countdown-sec-pulse {
+  animation: riocity-countdown-sec-pulse 1s ease-in-out infinite;
+  will-change: opacity, transform;
+  display: inline-block;
+}

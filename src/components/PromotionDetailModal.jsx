@@ -1,6 +1,7 @@
-﻿import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
 import useBodyScrollLock from '../hooks/useBodyScrollLock';
+import CountdownTimer from './ui/CountdownTimer';
 
 export default function PromotionDetailModal({
     open,
@@ -9,6 +10,7 @@ export default function PromotionDetailModal({
     title,
     category,
     description,
+    endDate,
     eventDetails,
     applySteps = [],
     providers = [],
@@ -93,9 +95,16 @@ export default function PromotionDetailModal({
                                 {category}
                             </span>
                         )}
-                        <h3 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-text-strong)]">
-                            {title}
-                        </h3>
+                        <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                            <h3 className="text-2xl font-bold tracking-tight text-[var(--color-text-strong)]">
+                                {title}
+                            </h3>
+                            {endDate && (
+                                <div className="shrink-0 self-start pt-1">
+                                    <CountdownTimer endDate={endDate} size="modal" />
+                                </div>
+                            )}
+                        </div>
                         {description && (
                             <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)] sm:text-base">
                                 {description}

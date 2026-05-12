@@ -1,7 +1,8 @@
-﻿import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PromotionDetailModal from './PromotionDetailModal';
 import PromotionCtaButton from './promotion/PromotionCtaButton';
 import PromotionStyleTabs from './PromotionStyleTabs';
+import CountdownTimer from './ui/CountdownTimer';
 import welcomeBonusImage from '../assets/promotion/welcome-bonus.jpg';
 import dailyReloadImage from '../assets/promotion/daily-unlimited-reload-bonus.jpg';
 import welcome500Image from '../assets/promotion/welcome-500-bonus.jpg';
@@ -20,6 +21,7 @@ const promotions = [
         title: 'Welcome Bonus 288%',
         description: 'Kickstart your first deposit with a boosted welcome package made for casino players.',
         image: welcomeBonusImage,
+        endDate: '2026-06-15T23:59:59',
         eventDetails: {
             minDeposit: 'MYR 50',
             bonus: '288%',
@@ -42,6 +44,7 @@ const promotions = [
         title: 'Welcome Bonus 500%',
         description: 'Spin into your first slot session with a high-value new member bonus and extra credits.',
         image: welcome500Image,
+        endDate: '2026-05-31T23:59:59',
         eventDetails: {
             minDeposit: 'MYR 30',
             bonus: '500%',
@@ -64,6 +67,7 @@ const promotions = [
         title: 'Daily Unlimited Reload',
         description: 'Reload daily and keep the momentum going with extra value on every qualifying top up.',
         image: dailyReloadImage,
+        endDate: '2026-05-12T23:59:59',
         eventDetails: {
             minDeposit: 'MYR 20',
             bonus: '10%',
@@ -86,6 +90,7 @@ const promotions = [
         title: 'Free Spin Weekend',
         description: 'Unlock weekend rewards with bonus spins and more chances to land standout wins.',
         image: freeSpinImage,
+        endDate: '2026-05-18T23:59:59',
         eventDetails: {
             minDeposit: 'MYR 30',
             bonus: '50 Free Spins',
@@ -108,6 +113,7 @@ const promotions = [
         title: 'Exclusive Sports Offer',
         description: 'Back the big fixtures with exclusive odds support and limited-time sports rewards.',
         image: exclusiveOfferImage,
+        endDate: '2026-05-20T23:59:59',
         eventDetails: {
             minDeposit: 'MYR 50',
             bonus: '15%',
@@ -130,6 +136,7 @@ const promotions = [
         title: 'Instant Cash Rebate',
         description: 'Enjoy instant rebate returns across selected RNG games to keep every session moving.',
         image: instantCashRebateImage,
+        endDate: '2026-07-01T23:59:59',
         eventDetails: {
             minDeposit: 'MYR 20',
             bonus: '1.2% Rebate',
@@ -152,6 +159,7 @@ const promotions = [
         title: 'Daily Pick Bonus',
         description: 'Get more value on eligible daily picks with a simple lottery-focused extra reward.',
         image: welcomeBonusImage,
+        endDate: '2026-05-14T23:59:59',
         eventDetails: {
             minDeposit: 'MYR 10',
             bonus: '12%',
@@ -174,6 +182,7 @@ const promotions = [
         title: 'Special Member Deal',
         description: 'A flexible all-round promotion crafted for members looking for extra value beyond core games.',
         image: exclusiveOfferImage,
+        endDate: '2026-05-25T23:59:59',
         eventDetails: {
             minDeposit: 'MYR 50',
             bonus: '18%',
@@ -284,6 +293,12 @@ export default function PromotionPage({ authUser, onNavigate }) {
                                         </p>
                                     </div>
 
+                                    {promotion.endDate && (
+                                        <div className="pt-0.5">
+                                            <CountdownTimer endDate={promotion.endDate} size="card" />
+                                        </div>
+                                    )}
+
                                     <div className="flex items-center gap-3 pt-1">
                                         <button
                                             type="button"
@@ -330,6 +345,7 @@ export default function PromotionPage({ authUser, onNavigate }) {
                 title={selectedPromotion?.title}
                 category={selectedPromotion?.category}
                 description={selectedPromotion?.description}
+                endDate={selectedPromotion?.endDate}
                 eventDetails={selectedPromotion?.eventDetails}
                 applySteps={selectedPromotion?.applySteps}
                 providers={selectedPromotion?.providers}
