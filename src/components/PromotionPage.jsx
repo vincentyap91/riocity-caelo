@@ -268,55 +268,62 @@ export default function PromotionPage({ authUser, onNavigate }) {
                 />
 
                 <section className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-6">
-                    {visiblePromotions.map((promotion, index) => (
-                        <article
-                            key={promotion.id}
-                            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[rgb(228_234_243)] bg-[var(--color-surface-base)] shadow-[0_4px_16px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(15,23,42,0.08)]"
-                        >
-                            <div className="relative w-full shrink-0 overflow-hidden border-b border-[rgb(228_234_243)]">
-                                <img
-                                    src={promotion.image}
-                                    alt={promotion.title}
-                                    className="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                                />
-                            </div>
-                            <div className="flex min-h-0 flex-1 flex-col justify-between gap-4 px-4 py-4 md:px-5 md:py-5">
-                                <div className="flex flex-col gap-3">
-                                    <div className="flex items-center justify-between gap-2">
-                                        <span className="inline-flex rounded-full bg-[var(--color-accent-50)] px-2.5 py-0.5 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-accent-700)]">
-                                            {promotion.category}
-                                        </span>
-                                        {promotion.endDate && (
-                                            <CountdownTimer endDate={promotion.endDate} size="card" align="right" />
-                                        )}
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <h2 className="text-lg font-bold leading-tight tracking-tight text-[var(--color-text-strong)] md:text-xl">
-                                            {promotion.title}
-                                        </h2>
-                                        <p className="text-sm leading-relaxed text-[var(--color-text-muted)]">
-                                            {promotion.description}
-                                        </p>
-                                    </div>
-                                </div>
+                    {visiblePromotions.map((promotion, index) => {
+                        const isExpired = promotion.endDate && new Date(promotion.endDate) < new Date();
+                        const isLoggedIn = Boolean(authUser);
 
-                                <div className="flex items-center gap-3 pt-1">
-                                    <button
-                                        type="button"
-                                        onClick={() => setSelectedPromotion(promotion)}
-                                        className="inline-flex h-10 min-w-[100px] flex-1 items-center justify-center rounded-xl border border-[var(--color-border-default)] bg-white px-4 text-sm font-bold text-[var(--color-text-main)] transition hover:border-[var(--color-accent-200)] hover:bg-[var(--color-accent-50)] hover:text-[var(--color-accent-700)]"
-                                    >
-                                        More Info
-                                    </button>
-                                    <PromotionCtaButton
-                                        authUser={authUser}
-                                        onNavigate={onNavigate}
-                                        promotion={promotion}
+                        // Scenario: User is LOGGED IN && Promotion is EXPIRED -> Completely HIDE this card
+                        // Scenario: User is NOT LOGGED IN (Guest) && Promotion is EXPIRED -> SHOW the card but apply "Muted" style
+                        return !(isLoggedIn && isExpired) ? (
+                            <article
+                                key={promotion.id}
+                                className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-[rgb(228_234_243)] bg-[var(--color-surface-base)] shadow-[0_4px_16px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(15,23,42,0.08)] ${isExpired ? 'card-muted' : ''}`}
+                            >
+                                <div className="relative w-full shrink-0 overflow-hidden border-b border-[rgb(228_234_243)]">
+                                    <img
+                                        src={promotion.image}
+                                        alt={promotion.title}
+                                        className="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                                     />
                                 </div>
-                            </div>
-                        </article>
-                    ))}
+                                <div className="flex min-h-0 flex-1 flex-col justify-between gap-4 px-4 py-4 md:px-5 md:py-5">
+                                    <div className="flex flex-col gap-3">
+                                        <div className="flex items-center justify-between gap-2">
+                                            <span className="inline-flex rounded-full bg-[var(--color-accent-50)] px-2.5 py-0.5 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-accent-700)]">
+                                                {promotion.category}
+                                            </span>
+                                            {promotion.endDate && (
+                                                <CountdownTimer endDate={promotion.endDate} size="card" align="right" />
+                                            )}
+                                        </div>
+                                        <div className="space-y-1.5">
+                                            <h2 className="text-lg font-bold leading-tight tracking-tight text-[var(--color-text-strong)] md:text-xl">
+                                                {promotion.title}
+                                            </h2>
+                                            <p className="text-sm leading-relaxed text-[var(--color-text-muted)]">
+                                                {promotion.description}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-3 pt-1">
+                                        <button
+                                            type="button"
+                                            onClick={() => setSelectedPromotion(promotion)}
+                                            className="btn-more-info inline-flex h-10 min-w-[100px] flex-1 items-center justify-center rounded-xl border border-[var(--color-border-default)] bg-white px-4 text-sm font-bold text-[var(--color-text-main)] transition hover:border-[var(--color-accent-200)] hover:bg-[var(--color-accent-50)] hover:text-[var(--color-accent-700)]"
+                                        >
+                                            More Info
+                                        </button>
+                                        <PromotionCtaButton
+                                            authUser={authUser}
+                                            onNavigate={onNavigate}
+                                            promotion={promotion}
+                                        />
+                                    </div>
+                                </div>
+                            </article>
+                        ) : null;
+                    })}
                 </section>
 
                 {hasMorePromotions && (
@@ -354,5 +361,3 @@ export default function PromotionPage({ authUser, onNavigate }) {
         </main>
     );
 }
-
-

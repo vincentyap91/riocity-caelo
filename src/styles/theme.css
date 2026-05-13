@@ -27,6 +27,10 @@
 
   /* Caelo Brand Tokens */
   --surface-base: var(--color-surface-base);
+  --border-default: var(--color-border-default);
+  --text-muted: var(--color-text-muted);
+  --ref-10: #f1f5f9;
+  --ref-30: #cbd5e1;
   --surface-utility-2: var(--color-brand-primary);
   --nav-side-promo-icon-size: 1.125rem;
 
@@ -773,6 +777,35 @@
     line-height: 1.6;
     color: var(--color-text-main);
     text-align: center;
+  }
+
+  /* Promotion Card - Muted/Expired State */
+  .card-muted {
+    filter: grayscale(100%);
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .card-muted h2,
+  .card-muted p {
+    color: var(--text-muted) !important;
+  }
+
+  /* More Info Button - Muted */
+  .card-muted .btn-more-info {
+    background: var(--ref-10) !important;
+    border-color: var(--border-default) !important;
+    color: var(--text-muted) !important;
+  }
+
+  /* Join Now Button - Muted */
+  .card-muted .btn-theme-cta {
+    background: var(--ref-30) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border-color: var(--border-default) !important;
+    color: var(--text-muted) !important;
   }
 }
 
