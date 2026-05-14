@@ -31,6 +31,7 @@ const GameDetailPage = React.lazy(() => import('./components/game-detail/GameDet
 const PromotionPage = React.lazy(() => import('./components/PromotionPage'));
 const VipPage = React.lazy(() => import('./components/VipPage'));
 const ReferralPage = React.lazy(() => import('./components/referral'));
+const LiveChatPage = React.lazy(() => import('./components/LiveChatPage'));
 import ProfilePage from './components/ProfilePage';
 import AccountLayout from './components/AccountLayout';
 import RegisterPage from './components/RegisterPage';
@@ -166,6 +167,9 @@ function resolvePageFromPath() {
     }
     if (pathname === '/bet-slip') {
       return 'my-bets';
+    }
+    if (pathname === '/live-chat' || pathname === '/support') {
+      return 'live-chat';
     }
     return 'home';
   } catch (err) {
@@ -431,6 +435,7 @@ function AppInner() {
       promotion: '/promotion',
       vip: '/vip',
       referral: '/referral',
+      'live-chat': '/live-chat',
       register: '/register',
       profile: '/profile',
       verification: '/verification',
@@ -533,7 +538,7 @@ function AppInner() {
       <ScrollToTop authUser={authUser} />
       <FloatingSocials
         authUser={authUser}
-        onLiveChatClick={() => setLiveChatOpen((open) => !open)}
+        onLiveChatClick={() => setLiveChatOpen(true)}
         onClaimRewardsClick={() => handleNavigate('loyalty-rewards')}
       />
 
@@ -553,6 +558,7 @@ function AppInner() {
         onLogout={() => handleLogout({ reason: 'user' })}
         onAccountDetailsClick={() => handleNavigate('profile')}
         onLiveChatClick={() => setLiveChatOpen(true)}
+        onTopLiveChatClick={() => handleNavigate('live-chat')}
         onCasinoProviderSelect={(menuProvider) => {
           setSelectedCasinoProviderIdFromMenu(menuProvider?.id ?? null);
           handleNavigate('live-casino');
@@ -622,32 +628,32 @@ function AppInner() {
           onLoginClick={() => setLoginModalOpen(true)}
         />
       ) : page === 'profile' ? (
-        <ProfilePage authUser={authUser} onLogout={handleLogout} onNavigate={handleNavigate} onLiveChatClick={() => setLiveChatOpen(true)} />
+        <ProfilePage authUser={authUser} onLogout={handleLogout} onNavigate={handleNavigate} onLiveChatClick={() => handleNavigate('live-chat')} />
       ) : page === 'loyalty-rewards' ? (
-        <AccountLayout activePage="loyalty-rewards" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="loyalty-rewards" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <RewardsPage />
         </AccountLayout>
       ) : page === 'verification' ? (
-        <AccountLayout activePage="verification" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="verification" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <VerificationPage />
         </AccountLayout>
       ) : page === 'favourites' ? (
-        <AccountLayout activePage="favourites" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="favourites" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <FavouritesPage onNavigate={handleNavigate} />
         </AccountLayout>
       ) : page === 'my-bets' ? (
-        <AccountLayout activePage="my-bets" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="my-bets" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <MyBetsPage />
         </AccountLayout>
       ) : page === 'feedback' ? (
-        <AccountLayout activePage="feedback" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="feedback" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <FeedbackPage />
         </AccountLayout>
       ) : page === 'about' ? (
         <AboutUsPage />
       ) : page === 'help-center' ? (
         authUser ? (
-          <AccountLayout activePage="help-center" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+          <AccountLayout activePage="help-center" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
             <HelpCenterPage navigationState={pageNavigationState} />
           </AccountLayout>
         ) : (
@@ -656,33 +662,35 @@ function AppInner() {
           </main>
         )
       ) : page === 'security' ? (
-        <AccountLayout activePage="security" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="security" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <SecurityPage authUser={authUser} />
         </AccountLayout>
       ) : page === 'notifications' ? (
-        <AccountLayout activePage="notifications" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="notifications" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <NotificationsPage />
         </AccountLayout>
       ) : HISTORY_RECORD_PAGE_IDS.includes(page) ? (
-        <AccountLayout activePage={page} authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage={page} authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <HistoryRecordPage activePage={page} />
         </AccountLayout>
       ) : page === 'rebate' ? (
-        <AccountLayout activePage="rebate" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="rebate" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <RebatePage onNavigate={handleNavigate} />
         </AccountLayout>
       ) : page === 'referral-commission' ? (
-        <AccountLayout activePage="referral-commission" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="referral-commission" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <ReferralCommissionPage onNavigate={handleNavigate} />
         </AccountLayout>
       ) : page === 'deposit' ? (
-        <AccountLayout activePage="deposit" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="deposit" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <DepositPage onNavigate={handleNavigate} />
         </AccountLayout>
       ) : page === 'withdrawal' ? (
-        <AccountLayout activePage="withdrawal" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+        <AccountLayout activePage="withdrawal" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <WithdrawalPage onNavigate={handleNavigate} navigationState={pageNavigationState} />
         </AccountLayout>
+      ) : page === 'live-chat' ? (
+        <LiveChatPage onNavigate={handleNavigate} authUser={authUser} />
       ) : (
         <RegisterPage
           onLoginClick={() => setLoginModalOpen(true)}
@@ -697,24 +705,28 @@ function AppInner() {
       </Suspense>
       </ErrorBoundary>
 
-      <Footer
-        onNavigate={handleNavigate}
-        onLiveChatClick={() => setLiveChatOpen(true)}
-        mobileVisualTone={page === 'referral-commission' || page === 'rebate' ? 'softer' : 'default'}
-        className="max-md:pb-24"
-      />
+      {page !== 'live-chat' && (
+        <Footer
+          onNavigate={handleNavigate}
+          onLiveChatClick={() => setLiveChatOpen(true)}
+          mobileVisualTone={page === 'referral-commission' || page === 'rebate' ? 'softer' : 'default'}
+          className="max-md:pb-24"
+        />
+      )}
       </div>
 
-      <MobileHomeBottomNav
-        activePage={page}
-        authUser={authUser}
-        onNavigate={handleNavigate}
-        onLiveChatClick={() => setLiveChatOpen(true)}
-        onLoginClick={() => {
-          setAuthModalView('login');
-          setLoginModalOpen(true);
-        }}
-      />
+      {page !== 'live-chat' && (
+        <MobileHomeBottomNav
+          activePage={page}
+          authUser={authUser}
+          onNavigate={handleNavigate}
+          onLiveChatClick={() => setLiveChatOpen(true)}
+          onLoginClick={() => {
+            setAuthModalView('login');
+            setLoginModalOpen(true);
+          }}
+        />
+      )}
 
       <AuthModal
         open={loginModalOpen}

@@ -36,6 +36,7 @@ import {
     Users,
     Wallet,
 } from 'lucide-react';
+import BalanceDetailDropdown from './BalanceDetailDropdown';
 import CasinoChipIcon from './ui/CasinoChipIcon';
 import RebateIcon from './ui/RebateIcon';
 import LiveCasinoMenu from './LiveCasinoMenu';
@@ -211,6 +212,7 @@ export default function Navbar({
     onLogout,
     onAccountDetailsClick,
     onLiveChatClick,
+    onTopLiveChatClick,
     onCasinoProviderSelect,
     onSlotsProviderSelect,
     onRefreshBalance,
@@ -221,8 +223,6 @@ export default function Navbar({
     const [navProviderDropdown, setNavProviderDropdown] = useState(null);
     const [profileMenuOpen, setProfileMenuOpen] = useState(false);
     const [balanceDropdownOpen, setBalanceDropdownOpen] = useState(false);
-    const [expandedMainWallet, setExpandedMainWallet] = useState(true);
-    const [expandedGameWallet, setExpandedGameWallet] = useState(true);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
     const [mobileGamesOpen, setMobileGamesOpen] = useState(false);
@@ -386,6 +386,7 @@ export default function Navbar({
                 balanceRefreshing={balanceRefreshing}
                 onLoginClick={() => onLoginClick?.()}
                 onRegisterClick={() => onRegisterClick?.()}
+                onLiveChatClick={onLiveChatClick}
             />
 
 
@@ -409,7 +410,7 @@ export default function Navbar({
                                 className="relative flex h-full items-center gap-1 rounded-[12px] px-1 py-0.5 shadow-[var(--shadow-nav-top)]"
                             >
                                 <div className="relative">
-                                    <div className="flex h-7 min-w-0 max-w-[13rem] items-stretch overflow-hidden rounded-[9px] border border-white/10 bg-[rgb(14_99_187)] text-white">
+                                    <div className="flex h-7 min-w-0 max-w-[13rem] items-stretch overflow-hidden rounded-[9px] border border-white/10 bg-[rgb(14,99,187)] text-white">
                                         <button
                                             type="button"
                                             onClick={() => {
@@ -441,83 +442,13 @@ export default function Navbar({
                                             />
                                         </button>
                                     </div>
-                                    
+
                                     {balanceDropdownOpen && (
-                                        <div className="dark-nav-shell absolute left-0 top-[calc(100%+12px)] z-[150] flex w-[280px] flex-col overflow-hidden rounded-[24px] p-3 text-white animate-in fade-in slide-in-from-top-2 duration-200">
-                                            <div className="absolute inset-x-0 top-0 h-16 bg-[radial-gradient(circle_at_top,#29bbff55_0%,transparent_72%)] pointer-events-none" />
-                                            
-                                            <div className="relative z-10 mb-3 flex items-center justify-between px-1 text-white">
-                                                <span className="text-sm font-bold tracking-wide">Balance Detail</span>
-                                                <button
-                                                    type="button"
-                                                    onClick={(event) => {
-                                                        event.preventDefault();
-                                                        event.stopPropagation();
-                                                        onRefreshBalance?.();
-                                                    }}
-                                                    disabled={!onRefreshBalance || balanceRefreshing}
-                                                    className="inline-flex h-6 w-6 items-center justify-center rounded-[7px] border border-white/10 bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] shadow-[var(--shadow-nav-pill)] transition hover:brightness-110 disabled:opacity-50"
-                                                >
-                                                    <RefreshCw size={12} className={`text-white/90 ${balanceRefreshing ? 'animate-spin' : ''}`} />
-                                                </button>
-                                            </div>
-
-                                            <div className="relative z-10 flex flex-col gap-2">
-                                                <div className="dark-nav-panel flex flex-col rounded-[18px] p-2.5">
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setExpandedMainWallet(!expandedMainWallet)}
-                                                        className="flex w-full items-center justify-between pb-0.5"
-                                                    >
-                                                        <div className="flex items-center gap-2">
-                                                            <div className="inline-flex h-6 w-6 items-center justify-center rounded-[7px] bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[var(--color-nav-gold)] shadow-[var(--shadow-nav-pill)]">
-                                                                <Info size={12} />
-                                                            </div>
-                                                            <span className="text-xs font-bold text-white">Main Wallet:</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="text-xs font-bold tracking-wide text-[var(--color-nav-gold)]">10.00</span>
-                                                            <ChevronDown size={14} className={`text-white/60 transition-transform ${expandedMainWallet ? 'rotate-180' : ''}`} />
-                                                        </div>
-                                                    </button>
-                                                    {expandedMainWallet && (
-                                                        <div className="pl-8 pr-[22px] pt-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
-                                                            <div className="flex items-center justify-between text-xs">
-                                                                <span className="font-medium text-[var(--color-nav-text-soft)]">Royal Slot Gaming :</span>
-                                                                <span className="font-bold tracking-wide text-[var(--color-nav-gold)]">10.00</span>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </div>
-
-                                                <div className="dark-nav-panel flex flex-col rounded-[18px] p-2.5">
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setExpandedGameWallet(!expandedGameWallet)}
-                                                        className="flex w-full items-center justify-between pb-0.5"
-                                                    >
-                                                        <div className="flex items-center gap-2">
-                                                            <div className="inline-flex h-6 w-6 items-center justify-center rounded-[7px] bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[var(--color-nav-gold)] shadow-[var(--shadow-nav-pill)]">
-                                                                <Info size={12} />
-                                                            </div>
-                                                            <span className="text-xs font-bold text-white">Game Wallet:</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="text-xs font-bold tracking-wide text-[var(--color-nav-gold)]">5.00</span>
-                                                            <ChevronDown size={14} className={`text-white/60 transition-transform ${expandedGameWallet ? 'rotate-180' : ''}`} />
-                                                        </div>
-                                                    </button>
-                                                    {expandedGameWallet && (
-                                                        <div className="pl-8 pr-[22px] pt-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
-                                                            <div className="flex items-center justify-between text-xs">
-                                                                <span className="font-medium text-[var(--color-nav-text-soft)]">Pragmatic Play :</span>
-                                                                <span className="font-bold tracking-wide text-[var(--color-nav-gold)]">5.00</span>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <BalanceDetailDropdown
+                                            onRefreshBalance={onRefreshBalance}
+                                            balanceRefreshing={balanceRefreshing}
+                                            className="absolute left-0 top-[calc(100%+12px)] z-[150]"
+                                        />
                                     )}
                                 </div>
                                 <div className="flex h-7 shrink-0 items-stretch overflow-hidden rounded-[9px] border border-white/15 bg-[linear-gradient(180deg,#16508f_0%,#0d3562_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
@@ -574,6 +505,14 @@ export default function Navbar({
                                     className="h-7 rounded-[9px] border border-white/40 bg-white/[0.03] px-4 font-bold text-white hover:bg-white/10 transition"
                                 >
                                     LOGOUT
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => (onTopLiveChatClick ?? onLiveChatClick)?.()}
+                                    className="h-7 inline-flex items-center gap-1.5 rounded-[9px] border border-[rgba(255,255,255,0.15)] bg-white/5 px-2.5 text-xs font-bold text-white hover:bg-white/10 transition-all"
+                                >
+                                    <Headset size={14} />
+                                    <span>Live Chat</span>
                                 </button>
                                 <LanguageSwitcher value={language} onChange={setLanguage} />
 
@@ -853,6 +792,14 @@ export default function Navbar({
                                 >
                                     Join Now
                                 </button>
+                                <button
+                                    type="button"
+                                    onClick={() => (onTopLiveChatClick ?? onLiveChatClick)?.()}
+                                    className="h-8 inline-flex items-center gap-1.5 rounded-lg border border-[rgba(255,255,255,0.15)] bg-white/5 px-2.5 text-xs font-bold text-white hover:bg-white/10 transition-all"
+                                >
+                                    <Headset size={14} />
+                                    <span>Live Chat</span>
+                                </button>
                                 <LanguageSwitcher value={language} onChange={setLanguage} />
                             </>
                         )}
@@ -959,6 +906,7 @@ export default function Navbar({
                                 >
                                     Join Now
                                 </button>
+
                             </div>
                         )}
                     </div>
