@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import FeaturesRow from './components/FeaturesRow';
 import HomeLiveActivity from './components/HomeLiveActivity';
+import ReferralBannerSection from './components/home/ReferralBannerSection';
 import GameCategories from './components/GameCategories';
 import TopGames from './components/TopGames';
 import VipTier from './components/VipTier';
@@ -581,6 +582,7 @@ function AppInner() {
 
           <div className="mx-auto flex w-full max-w-screen-2xl max-md:pb-24 flex-col gap-8 px-4 pb-10 md:px-8">
             <VipTier onNavigate={handleNavigate} />
+            {authUser && <ReferralBannerSection onNavigate={handleNavigate} />}
             <HomeLiveActivity />
             <AppDownload />
             <Promos onNavigate={handleNavigate} />
