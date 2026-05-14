@@ -5,14 +5,16 @@ import {
     ChevronDown,
     ChevronRight,
     CircleDollarSign,
+    Clock,
     RefreshCw,
+    Crown,
     Dices,
     Fish,
     Gamepad2,
     Gift,
+    Grid3x3,
     HelpCircle,
     House,
-    Spade,
     LayoutGrid,
     Megaphone,
     Smartphone,
@@ -23,7 +25,6 @@ import {
     History,
     Heart,
     LogOut,
-    Percent,
     ScrollText,
     Settings,
     ShieldCheck,
@@ -33,6 +34,8 @@ import {
     Users,
     Wallet,
 } from 'lucide-react';
+import CasinoChipIcon from './ui/CasinoChipIcon';
+import RebateIcon from './ui/RebateIcon';
 import LiveCasinoMenu from './LiveCasinoMenu';
 import NavProviderDropdownPanel from './NavProviderDropdownPanel';
 import { slotProvidersForNavDropdown } from '../constants/matchedSlotProviders';
@@ -87,11 +90,13 @@ const MOBILE_PRIMARY_ITEMS = [
     { id: 'more', label: 'More', icon: LayoutGrid },
 ];
 const MOBILE_GAMES_SUB_ITEMS = [
+    { id: 'all-games', label: 'All Games', page: 'all-games', icon: Grid3x3 },
     { id: 'hot-games', label: 'Hot Games', page: 'hot-games', icon: Star },
-    { id: 'casino', label: 'Casino', page: 'live-casino', icon: Spade },
+    { id: 'recent-games', label: 'Recent Games', page: 'recent-games', icon: Clock },
+    { id: 'casino', label: 'Casino', page: 'live-casino', icon: CasinoChipIcon },
     { id: 'slots', label: 'Slots', page: 'slots', icon: Dices },
     { id: 'sports', label: 'Sports', page: 'sports', icon: Trophy },
-    { id: 'e-sports', label: 'E-Sports', page: 'e-sports', icon: Trophy },
+    { id: 'e-sports', label: 'E-Sports', page: 'e-sports', icon: Gamepad2 },
     { id: 'lottery', label: 'Lottery', page: 'lottery', icon: Ticket },
 ];
 
@@ -104,7 +109,7 @@ const MOBILE_MORE_SECTIONS = [
             { id: 'deposit', label: 'Deposit', page: 'deposit', icon: ArrowDownToLine },
             { id: 'withdrawal', label: 'Withdrawal', page: 'withdrawal', icon: ArrowUpFromLine },
             { id: 'referral-commission', label: 'Referral Commission', page: 'referral-commission', icon: Users },
-            { id: 'rebate', label: 'Rebate', page: 'rebate', icon: Percent },
+            { id: 'rebate', label: 'Rebate', page: 'rebate', icon: RebateIcon },
         ],
     },
     {
@@ -139,7 +144,7 @@ const MOBILE_MORE_SECTIONS = [
             { id: 'my-account', label: 'My Account', page: 'profile', icon: UserCircle2, activePages: ['profile'] },
             { id: 'verification', label: 'Verification', page: 'verification', icon: ShieldCheck },
             { id: 'favourites', label: 'Favourites', page: 'favourites', icon: Heart },
-            { id: 'vip', label: 'VIP', page: 'vip', icon: Trophy },
+            { id: 'vip', label: 'Memberships', page: 'vip', icon: Crown },
             { id: 'settings', label: 'Settings', page: 'security', icon: Settings, activePages: ['security', 'notifications'] },
         ],
     },
@@ -157,7 +162,6 @@ const MOBILE_MORE_SECTIONS = [
     },
 ];
 const MOBILE_MORE_ACTIVE_PAGES = new Set([
-    'all-games',
     'e-sports',
     'lottery',
     'fishing',
@@ -236,7 +240,7 @@ export default function Navbar({
         { id: 'deposit', label: 'Deposit', icon: ArrowDownToLine },
         { id: 'withdrawal', label: 'Withdrawal', icon: ArrowUpFromLine },
         { id: 'referral-commission', label: 'Referral Commission', icon: Users },
-        { id: 'rebate', label: 'Rebate', icon: Percent },
+        { id: 'rebate', label: 'Rebate', icon: RebateIcon },
     ];
 
     useBodyScrollLock(mobileMenuOpen);
@@ -453,7 +457,7 @@ export default function Navbar({
                                     >
                                         <ChevronDown
                                             size={13}
-                                            className={`transition-transform ${profileMenuOpen ? 'rotate-90' : ''}`}
+                                            className={`transition-transform ${profileMenuOpen ? 'rotate-180' : ''}`}
                                         />
                                     </button>
                                 </div>
