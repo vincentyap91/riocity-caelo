@@ -221,6 +221,8 @@ export default function Navbar({
     const [navProviderDropdown, setNavProviderDropdown] = useState(null);
     const [profileMenuOpen, setProfileMenuOpen] = useState(false);
     const [balanceDropdownOpen, setBalanceDropdownOpen] = useState(false);
+    const [expandedMainWallet, setExpandedMainWallet] = useState(true);
+    const [expandedGameWallet, setExpandedGameWallet] = useState(true);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
     const [mobileGamesOpen, setMobileGamesOpen] = useState(false);
@@ -462,7 +464,11 @@ export default function Navbar({
 
                                             <div className="relative z-10 flex flex-col gap-2">
                                                 <div className="dark-nav-panel flex flex-col rounded-[18px] p-2.5">
-                                                    <div className="flex items-center justify-between pb-0.5">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setExpandedMainWallet(!expandedMainWallet)}
+                                                        className="flex w-full items-center justify-between pb-0.5"
+                                                    >
                                                         <div className="flex items-center gap-2">
                                                             <div className="inline-flex h-6 w-6 items-center justify-center rounded-[7px] bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[var(--color-nav-gold)] shadow-[var(--shadow-nav-pill)]">
                                                                 <Info size={12} />
@@ -471,19 +477,25 @@ export default function Navbar({
                                                         </div>
                                                         <div className="flex items-center gap-2">
                                                             <span className="text-xs font-bold tracking-wide text-[var(--color-nav-gold)]">10.00</span>
-                                                            <ChevronUp size={14} className="text-white/60" />
+                                                            <ChevronDown size={14} className={`text-white/60 transition-transform ${expandedMainWallet ? 'rotate-180' : ''}`} />
                                                         </div>
-                                                    </div>
-                                                    <div className="pl-8 pr-[22px] pt-1.5">
-                                                        <div className="flex items-center justify-between text-xs">
-                                                            <span className="font-medium text-[var(--color-nav-text-soft)]">Royal Slot Gaming :</span>
-                                                            <span className="font-bold tracking-wide text-[var(--color-nav-gold)]">10.00</span>
+                                                    </button>
+                                                    {expandedMainWallet && (
+                                                        <div className="pl-8 pr-[22px] pt-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                                                            <div className="flex items-center justify-between text-xs">
+                                                                <span className="font-medium text-[var(--color-nav-text-soft)]">Royal Slot Gaming :</span>
+                                                                <span className="font-bold tracking-wide text-[var(--color-nav-gold)]">10.00</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    )}
                                                 </div>
 
                                                 <div className="dark-nav-panel flex flex-col rounded-[18px] p-2.5">
-                                                    <div className="flex items-center justify-between pb-0.5">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setExpandedGameWallet(!expandedGameWallet)}
+                                                        className="flex w-full items-center justify-between pb-0.5"
+                                                    >
                                                         <div className="flex items-center gap-2">
                                                             <div className="inline-flex h-6 w-6 items-center justify-center rounded-[7px] bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[var(--color-nav-gold)] shadow-[var(--shadow-nav-pill)]">
                                                                 <Info size={12} />
@@ -492,15 +504,17 @@ export default function Navbar({
                                                         </div>
                                                         <div className="flex items-center gap-2">
                                                             <span className="text-xs font-bold tracking-wide text-[var(--color-nav-gold)]">5.00</span>
-                                                            <ChevronUp size={14} className="text-white/60" />
+                                                            <ChevronDown size={14} className={`text-white/60 transition-transform ${expandedGameWallet ? 'rotate-180' : ''}`} />
                                                         </div>
-                                                    </div>
-                                                    <div className="pl-8 pr-[22px] pt-1.5">
-                                                        <div className="flex items-center justify-between text-xs">
-                                                            <span className="font-medium text-[var(--color-nav-text-soft)]">Pragmatic Play :</span>
-                                                            <span className="font-bold tracking-wide text-[var(--color-nav-gold)]">5.00</span>
+                                                    </button>
+                                                    {expandedGameWallet && (
+                                                        <div className="pl-8 pr-[22px] pt-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                                                            <div className="flex items-center justify-between text-xs">
+                                                                <span className="font-medium text-[var(--color-nav-text-soft)]">Pragmatic Play :</span>
+                                                                <span className="font-bold tracking-wide text-[var(--color-nav-gold)]">5.00</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
