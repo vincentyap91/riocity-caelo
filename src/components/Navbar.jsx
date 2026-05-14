@@ -4,6 +4,7 @@ import {
     ArrowUpFromLine,
     ChevronDown,
     ChevronRight,
+    ChevronUp,
     CircleDollarSign,
     Clock,
     RefreshCw,
@@ -15,6 +16,7 @@ import {
     Grid3x3,
     HelpCircle,
     House,
+    Info,
     LayoutGrid,
     Megaphone,
     Smartphone,
@@ -218,6 +220,7 @@ export default function Navbar({
     /** `null` | `'casino'` | `'slots'` ΓÇö shared mega-menu pattern */
     const [navProviderDropdown, setNavProviderDropdown] = useState(null);
     const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+    const [balanceDropdownOpen, setBalanceDropdownOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
     const [mobileGamesOpen, setMobileGamesOpen] = useState(false);
@@ -246,19 +249,20 @@ export default function Navbar({
     useBodyScrollLock(mobileMenuOpen);
 
     useEffect(() => {
-        if (!profileMenuOpen) {
+        if (!profileMenuOpen && !balanceDropdownOpen) {
             return undefined;
         }
 
         const handlePointerDown = (event) => {
             if (!profileMenuRef.current?.contains(event.target)) {
                 setProfileMenuOpen(false);
+                setBalanceDropdownOpen(false);
             }
         };
 
         window.addEventListener('pointerdown', handlePointerDown);
         return () => window.removeEventListener('pointerdown', handlePointerDown);
-    }, [profileMenuOpen]);
+    }, [profileMenuOpen, balanceDropdownOpen]);
 
     useEffect(() => {
         setMobileMenuOpen(false);
@@ -402,29 +406,105 @@ export default function Navbar({
                                 ref={profileMenuRef}
                                 className="relative flex h-full items-center gap-1 rounded-[12px] px-1 py-0.5 shadow-[var(--shadow-nav-top)]"
                             >
-                                <div className="flex h-7 min-w-0 max-w-[13rem] items-stretch overflow-hidden rounded-[9px] border border-white/10 bg-[rgb(14_99_187)] text-white">
-                                    <div className="flex min-w-0 flex-1 items-center px-2.5 text-xs font-bold tracking-[0.01em]">
-                                        <span className="min-w-0 truncate tabular-nums">{authUser.balance}</span>
+                                <div className="relative">
+                                    <div className="flex h-7 min-w-0 max-w-[13rem] items-stretch overflow-hidden rounded-[9px] border border-white/10 bg-[rgb(14_99_187)] text-white">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setBalanceDropdownOpen((prev) => !prev);
+                                                setProfileMenuOpen(false);
+                                            }}
+                                            className="flex min-w-0 flex-1 items-center gap-1.5 px-2.5 text-xs font-bold tracking-[0.01em] transition hover:bg-white/[0.08]"
+                                        >
+                                            <span className="min-w-0 truncate tabular-nums">{authUser.balance}</span>
+                                            <ChevronDown size={13} className={`transition-transform ${balanceDropdownOpen ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={(event) => {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                                onRefreshBalance?.();
+                                            }}
+                                            disabled={!onRefreshBalance || balanceRefreshing}
+                                            className="inline-flex h-full w-7 min-w-7 shrink-0 touch-manipulation items-center justify-center border-l border-white/15 text-white/90 transition hover:bg-white/[0.08] hover:text-white disabled:pointer-events-none disabled:opacity-40"
+                                            aria-label="Refresh balance"
+                                            title="Refresh balance"
+                                        >
+                                            <RefreshCw
+                                                size={13}
+                                                strokeWidth={2.25}
+                                                className={`shrink-0 ${balanceRefreshing ? 'animate-spin' : ''}`}
+                                                aria-hidden
+                                            />
+                                        </button>
                                     </div>
-                                    <button
-                                        type="button"
-                                        onClick={(event) => {
-                                            event.preventDefault();
-                                            event.stopPropagation();
-                                            onRefreshBalance?.();
-                                        }}
-                                        disabled={!onRefreshBalance || balanceRefreshing}
-                                        className="inline-flex h-full w-7 min-w-7 shrink-0 touch-manipulation items-center justify-center border-l border-white/15 text-white/90 transition hover:bg-white/[0.08] hover:text-white disabled:pointer-events-none disabled:opacity-40"
-                                        aria-label="Refresh balance"
-                                        title="Refresh balance"
-                                    >
-                                        <RefreshCw
-                                            size={13}
-                                            strokeWidth={2.25}
-                                            className={`shrink-0 ${balanceRefreshing ? 'animate-spin' : ''}`}
-                                            aria-hidden
-                                        />
-                                    </button>
+                                    
+                                    {balanceDropdownOpen && (
+                                        <div className="dark-nav-shell absolute left-0 top-[calc(100%+12px)] z-[150] flex w-[280px] flex-col overflow-hidden rounded-[24px] p-3 text-white animate-in fade-in slide-in-from-top-2 duration-200">
+                                            <div className="absolute inset-x-0 top-0 h-16 bg-[radial-gradient(circle_at_top,#29bbff55_0%,transparent_72%)] pointer-events-none" />
+                                            
+                                            <div className="relative z-10 mb-3 flex items-center justify-between px-1 text-white">
+                                                <span className="text-sm font-bold tracking-wide">Balance Detail</span>
+                                                <button
+                                                    type="button"
+                                                    onClick={(event) => {
+                                                        event.preventDefault();
+                                                        event.stopPropagation();
+                                                        onRefreshBalance?.();
+                                                    }}
+                                                    disabled={!onRefreshBalance || balanceRefreshing}
+                                                    className="inline-flex h-6 w-6 items-center justify-center rounded-[7px] border border-white/10 bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] shadow-[var(--shadow-nav-pill)] transition hover:brightness-110 disabled:opacity-50"
+                                                >
+                                                    <RefreshCw size={12} className={`text-white/90 ${balanceRefreshing ? 'animate-spin' : ''}`} />
+                                                </button>
+                                            </div>
+
+                                            <div className="relative z-10 flex flex-col gap-2">
+                                                <div className="dark-nav-panel flex flex-col rounded-[18px] p-2.5">
+                                                    <div className="flex items-center justify-between pb-0.5">
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="inline-flex h-6 w-6 items-center justify-center rounded-[7px] bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[var(--color-nav-gold)] shadow-[var(--shadow-nav-pill)]">
+                                                                <Info size={12} />
+                                                            </div>
+                                                            <span className="text-xs font-bold text-white">Main Wallet:</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-xs font-bold tracking-wide text-[var(--color-nav-gold)]">10.00</span>
+                                                            <ChevronUp size={14} className="text-white/60" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="pl-8 pr-[22px] pt-1.5">
+                                                        <div className="flex items-center justify-between text-xs">
+                                                            <span className="font-medium text-[var(--color-nav-text-soft)]">Royal Slot Gaming :</span>
+                                                            <span className="font-bold tracking-wide text-[var(--color-nav-gold)]">10.00</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="dark-nav-panel flex flex-col rounded-[18px] p-2.5">
+                                                    <div className="flex items-center justify-between pb-0.5">
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="inline-flex h-6 w-6 items-center justify-center rounded-[7px] bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[var(--color-nav-gold)] shadow-[var(--shadow-nav-pill)]">
+                                                                <Info size={12} />
+                                                            </div>
+                                                            <span className="text-xs font-bold text-white">Game Wallet:</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-xs font-bold tracking-wide text-[var(--color-nav-gold)]">5.00</span>
+                                                            <ChevronUp size={14} className="text-white/60" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="pl-8 pr-[22px] pt-1.5">
+                                                        <div className="flex items-center justify-between text-xs">
+                                                            <span className="font-medium text-[var(--color-nav-text-soft)]">Pragmatic Play :</span>
+                                                            <span className="font-bold tracking-wide text-[var(--color-nav-gold)]">5.00</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="flex h-7 shrink-0 items-stretch overflow-hidden rounded-[9px] border border-white/15 bg-[linear-gradient(180deg,#16508f_0%,#0d3562_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                                     <button
@@ -449,7 +529,10 @@ export default function Navbar({
                                     <span className="w-px shrink-0 self-stretch bg-white/20" aria-hidden />
                                     <button
                                         type="button"
-                                        onClick={() => setProfileMenuOpen((open) => !open)}
+                                        onClick={() => {
+                                            setProfileMenuOpen((open) => !open);
+                                            setBalanceDropdownOpen(false);
+                                        }}
                                         className="inline-flex w-7 shrink-0 items-center justify-center text-white/80 transition hover:bg-white/[0.06] hover:text-white"
                                         aria-haspopup="menu"
                                         aria-expanded={profileMenuOpen}
@@ -481,14 +564,14 @@ export default function Navbar({
                                 <LanguageSwitcher value={language} onChange={setLanguage} />
 
                                 {profileMenuOpen && (
-                                    <div className="dark-nav-shell absolute right-25 top-[calc(100%+10px)] z-[120] flex max-h-[calc(100vh-5rem)] w-[312px] flex-col overflow-hidden rounded-[30px] p-3.5 text-white">
+                                    <div className="dark-nav-shell absolute right-25 top-[calc(100%+10px)] z-[120] flex max-h-[calc(100vh-5rem)] w-[280px] flex-col overflow-hidden rounded-[24px] p-2.5 text-white">
                                         <div className="absolute inset-x-0 top-0 h-20 bg-[radial-gradient(circle_at_top,#29bbff55_0%,transparent_72%)] pointer-events-none" />
 
                                         <div className="relative shrink-0">
                                             <div className="relative flex items-start gap-3">
                                                 <div className="relative shrink-0">
-                                                    <div className="flex h-16 w-16 items-center justify-center rounded-full border-[3px] border-[rgb(86_185_255_/_0.5)] bg-[linear-gradient(180deg,#1a5bb1_0%,#0b3e80_100%)] shadow-[var(--inset-highlight-strong)]">
-                                                        <UserCircle2 size={40} className="text-white/90" />
+                                                    <div className="flex h-14 w-14 items-center justify-center rounded-full border-[3px] border-[rgb(86_185_255_/_0.5)] bg-[linear-gradient(180deg,#1a5bb1_0%,#0b3e80_100%)] shadow-[var(--inset-highlight-strong)]">
+                                                        <UserCircle2 size={36} className="text-white/90" />
                                                     </div>
                                                     <button
                                                         type="button"
