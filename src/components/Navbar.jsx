@@ -579,7 +579,8 @@ export default function Navbar({
                                                 </button>
                                                 {openProfileSection === 'cashier' && (
                                                     <div className="mt-3 grid grid-cols-2 gap-3">
-                                                        {cashierItems.map(({ id, label }) => (
+                                                        {/* eslint-disable-next-line no-unused-vars */}
+                                                        {cashierItems.map(({ id, label, icon: Icon }) => (
                                                             <button
                                                                 key={id}
                                                                 type="button"
@@ -618,7 +619,8 @@ export default function Navbar({
 
                                                 {openProfileSection === 'account' && (
                                                     <div className="mt-3 grid grid-cols-2 gap-3">
-                                                        {accountCards.map(({ id, label }) => (
+                                                        {/* eslint-disable-next-line no-unused-vars */}
+                                                        {accountCards.map(({ id, label, icon: Icon }) => (
                                                             <button
                                                                 key={id}
                                                                 type="button"
@@ -703,7 +705,8 @@ export default function Navbar({
                                                 </button>
                                                 {openProfileSection === 'historyRecord' && (
                                                     <div className="mt-3 grid grid-cols-2 gap-2">
-                                                        {HISTORY_RECORD_NAV.map(({ id, label }) => (
+                                                        {/* eslint-disable-next-line no-unused-vars */}
+                                                        {HISTORY_RECORD_NAV.map(({ id, label, icon: Icon }) => (
                                                             <button
                                                                 key={id}
                                                                 type="button"
@@ -740,7 +743,8 @@ export default function Navbar({
                                                 </button>
                                                 {openProfileSection === 'settings' && (
                                                     <div className="mt-3 grid grid-cols-2 gap-2">
-                                                        {settingsOptions.map(({ id, label, action }) => (
+                                                        {/* eslint-disable-next-line no-unused-vars */}
+                                                        {settingsOptions.map(({ id, label, icon: Icon, action }) => (
                                                             <button
                                                                 key={id}
                                                                 type="button"
@@ -1078,7 +1082,8 @@ export default function Navbar({
 
                 <div className="min-h-0 flex-1 overflow-y-auto px-3.5 py-3">
                     <div className="space-y-2">
-                        {MOBILE_PRIMARY_ITEMS.map(({ id, label, page }) => {
+                        {/* eslint-disable-next-line no-unused-vars */}
+                        {MOBILE_PRIMARY_ITEMS.map(({ id, label, page, icon: Icon }) => {
                             const isMoreRow = id === 'more';
                             const isGamesRow = id === 'games';
                             const isActive = isMoreRow
@@ -1180,7 +1185,8 @@ export default function Navbar({
 
                                     {isMoreRow && mobileMoreOpen && (
                                         <div className="mt-1.5 space-y-1.5 rounded-xl border border-[var(--color-border-default)] bg-[var(--color-surface-muted-soft)] p-2">
-                                            {MOBILE_MORE_SECTIONS.map(({ id: sectionId, label: sectionLabel, items }) => {
+                                            {/* eslint-disable-next-line no-unused-vars */}
+                                            {MOBILE_MORE_SECTIONS.map(({ id: sectionId, label: sectionLabel, icon: SectionIcon, items }) => {
                                                 const sectionHasActiveItem = items.some((item) => isMobileMoreItemActive(item));
                                                 const sectionOpen = openMobileMoreSection === sectionId;
 
