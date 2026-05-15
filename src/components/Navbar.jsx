@@ -49,7 +49,7 @@ import { NAV_STICKY_SUBHEADER_TOP_CLASS } from '../constants/navStickyOffsets';
 const slotsNavDropdownProviders = slotProvidersForNavDropdown();
 const DESKTOP_MAIN_LINKS = [
     'Home', 'Casino', 'Slots', 'Sports', 'E-Sports', 'Lottery', 'Hot Games',
-    'Fishing', 'Poker', 'Promotion', 'Referral', 'VIP',
+    'Fishing', 'Poker'
 ];
 const NAV_TARGETS = {
     Home: 'home',
@@ -62,8 +62,8 @@ const NAV_TARGETS = {
     Fishing: 'fishing',
     Poker: 'poker',
     Promotion: 'promotion',
-    Referral: 'referral',
     VIP: 'vip',
+    Rebate: 'rebate',
 };
 const NAV_HREFS = {
     Home: '/',
@@ -76,8 +76,8 @@ const NAV_HREFS = {
     Fishing: '/fishing',
     Poker: '/poker',
     Promotion: '/promotion',
-    Referral: '/referral',
     VIP: '/vip',
+    Rebate: '/rebate',
 };
 const MOBILE_PRIMARY_ITEMS = [
     { id: 'home', label: 'Home', page: 'home', icon: House },
@@ -816,6 +816,47 @@ export default function Navbar({
                                 </a>
                             );
                         })}
+
+                        <div
+                            className="relative group"
+                            onMouseEnter={() => setNavProviderDropdown('more')}
+                            onMouseLeave={() => setNavProviderDropdown(null)}
+                        >
+                            <button
+                                className={`relative rounded-lg border border-transparent px-4 py-2 text-sm font-bold whitespace-nowrap flex items-center gap-1 transition-all
+                                    ${['promotion', 'referral', 'vip', 'rebate'].includes(activePage)
+                                        ? 'nav-desktop-link-active'
+                                        : 'text-[var(--color-text-brand)] hover:bg-[var(--color-brand-deep)] hover:text-white hover:shadow-[0_10px_18px_rgba(8,26,66,0.18)]'}`}
+                            >
+                                More <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
+                            </button>
+
+                            <div className="absolute right-0 top-full pt-1 z-[130] w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div className="rounded-xl border border-[var(--color-border-default)] bg-white py-2 shadow-[0_10px_24px_rgba(0,0,0,0.12)]">
+                                    {['Promotion', 'Referral', 'VIP', 'Rebate'].map((subLink) => {
+                                        const targetId = NAV_TARGETS[subLink];
+                                        return (
+                                            <a
+                                                key={subLink}
+                                                href={NAV_HREFS[subLink]}
+                                                onClick={(event) => {
+                                                    event.preventDefault();
+                                                    onNavigate?.(targetId);
+                                                    setNavProviderDropdown(null);
+                                                }}
+                                                className={`block px-5 py-2.5 text-sm font-bold transition-colors ${
+                                                    activePage === targetId
+                                                        ? 'bg-[var(--color-accent-50)] text-[var(--color-text-brand)]'
+                                                        : 'text-[var(--color-text-main)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-text-brand)]'
+                                                }`}
+                                            >
+                                                {subLink}
+                                            </a>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 

@@ -89,7 +89,26 @@ function EmptyTableNotice({ message, hint, colSpan = 2 }) {
     );
 }
 
-export default function RebatePage() {
+function GuestLoginCard({ onLoginClick }) {
+    return (
+        <div className="surface-card rounded-2xl p-4 shadow-[var(--shadow-card-soft)] sm:p-5 md:p-6">
+            <div className="flex min-h-[200px] flex-col items-center justify-center rounded-xl bg-[linear-gradient(180deg,var(--color-surface-subtle)_0%,var(--color-surface-muted)_100%)] border border-[var(--color-border-default)] px-4 py-8 shadow-inner md:min-h-[240px]">
+                <p className="mb-6 text-center text-lg font-bold text-[var(--color-text-strong)] sm:text-xl">
+                    Log In to View Your Rebate Info
+                </p>
+                <button
+                    type="button"
+                    onClick={onLoginClick}
+                    className="btn-theme-cta-soft inline-flex min-h-[44px] w-[200px] items-center justify-center rounded-xl px-8 text-sm font-bold shadow-sm transition hover:scale-[1.02] md:min-h-[48px] md:text-base"
+                >
+                    Login Now!
+                </button>
+            </div>
+        </div>
+    );
+}
+
+export default function RebatePage({ authUser, onLoginClick, guestLayout }) {
     const [activeTab, setActiveTab] = useState('unclaim');
     const [benefitCategory, setBenefitCategory] = useState('all');
     const today = new Date();
@@ -115,8 +134,8 @@ export default function RebatePage() {
     };
 
     return (
-        <div className="page-container">
-            <h1 className="page-title mb-5 md:mb-8">Rebate</h1>
+        <div className={guestLayout ? "page-container pt-0" : "page-container"}>
+            <h1 className="page-title mb-5 md:mb-8">Our Rebate System</h1>
 
             <div className="mb-5 md:mb-8">
                 <SegmentedTabs activeTab={activeTab} onChange={setActiveTab} items={REBATE_TABS} value={activeTab} />
@@ -124,6 +143,9 @@ export default function RebatePage() {
 
             <div className="space-y-4 md:space-y-6">
                 {activeTab === 'unclaim' && (
+                    !authUser ? (
+                        <GuestLoginCard onLoginClick={onLoginClick} />
+                    ) : (
                     <>
                         <div className="surface-card rounded-2xl p-4 shadow-[var(--shadow-card-soft)] sm:p-5 md:p-6">
                             <div className="flex flex-col gap-3 md:hidden">
@@ -172,9 +194,13 @@ export default function RebatePage() {
                             </div>
                         </div>
                     </>
+                    )
                 )}
 
                 {activeTab === 'history' && (
+                    !authUser ? (
+                        <GuestLoginCard onLoginClick={onLoginClick} />
+                    ) : (
                     <div className="space-y-4 md:space-y-6">
                         <div className="surface-card rounded-2xl p-4 shadow-[var(--shadow-card-soft)] sm:p-5 md:p-6">
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -235,6 +261,7 @@ export default function RebatePage() {
                             </div>
                         </div>
                     </div>
+                    )
                 )}
 
                 {activeTab === 'benefit' && (

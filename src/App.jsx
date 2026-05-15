@@ -184,7 +184,6 @@ const PROTECTED_PAGE_IDS = new Set([
   'feedback',
   'security',
   'notifications',
-  'rebate',
   'referral-commission',
   'deposit',
   'withdrawal',
@@ -525,6 +524,8 @@ function AppInner() {
               ? 'bg-[var(--color-page-default)]'
             : page === 'about'
               ? 'bg-[var(--color-page-default)]'
+            : page === 'rebate' && !authUser
+              ? 'bg-[var(--color-page-default)]'
             : page === 'profile' || page === 'verification' || page === 'favourites' || page === 'my-bets' || page === 'loyalty-rewards' || page === 'feedback' || page === 'help-center' || page === 'security' || page === 'notifications' || page === 'rebate' || page === 'referral-commission' || page === 'deposit' || page === 'withdrawal' || HISTORY_RECORD_PAGE_IDS.includes(page)
               ? 'bg-[var(--color-page-account)]'
               : 'bg-[var(--color-page-default)]'
@@ -666,9 +667,15 @@ function AppInner() {
           <HistoryRecordPage activePage={page} />
         </AccountLayout>
       ) : page === 'rebate' ? (
-        <AccountLayout activePage="rebate" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
-          <RebatePage onNavigate={handleNavigate} />
-        </AccountLayout>
+        authUser ? (
+          <AccountLayout activePage="rebate" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
+            <RebatePage authUser={authUser} onNavigate={handleNavigate} />
+          </AccountLayout>
+        ) : (
+          <main className="w-full bg-[linear-gradient(180deg,var(--gradient-account-shell-start)_0%,var(--gradient-account-shell-mid)_38%,var(--gradient-account-shell-end)_100%)] pb-16 pt-6 md:pt-8">
+            <RebatePage authUser={authUser} onNavigate={handleNavigate} onLoginClick={() => setLoginModalOpen(true)} guestLayout />
+          </main>
+        )
       ) : page === 'referral-commission' ? (
         <AccountLayout activePage="referral-commission" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => setLiveChatOpen(true)}>
           <ReferralCommissionPage onNavigate={handleNavigate} />
