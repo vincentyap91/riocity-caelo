@@ -267,18 +267,19 @@ export default function Navbar({
     }, [profileMenuOpen, balanceDropdownOpen]);
 
     useEffect(() => {
-        setMobileMenuOpen(false);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setMobileMenuOpen((prev) => (prev ? false : prev));
     }, [activePage]);
 
     useEffect(() => {
-        if (mobileMenuOpen) {
-            return undefined;
+        if (!mobileMenuOpen) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setMobileMoreOpen(false);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setMobileGamesOpen(false);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setOpenMobileMoreSection(null);
         }
-
-        setMobileMoreOpen(false);
-        setMobileGamesOpen(false);
-        setOpenMobileMoreSection(null);
-        return undefined;
     }, [mobileMenuOpen]);
 
     useEffect(() => {
@@ -578,7 +579,7 @@ export default function Navbar({
                                                 </button>
                                                 {openProfileSection === 'cashier' && (
                                                     <div className="mt-3 grid grid-cols-2 gap-3">
-                                                        {cashierItems.map(({ id, label, icon: Icon }) => (
+                                                        {cashierItems.map(({ id, label }) => (
                                                             <button
                                                                 key={id}
                                                                 type="button"
@@ -617,7 +618,7 @@ export default function Navbar({
 
                                                 {openProfileSection === 'account' && (
                                                     <div className="mt-3 grid grid-cols-2 gap-3">
-                                                        {accountCards.map(({ id, label, icon: Icon }) => (
+                                                        {accountCards.map(({ id, label }) => (
                                                             <button
                                                                 key={id}
                                                                 type="button"
@@ -702,7 +703,7 @@ export default function Navbar({
                                                 </button>
                                                 {openProfileSection === 'historyRecord' && (
                                                     <div className="mt-3 grid grid-cols-2 gap-2">
-                                                        {HISTORY_RECORD_NAV.map(({ id, label, icon: Icon }) => (
+                                                        {HISTORY_RECORD_NAV.map(({ id, label }) => (
                                                             <button
                                                                 key={id}
                                                                 type="button"
@@ -739,7 +740,7 @@ export default function Navbar({
                                                 </button>
                                                 {openProfileSection === 'settings' && (
                                                     <div className="mt-3 grid grid-cols-2 gap-2">
-                                                        {settingsOptions.map(({ id, label, icon: Icon, action }) => (
+                                                        {settingsOptions.map(({ id, label, action }) => (
                                                             <button
                                                                 key={id}
                                                                 type="button"
@@ -1077,7 +1078,7 @@ export default function Navbar({
 
                 <div className="min-h-0 flex-1 overflow-y-auto px-3.5 py-3">
                     <div className="space-y-2">
-                        {MOBILE_PRIMARY_ITEMS.map(({ id, label, page, icon: Icon }) => {
+                        {MOBILE_PRIMARY_ITEMS.map(({ id, label, page }) => {
                             const isMoreRow = id === 'more';
                             const isGamesRow = id === 'games';
                             const isActive = isMoreRow
@@ -1179,7 +1180,7 @@ export default function Navbar({
 
                                     {isMoreRow && mobileMoreOpen && (
                                         <div className="mt-1.5 space-y-1.5 rounded-xl border border-[var(--color-border-default)] bg-[var(--color-surface-muted-soft)] p-2">
-                                            {MOBILE_MORE_SECTIONS.map(({ id: sectionId, label: sectionLabel, icon: SectionIcon, items }) => {
+                                            {MOBILE_MORE_SECTIONS.map(({ id: sectionId, label: sectionLabel, items }) => {
                                                 const sectionHasActiveItem = items.some((item) => isMobileMoreItemActive(item));
                                                 const sectionOpen = openMobileMoreSection === sectionId;
 
