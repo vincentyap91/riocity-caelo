@@ -8,7 +8,6 @@ const CLAIM_REWARDS_LABEL = 'Rewards';
 export default function FloatingSocials({ authUser, onLiveChatClick, onClaimRewardsClick, className = '' }) {
     const unreadCount = 2;
     const showRewardsButton = Boolean(authUser);
-    const [isLeftHovered, setIsLeftHovered] = useState(false);
     const [isRightHovered, setIsRightHovered] = useState(false);
 
     return (
@@ -33,19 +32,21 @@ export default function FloatingSocials({ authUser, onLiveChatClick, onClaimRewa
                 </button>
             )}
 
-            {/* Desktop Left: Rewards (Slide-in) */}
-            {showRewardsButton && (
-                <div 
-                    className="fixed left-0 bottom-32 z-[140] hidden md:flex items-center group"
-                    onMouseEnter={() => setIsLeftHovered(true)}
-                    onMouseLeave={() => setIsLeftHovered(false)}
-                >
-                    {/* Wider trigger area */}
-                    <div className="absolute left-0 top-0 w-8 h-full cursor-pointer z-10" />
-                    
+            {/* Desktop Right: Combined Widgets (Slide-in) */}
+            <div 
+                className="fixed right-0 bottom-10 z-[140] hidden md:flex flex-col items-end gap-3 group"
+                onMouseEnter={() => setIsRightHovered(true)}
+                onMouseLeave={() => setIsRightHovered(false)}
+            >
+                {/* Wider trigger area for easier interaction */}
+                <div className="absolute right-0 top-0 w-12 h-full cursor-pointer z-10" />
+
+                {/* Rewards (Top) */}
+                {showRewardsButton && (
                     <div 
-                        className={`transition-all duration-500 ease-out flex items-center gap-2 ${isLeftHovered ? 'translate-x-4' : '-translate-x-[calc(100%-12px)]'}`}
+                        className={`transition-all duration-500 ease-out flex flex-row-reverse items-center gap-2 ${isRightHovered ? '-translate-x-4' : 'translate-x-[calc(100%-12px)]'}`}
                     >
+                        <div className={`h-16 w-1.5 bg-[var(--color-brand-primary)] rounded-full transition-opacity duration-300 ${isRightHovered ? 'opacity-0' : 'opacity-40 animate-pulse'}`} />
                         <button
                             type="button"
                             onClick={onClaimRewardsClick}
@@ -62,22 +63,12 @@ export default function FloatingSocials({ authUser, onLiveChatClick, onClaimRewa
                                 {CLAIM_REWARDS_LABEL}
                             </span>
                         </button>
-                        <div className={`h-16 w-1.5 bg-[var(--color-brand-primary)] rounded-full transition-opacity duration-300 ${isLeftHovered ? 'opacity-0' : 'opacity-40 animate-pulse'}`} />
                     </div>
-                </div>
-            )}
+                )}
 
-            {/* Desktop Right: Live Chat (Slide-in) */}
-            <div 
-                className="fixed right-0 bottom-10 z-[140] hidden md:flex flex-row-reverse items-center group"
-                onMouseEnter={() => setIsRightHovered(true)}
-                onMouseLeave={() => setIsRightHovered(false)}
-            >
-                {/* Wider trigger area */}
-                <div className="absolute right-0 top-0 w-8 h-full cursor-pointer z-10" />
-
+                {/* Live Chat (Bottom) */}
                 <div 
-                    className={`transition-all duration-500 ease-out flex items-center gap-2 ${isRightHovered ? '-translate-x-4' : 'translate-x-[calc(100%-12px)]'}`}
+                    className={`transition-all duration-500 ease-out flex flex-row-reverse items-center gap-2 ${isRightHovered ? '-translate-x-4' : 'translate-x-[calc(100%-12px)]'}`}
                 >
                     <div className={`h-12 w-1.5 bg-[var(--color-accent-500)] rounded-full transition-opacity duration-300 ${isRightHovered ? 'opacity-0' : 'opacity-40 animate-pulse'}`} />
                     <button

@@ -675,15 +675,14 @@ function AppInner() {
           <HistoryRecordPage activePage={page} />
         </AccountLayout>
       ) : page === 'rebate' ? (
-        authUser ? (
-          <AccountLayout activePage="rebate" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
-            <RebatePage authUser={authUser} onNavigate={handleNavigate} />
-          </AccountLayout>
-        ) : (
-          <main className="w-full bg-[linear-gradient(180deg,var(--gradient-account-shell-start)_0%,var(--gradient-account-shell-mid)_38%,var(--gradient-account-shell-end)_100%)] pb-16 pt-6 md:pt-8">
-            <RebatePage authUser={authUser} onNavigate={handleNavigate} onLoginClick={() => setLoginModalOpen(true)} guestLayout />
-          </main>
-        )
+        <main className="w-full bg-[linear-gradient(180deg,var(--gradient-account-shell-start)_0%,var(--gradient-account-shell-mid)_38%,var(--gradient-account-shell-end)_100%)] pb-16 pt-6 md:pt-8">
+          <RebatePage 
+            authUser={authUser} 
+            onNavigate={handleNavigate} 
+            onLoginClick={() => setLoginModalOpen(true)} 
+            guestLayout={!authUser} 
+          />
+        </main>
       ) : page === 'referral-commission' ? (
         <AccountLayout activePage="referral-commission" authUser={authUser} onNavigate={handleNavigate} onLogout={handleLogout} onLiveChatClick={() => handleNavigate('live-chat')}>
           <ReferralCommissionPage onNavigate={handleNavigate} />
