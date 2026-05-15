@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
-import { Menu, RefreshCw } from 'lucide-react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
+import { Menu, RefreshCw, ChevronDown, Headset } from 'lucide-react';
+import BalanceDetailDropdown from './BalanceDetailDropdown';
 
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -31,11 +32,27 @@ export default function MobileSiteHeader({
     balanceRefreshing = false,
     onLoginClick,
     onRegisterClick,
+    onLiveChatClick,
 }) {
+    const [balanceDropdownOpen, setBalanceDropdownOpen] = useState(false);
+    const containerRef = useRef(null);
     const balanceLayout = useMemo(
         () => (authUser ? getMobileBalanceLayout(authUser.balance) : null),
         [authUser]
     );
+
+    useEffect(() => {
+        if (!balanceDropdownOpen) return undefined;
+
+        const handlePointerDown = (event) => {
+            if (!containerRef.current?.contains(event.target)) {
+                setBalanceDropdownOpen(false);
+            }
+        };
+
+        window.addEventListener('pointerdown', handlePointerDown);
+        return () => window.removeEventListener('pointerdown', handlePointerDown);
+    }, [balanceDropdownOpen]);
 
     return (
         <div className="relative z-[300] flex min-h-[56px] w-full items-center justify-between gap-2 border-b border-slate-200 bg-white px-3 py-1.5 text-slate-900 md:hidden">
@@ -65,16 +82,18 @@ export default function MobileSiteHeader({
             <div className="flex shrink-0 items-center justify-end gap-1.5">
                 {authUser ? (
                     <>
-                        <div className="inline-flex h-10 min-w-0 max-w-[min(13.75rem,calc(100vw-9.25rem))] shrink items-stretch overflow-hidden rounded-xl border border-white/10 bg-[var(--color-brand-primary)] shadow-sm">
+                        <div
+                            ref={containerRef}
+                            className="relative inline-flex h-10 min-w-0 max-w-[min(13.75rem,calc(100vw-9.25rem))] shrink items-stretch rounded-xl border border-white/10 bg-[var(--color-brand-primary)] shadow-sm"
+                        >
                             <button
                                 type="button"
-                                onClick={onProfileClick}
-                                className={`flex min-w-0 flex-1 touch-manipulation text-left transition hover:bg-white/[0.06] focus-visible:z-10 focus-visible:outline focus-visible:ring-2 focus-visible:ring-slate-300/70 focus-visible:ring-offset-0 ${
-                                    balanceLayout?.variant === 'split'
-                                        ? 'items-center justify-center py-0.5 pl-2.5 pr-2.5'
-                                        : 'h-full items-center py-0 pl-2.5 pr-2.5'
-                                }`}
-                                aria-label={`Open profile — ${authUser.balance} (${authUser.name})`}
+                                onClick={() => setBalanceDropdownOpen(!balanceDropdownOpen)}
+                                className={`flex min-w-0 flex-1 touch-manipulation items-center gap-1 rounded-l-xl text-left transition hover:bg-white/[0.06] focus-visible:z-10 focus-visible:outline focus-visible:ring-2 focus-visible:ring-slate-300/70 focus-visible:ring-offset-0 ${balanceLayout?.variant === 'split'
+                                        ? 'justify-center py-0.5 pl-2.5 pr-1.5'
+                                        : 'h-full py-0 pl-2.5 pr-1.5'
+                                    }`}
+                                aria-label={`Open balance detail — ${authUser.balance} (${authUser.name})`}
                                 title={authUser.name}
                             >
                                 {balanceLayout?.variant === 'split' ? (
@@ -91,6 +110,10 @@ export default function MobileSiteHeader({
                                         {balanceLayout?.text ?? authUser.balance}
                                     </span>
                                 )}
+                                <ChevronDown
+                                    size={13}
+                                    className={`shrink-0 text-white/80 transition-transform ${balanceDropdownOpen ? 'rotate-180' : ''}`}
+                                />
                             </button>
                             <button
                                 type="button"
@@ -100,7 +123,7 @@ export default function MobileSiteHeader({
                                     onRefreshBalance?.();
                                 }}
                                 disabled={!onRefreshBalance || balanceRefreshing}
-                                className="inline-flex h-full w-10 min-w-10 shrink-0 touch-manipulation items-center justify-center self-stretch border-l border-white/15 bg-transparent px-0.5 text-white/90 transition hover:bg-white/[0.08] hover:text-white disabled:pointer-events-none disabled:opacity-40"
+                                className="inline-flex h-full w-10 min-w-10 shrink-0 touch-manipulation items-center justify-center self-stretch rounded-r-xl border-l border-white/15 bg-transparent px-0.5 text-white/90 transition hover:bg-white/[0.08] hover:text-white disabled:pointer-events-none disabled:opacity-40"
                                 aria-label="Refresh balance"
                                 title="Refresh balance"
                             >
@@ -111,6 +134,14 @@ export default function MobileSiteHeader({
                                     aria-hidden
                                 />
                             </button>
+
+                            {balanceDropdownOpen && (
+                                <BalanceDetailDropdown
+                                    onRefreshBalance={onRefreshBalance}
+                                    balanceRefreshing={balanceRefreshing}
+                                    className="absolute right-0 top-[calc(100%+8px)] z-[350]"
+                                />
+                            )}
                         </div>
                         <LanguageSwitcher
                             value={language}
@@ -119,6 +150,7 @@ export default function MobileSiteHeader({
                             tone="light"
                             showShortLabel={false}
                         />
+
                     </>
                 ) : (
                     <>
@@ -143,6 +175,7 @@ export default function MobileSiteHeader({
                             tone="light"
                             showShortLabel={false}
                         />
+
                     </>
                 )}
             </div>

@@ -1,19 +1,21 @@
 import React, { useMemo, useState } from 'react';
-import { Dices, Fish, Flame, Gamepad2, Spade, Ticket, Trophy } from 'lucide-react';
+import { Club, Dices, Fish, Flame, Gamepad2, Grid3x3, Ticket, Trophy } from 'lucide-react';
+import CasinoChipIcon from '../ui/CasinoChipIcon';
 import TopGameCard from '../game/TopGameCard';
 import SearchProvider from '../SearchProvider';
 import { TOP_GAMES } from '../../constants/topGamesCatalog';
 import { SPORTS_LOBBIES } from '../../constants/lobbyRegistry';
 
 const CATEGORIES = [
+    { id: 'all-games', label: 'All Games', page: 'all-games', icon: Grid3x3 },
     { id: 'popular', label: 'Popular', page: null, icon: Flame },
-    { id: 'live-casino', label: 'Casino', page: 'live-casino', icon: Spade },
+    { id: 'live-casino', label: 'Casino', page: 'live-casino', icon: CasinoChipIcon },
     { id: 'sports', label: 'Sports', page: 'sports', icon: Trophy },
     { id: 'e-sports', label: 'E-Sports', page: 'e-sports', icon: Gamepad2 },
     { id: 'slots', label: 'Slots', page: 'slots', icon: Dices },
     { id: 'fishing', label: 'Fishing', page: 'fishing', icon: Fish },
     { id: 'lottery', label: 'Lottery', page: 'lottery', icon: Ticket },
-    { id: 'poker', label: 'Poker', page: 'poker', icon: Dices },
+    { id: 'poker', label: 'Poker', page: 'poker', icon: Club },
 ];
 
 export default function MobileHomeCategoryGames({ onNavigate }) {
@@ -28,7 +30,7 @@ export default function MobileHomeCategoryGames({ onNavigate }) {
 
     /** Full list for the active category (used when searching so matches aren’t limited to the first 12). */
     const gamesPool = useMemo(() => {
-        if (activeId === 'popular') {
+        if (activeId === 'all-games' || activeId === 'popular') {
             return TOP_GAMES;
         }
         if (activeId === 'sports') {

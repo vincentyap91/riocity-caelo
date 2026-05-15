@@ -18,7 +18,7 @@ import {
     Users,
     Zap,
 } from 'lucide-react';
-import affiliateBanner from '../assets/affiliate-banner.jpg';
+import referralFullBanner from '../assets/referral-full.jpg';
 import referralCommissionIcon from '../assets/referral_commission_icon.png';
 import referralDepositIcon from '../assets/referral_deposit_icon.png';
 import step1Image from '../assets/step1.jpg';
@@ -832,20 +832,10 @@ export default function ReferralPage({ authUser, onLoginClick }) {
                 <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8">
                     <div className="page-hero-banner">
                         <img
-                            src={affiliateBanner}
+                            src={referralFullBanner}
                             alt="Referral"
                             className={`page-hero-banner__img ${PAGE_BANNER_IMG_FILL}`}
                         />
-                        <div className="absolute inset-y-0 right-0 flex w-[56%] items-center justify-end pr-3 sm:w-[52%] sm:pr-4 md:w-[50%] md:justify-start md:pr-0">
-                            <div className="flex w-full max-w-[500px] flex-col items-center justify-center px-2 py-2 text-center max-md:justify-center md:block md:px-8 md:py-7 md:text-center">
-                                <h1 className="text-base font-bold uppercase tracking-[0.03em] text-white sm:text-xl md:mt-5 md:text-3xl">
-                                    Referral
-                                </h1>
-                                <p className="mx-auto mt-1 hidden max-w-[420px] text-xs font-semibold leading-snug text-white sm:flex sm:mt-3 sm:text-sm md:mt-4 md:text-base">
-                                    Invite friends, earn rewards. Share your referral code and grow together.
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
