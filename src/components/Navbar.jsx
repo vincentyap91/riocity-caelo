@@ -372,7 +372,7 @@ export default function Navbar({
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 w-full shadow-[0_2px_12px_rgba(0,0,0,0.08)] ${mobileMenuOpen ? 'z-[400]' : 'z-50'}`}
+            className={`fixed top-0 left-0 right-0 w-full shadow-[var(--shadow-nav-top)] ${mobileMenuOpen ? 'z-[400]' : 'z-50'}`}
             onMouseLeave={() => setNavProviderDropdown(null)}
         >
             <MobileSiteHeader
@@ -411,7 +411,7 @@ export default function Navbar({
                                 className="relative flex h-full items-center gap-1 rounded-[12px] px-1 py-0.5 shadow-[var(--shadow-nav-top)]"
                             >
                                 <div className="relative">
-                                    <div className="flex h-7 min-w-0 max-w-[13rem] items-stretch overflow-hidden rounded-[9px] border border-white/10 bg-[rgb(14,99,187)] text-white">
+                                    <div className="flex h-7 min-w-0 max-w-[13rem] items-stretch overflow-hidden rounded-[9px] border border-white/15 bg-[var(--color-brand-primary)] text-white">
                                         <button
                                             type="button"
                                             onClick={() => {
@@ -452,7 +452,7 @@ export default function Navbar({
                                         />
                                     )}
                                 </div>
-                                <div className="flex h-7 shrink-0 items-stretch overflow-hidden rounded-[9px] border border-white/15 bg-[linear-gradient(180deg,#16508f_0%,#0d3562_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                                <div className="flex h-7 shrink-0 items-stretch overflow-hidden rounded-[9px] border border-white/15 bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] shadow-[var(--inset-highlight-soft)]">
                                     <button
                                         type="button"
                                         onClick={() => {
@@ -467,7 +467,7 @@ export default function Navbar({
                                             alt=""
                                             className="h-5 w-5 shrink-0 object-contain"
                                         />
-                                        <span className="truncate text-xs font-bold tracking-[0.02em] text-[rgb(255_240_160)]">
+                                        <span className="truncate text-xs font-bold tracking-[0.02em] text-[var(--color-nav-accent)]">
                                             {authUser.name}
                                         </span>
                                         <UserCircle2 size={18} className="shrink-0 text-white/90" />
@@ -510,7 +510,7 @@ export default function Navbar({
                                 <button
                                     type="button"
                                     onClick={() => (onTopLiveChatClick ?? onLiveChatClick)?.()}
-                                    className="h-7 inline-flex items-center gap-1.5 rounded-[9px] border border-[rgba(255,255,255,0.15)] bg-white/5 px-2.5 text-xs font-bold text-white hover:bg-white/10 transition-all"
+                                    className="h-7 inline-flex items-center gap-1.5 rounded-[9px] border border-white/15 bg-white/5 px-2.5 text-xs font-bold text-white hover:bg-white/10 transition-all"
                                 >
                                     <Headset size={14} />
                                     <span>Live Chat</span>
@@ -519,12 +519,12 @@ export default function Navbar({
 
                                 {profileMenuOpen && (
                                     <div className="dark-nav-shell absolute right-25 top-[calc(100%+10px)] z-[120] flex max-h-[calc(100vh-5rem)] w-[280px] flex-col overflow-hidden rounded-[24px] p-2.5 text-white">
-                                        <div className="absolute inset-x-0 top-0 h-20 bg-[radial-gradient(circle_at_top,#29bbff55_0%,transparent_72%)] pointer-events-none" />
+                                        <div className="absolute inset-x-0 top-0 h-20 bg-[radial-gradient(circle_at_top,var(--color-nav-border)_0%,transparent_72%)] pointer-events-none" />
 
                                         <div className="relative shrink-0">
                                             <div className="relative flex items-start gap-3">
                                                 <div className="relative shrink-0">
-                                                    <div className="flex h-14 w-14 items-center justify-center rounded-full border-[3px] border-[rgb(86_185_255_/_0.5)] bg-[linear-gradient(180deg,#1a5bb1_0%,#0b3e80_100%)] shadow-[var(--inset-highlight-strong)]">
+                                                    <div className="flex h-14 w-14 items-center justify-center rounded-full border-[3px] border-[var(--color-nav-border-soft)] bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] shadow-[var(--inset-highlight-strong)]">
                                                         <UserCircle2 size={36} className="text-white/90" />
                                                     </div>
                                                     <button
@@ -533,7 +533,7 @@ export default function Navbar({
                                                             setProfileMenuOpen(false);
                                                             onAccountDetailsClick?.();
                                                         }}
-                                                        className="absolute bottom-0 right-0 inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/15 bg-[var(--color-nav-badge)] text-white shadow-[0_6px_12px_rgba(0,0,0,0.22)] transition hover:brightness-110"
+                                                        className="absolute bottom-0 right-0 inline-flex h-6 w-6 items-center justify-center rounded-full border border-[var(--color-nav-border-soft)] bg-[var(--color-nav-badge)] text-white shadow-[var(--shadow-nav-dropdown)] transition hover:brightness-110"
                                                         aria-label="Account details"
                                                     >
                                                         <ScrollText size={12} />
@@ -567,7 +567,7 @@ export default function Navbar({
                                                     className="flex w-full items-center justify-between"
                                                 >
                                                     <div className="flex items-center gap-3">
-                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-[8px] bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[var(--color-nav-gold)] shadow-[var(--shadow-nav-pill)]">
+                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-[8px] bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-accent)] shadow-[var(--shadow-nav-pill)]">
                                                             <Wallet size={14} />
                                                         </div>
                                                         <span className="text-lg font-bold text-white">Cashier</span>
@@ -591,7 +591,7 @@ export default function Navbar({
                                                                 }}
                                                                 className="dark-nav-tile group flex min-h-[72px] flex-col items-center justify-center rounded-[14px] px-2 text-center transition hover:-translate-y-0.5 hover:border-[var(--color-nav-tile-border-hover)] hover:shadow-[var(--shadow-nav-tile-hover)]"
                                                             >
-                                                                <Icon size={18} className="mb-1.5 text-[var(--color-nav-blue-icon)] group-hover:text-[var(--color-nav-blue-icon-hover)]" />
+                                                                <Icon size={18} className="mb-1.5 text-[var(--color-nav-icon)] group-hover:text-[var(--color-nav-icon-hover)]" />
                                                                 <span className="text-xs font-bold leading-tight text-white">{label}</span>
                                                             </button>
                                                         ))}
@@ -606,7 +606,7 @@ export default function Navbar({
                                                     className="flex w-full items-center justify-between"
                                                 >
                                                     <div className="flex items-center gap-3">
-                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[var(--color-nav-gold)] shadow-[var(--shadow-nav-pill)]">
+                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-accent)] shadow-[var(--shadow-nav-pill)]">
                                                             <UserRound size={14} />
                                                         </div>
                                                         <span className="text-lg font-bold text-white">My Account</span>
@@ -634,7 +634,7 @@ export default function Navbar({
                                                                 }}
                                                                 className="dark-nav-tile group flex min-h-[72px] flex-col items-center justify-center rounded-[14px] px-2 text-center transition hover:-translate-y-0.5 hover:border-[var(--color-nav-tile-border-hover)] hover:shadow-[var(--shadow-nav-tile-hover)]"
                                                             >
-                                                                <Icon size={18} className="mb-1.5 text-[var(--color-nav-blue-icon)] group-hover:text-[var(--color-nav-blue-icon-hover)]" />
+                                                                <Icon size={18} className="mb-1.5 text-[var(--color-nav-icon)] group-hover:text-[var(--color-nav-icon-hover)]" />
                                                                 <span className="text-xs font-bold leading-tight text-white">{label}</span>
                                                             </button>
                                                         ))}
@@ -649,7 +649,7 @@ export default function Navbar({
                                                     className="flex w-full items-center justify-between"
                                                 >
                                                     <div className="flex items-center gap-3">
-                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[var(--color-nav-gold)] shadow-[var(--shadow-nav-pill)]">
+                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-accent)] shadow-[var(--shadow-nav-pill)]">
                                                             <Trophy size={14} />
                                                         </div>
                                                         <span className="text-lg font-bold text-white">Rewards</span>
@@ -676,7 +676,7 @@ export default function Navbar({
                                                                 >
                                                                     <NavIcon
                                                                         size={18}
-                                                                        className="mb-1.5 text-[var(--color-nav-blue-icon)] group-hover:text-[var(--color-nav-blue-icon-hover)]"
+                                                                        className="mb-1.5 text-[var(--color-nav-icon)] group-hover:text-[var(--color-nav-icon-hover)]"
                                                                     />
                                                                     <span className="text-xs font-bold leading-tight text-white">{label}</span>
                                                                 </button>
@@ -693,7 +693,7 @@ export default function Navbar({
                                                     className="flex w-full items-center justify-between transition hover:opacity-90"
                                                 >
                                                     <div className="flex items-center gap-3">
-                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[rgb(90_208_255)] shadow-[var(--shadow-nav-pill)]">
+                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-text-accent)] shadow-[var(--shadow-nav-pill)]">
                                                             <History size={14} />
                                                         </div>
                                                         <span className="text-lg font-bold text-white">History Record</span>
@@ -716,7 +716,7 @@ export default function Navbar({
                                                                 }}
                                                                 className="dark-nav-tile group flex min-h-[64px] flex-col items-center justify-center rounded-[14px] px-2 text-center transition hover:-translate-y-0.5 hover:border-[var(--color-nav-tile-border-hover)] hover:shadow-[var(--shadow-nav-tile-hover)]"
                                                             >
-                                                                <Icon size={18} className="mb-1.5 text-[var(--color-nav-blue-icon)] group-hover:text-[var(--color-nav-blue-icon-hover)]" />
+                                                                <Icon size={18} className="mb-1.5 text-[var(--color-nav-icon)] group-hover:text-[var(--color-nav-icon-hover)]" />
                                                                 <span className="text-xs font-bold leading-tight text-white">{label}</span>
                                                             </button>
                                                         ))}
@@ -724,14 +724,14 @@ export default function Navbar({
                                                 )}
                                             </div>
 
-                                            <div className="dark-nav-panel mt-3 rounded-[22px] px-4 py-3 transition hover:border-[rgb(102_203_255_/_0.24)]">
+                                            <div className="dark-nav-panel mt-3 rounded-[22px] px-4 py-3 transition hover:border-[var(--color-nav-tile-border-hover)]">
                                                 <button
                                                     type="button"
                                                     onClick={() => toggleProfileSection('settings')}
                                                     className="flex w-full items-center justify-between text-left"
                                                 >
                                                     <span className="flex items-center gap-3">
-                                                        <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2a87d6_0%,#1b58ae_100%)] text-[rgb(75_141_255)]">
+                                                        <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-icon)]">
                                                             <Settings size={14} />
                                                         </span>
                                                         <span className="text-base font-bold text-white">Settings</span>
@@ -758,7 +758,7 @@ export default function Navbar({
                                                                 }}
                                                                 className="dark-nav-tile group flex min-h-[64px] flex-col items-center justify-center rounded-[14px] px-2 text-center transition hover:-translate-y-0.5 hover:border-[var(--color-nav-tile-border-hover)] hover:shadow-[var(--shadow-nav-tile-hover)]"
                                                             >
-                                                                <Icon size={18} className="mb-1.5 text-[var(--color-nav-blue-icon)] group-hover:text-[var(--color-nav-blue-icon-hover)]" />
+                                                                <Icon size={18} className="mb-1.5 text-[var(--color-nav-icon)] group-hover:text-[var(--color-nav-icon-hover)]" />
                                                                 <span className="text-xs font-bold leading-tight text-white">{label}</span>
                                                             </button>
                                                         ))}
@@ -772,7 +772,7 @@ export default function Navbar({
                                                     setProfileMenuOpen(false);
                                                     onLogout?.();
                                                 }}
-                                                className="mt-4 inline-flex min-h-[40px] items-center gap-2.5 text-base font-bold text-[var(--color-nav-gold)] transition hover:text-[var(--color-nav-gold-soft)]"
+                                                className="mt-4 inline-flex min-h-[40px] items-center gap-2.5 text-base font-bold text-[var(--color-nav-accent)] transition hover:text-[var(--color-nav-accent-soft)]"
                                             >
                                                 <LogOut size={16} />
                                                 Log Out
@@ -786,7 +786,7 @@ export default function Navbar({
                                 <button
                                     type="button"
                                     onClick={() => onLoginClick?.()}
-                                    className="h-8 rounded-lg bg-[var(--color-brand-primary)] border border-[rgba(255,255,255,0.15)] px-4 text-sm font-bold text-white hover:brightness-110 shadow-sm transition-all"
+                                    className="h-8 rounded-lg bg-[var(--color-brand-primary)] border border-white/15 px-4 text-sm font-bold text-white hover:brightness-110 shadow-sm transition-all"
                                 >
                                     Login
                                 </button>
@@ -800,7 +800,7 @@ export default function Navbar({
                                 <button
                                     type="button"
                                     onClick={() => (onTopLiveChatClick ?? onLiveChatClick)?.()}
-                                    className="h-8 inline-flex items-center gap-1.5 rounded-lg border border-[rgba(255,255,255,0.15)] bg-white/5 px-2.5 text-xs font-bold text-white hover:bg-white/10 transition-all"
+                                    className="h-8 inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-2.5 text-xs font-bold text-white hover:bg-white/10 transition-all"
                                 >
                                     <Headset size={14} />
                                     <span>Live Chat</span>
@@ -813,7 +813,7 @@ export default function Navbar({
             </div>
 
             {/* TWO-TONE HEADER: Main Navigation Row (Lower) */}
-            <div className="relative z-[100] hidden h-16 w-full items-center border-b border-gray-100 bg-white px-4 shadow-sm md:flex md:px-10">
+            <div className="relative z-[100] hidden h-16 w-full items-center border-b border-[var(--color-border-default)] bg-[var(--surface-base)] px-4 shadow-sm md:flex md:px-10">
                 <div className="w-full max-w-screen-2xl mx-auto flex items-center justify-between gap-6">
                     <div className="flex items-center gap-2 shrink-0">
                         <button
@@ -863,7 +863,7 @@ export default function Navbar({
                                     className={`relative rounded-lg border border-transparent px-4 py-2 text-sm font-bold whitespace-nowrap transition-all
                                         ${isActive
                                             ? 'nav-desktop-link-active'
-                                            : 'text-[var(--color-text-brand)] hover:bg-[var(--color-brand-deep)] hover:text-white hover:shadow-[0_10px_18px_rgba(8,26,66,0.18)]'}`}
+                                            : 'text-[var(--color-text-brand)] hover:bg-[var(--color-brand-deep)] hover:text-white hover:shadow-[var(--shadow-nav-top)]'}`}
                                 >
                                     {link}
                                 </a>
@@ -879,13 +879,13 @@ export default function Navbar({
                                 className={`relative rounded-lg border border-transparent px-4 py-2 text-sm font-bold whitespace-nowrap flex items-center gap-1 transition-all
                                     ${['promotion', 'referral', 'vip', 'rebate'].includes(activePage)
                                         ? 'nav-desktop-link-active'
-                                        : 'text-[var(--color-text-brand)] hover:bg-[var(--color-brand-deep)] hover:text-white hover:shadow-[0_10px_18px_rgba(8,26,66,0.18)]'}`}
+                                        : 'text-[var(--color-text-brand)] hover:bg-[var(--color-brand-deep)] hover:text-white hover:shadow-[var(--shadow-nav-top)]'}`}
                             >
                                 More <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
                             </button>
 
                             <div className="absolute right-0 top-full pt-1 z-[130] w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div className="rounded-xl border border-[var(--color-border-default)] bg-white py-2 shadow-[0_10px_24px_rgba(0,0,0,0.12)]">
+                                <div className="rounded-xl border border-[var(--color-border-default)] bg-[var(--surface-base)] py-2 shadow-[var(--shadow-nav-dropdown)]">
                                     {['Promotion', 'Referral', 'VIP', 'Rebate'].map((subLink) => {
                                         const targetId = NAV_TARGETS[subLink];
                                         return (
@@ -916,9 +916,9 @@ export default function Navbar({
                     <div className="flex items-center gap-2 lg:hidden">
                         {authUser ? (
                             <>
-                                <div className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-3 text-sm font-bold text-white shadow-[0_4px_10px_rgba(0,0,0,0.08)]">
+                                <div className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-3 text-sm font-bold text-white shadow-[var(--shadow-card-soft)]">
                                     <span className="truncate">{authUser.balance}</span>
-                                    <CircleDollarSign size={14} className="shrink-0 text-[var(--color-nav-gold)]" />
+                                    <CircleDollarSign size={14} className="shrink-0 text-[var(--color-nav-accent)]" />
                                 </div>
                                 <button
                                     type="button"
@@ -1072,7 +1072,7 @@ export default function Navbar({
                     <button
                         type="button"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="absolute right-3.5 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border-brand)] bg-white/80 text-[var(--color-text-brand)] shadow-[var(--shadow-input)] transition hover:bg-white"
+                        className="absolute right-3.5 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border-brand)] bg-[var(--color-surface-base-80)] text-[var(--color-text-brand)] shadow-[var(--shadow-input)] transition hover:bg-[var(--surface-base)]"
                         aria-label="Close mobile menu"
                     >
                         <X size={16} />
@@ -1100,7 +1100,7 @@ export default function Navbar({
                                     className={
                                         isGamesRow
                                             ? `overflow-hidden rounded-xl border transition ${isActive
-                                                ? 'border-[var(--color-accent-200)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(229,246,255,0.96)_100%)] shadow-[var(--shadow-brand-soft)]'
+                                                ? 'border-[var(--color-accent-200)] bg-[linear-gradient(180deg,var(--color-surface-base)_0%,var(--color-brand-soft)_100%)] shadow-[var(--shadow-brand-soft)]'
                                                 : 'border-[var(--color-border-default)] bg-[var(--surface-base)]'
                                             }`
                                             : "overflow-hidden rounded-xl"
@@ -1162,7 +1162,7 @@ export default function Navbar({
                                                         type="button"
                                                         onClick={() => handleMobileNavigate(item.page)}
                                                         className={`flex min-h-[42px] w-full items-center gap-2.5 rounded-xl pl-3 pr-3 py-2 text-left transition ${itemActive
-                                                            ? 'bg-[linear-gradient(90deg,var(--color-brand-soft)_0%,rgba(255,255,255,0.96)_100%)] text-[var(--color-text-brand-soft)] shadow-[var(--shadow-brand-soft)]'
+                                                            ? 'bg-[linear-gradient(90deg,var(--color-brand-soft)_0%,var(--color-surface-base)_100%)] text-[var(--color-text-brand-soft)] shadow-[var(--shadow-brand-soft)]'
                                                             : 'bg-transparent text-[var(--color-text-main)] hover:bg-[var(--color-accent-50)] hover:text-[var(--color-text-strong)]'
                                                             }`}
                                                         style={{ fontFamily: 'var(--base-font-family)' }}
@@ -1194,7 +1194,7 @@ export default function Navbar({
                                                     <div
                                                         key={sectionId}
                                                         className={`overflow-hidden rounded-xl border transition ${sectionHasActiveItem
-                                                            ? 'border-[var(--color-accent-200)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(229,246,255,0.96)_100%)] shadow-[var(--shadow-brand-soft)]'
+                                                            ? 'border-[var(--color-accent-200)] bg-[linear-gradient(180deg,var(--color-surface-base)_0%,var(--color-brand-soft)_100%)] shadow-[var(--shadow-brand-soft)]'
                                                             : 'border-[var(--color-border-default)] bg-[var(--surface-base)]'
                                                             }`}
                                                     >
@@ -1230,7 +1230,7 @@ export default function Navbar({
                                                                             type="button"
                                                                             onClick={() => handleMobileMoreItemClick(item)}
                                                                             className={`flex min-h-[42px] w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition ${itemActive
-                                                                                ? 'bg-[linear-gradient(180deg,var(--color-brand-soft)_0%,rgba(255,255,255,0.96)_100%)] text-[var(--color-text-brand-soft)] shadow-[var(--shadow-brand-soft)]'
+                                                                                ? 'bg-[linear-gradient(180deg,var(--color-brand-soft)_0%,var(--color-surface-base)_100%)] text-[var(--color-text-brand-soft)] shadow-[var(--shadow-brand-soft)]'
                                                                                 : 'bg-transparent text-[var(--color-text-main)] hover:bg-[var(--color-accent-50)] hover:text-[var(--color-text-strong)]'
                                                                                 }`}
                                                                         >

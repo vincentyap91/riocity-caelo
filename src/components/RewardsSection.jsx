@@ -260,7 +260,7 @@ function CongratsClaimModal({ open, amount, onClose, autoCloseMs = 3000 }) {
                 </div>
 
                 <span
-                    className="claim-coin-burst relative z-[1] flex h-20 w-20 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-cta-start)_0%,var(--color-cta-end)_100%)] text-[rgb(15_23_42)] shadow-[0_18px_36px_rgba(255,178,45,0.4)] ring-2 ring-[var(--color-nav-gold)] sm:h-24 sm:w-24"
+                    className="claim-coin-burst relative z-[1] flex h-20 w-20 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-cta-start)_0%,var(--color-cta-end)_100%)] text-[rgb(15_23_42)] shadow-[0_18px_36px_rgba(255,178,45,0.4)] ring-2 ring-[var(--color-nav-accent)] sm:h-24 sm:w-24"
                     aria-hidden
                 >
                     <Coins className="h-10 w-10 sm:h-12 sm:w-12" strokeWidth={2.25} />
@@ -300,7 +300,7 @@ const DailyStreakNode = React.forwardRef(function DailyStreakNode({ day, positio
     const circleClass = isClaimed
         ? 'bg-[linear-gradient(180deg,var(--color-accent-500)_0%,var(--color-accent-700)_100%)] text-white ring-2 ring-[var(--color-accent-200)] shadow-[var(--shadow-subtle)]'
         : isToday
-          ? 'bg-[linear-gradient(180deg,var(--color-cta-start)_0%,var(--color-cta-end)_100%)] text-[rgb(15_23_42)] ring-2 ring-[var(--color-nav-gold)] shadow-[var(--shadow-cta-soft)]'
+          ? 'bg-[linear-gradient(180deg,var(--color-cta-start)_0%,var(--color-cta-end)_100%)] text-[rgb(15_23_42)] ring-2 ring-[var(--color-nav-accent)] shadow-[var(--shadow-cta-soft)]'
           : 'bg-[var(--color-surface-muted)] text-[var(--color-text-soft)] ring-1 ring-[var(--color-border-default)]';
 
     const labelClass = isToday
@@ -332,7 +332,7 @@ const DailyStreakNode = React.forwardRef(function DailyStreakNode({ day, positio
                 )}
                 {isToday && (
                     <span
-                        className="pointer-events-none absolute -inset-1 animate-ping rounded-full ring-2 ring-[var(--color-nav-gold)]/50"
+                        className="pointer-events-none absolute -inset-1 animate-ping rounded-full ring-2 ring-[var(--color-nav-accent)]/50"
                         aria-hidden
                     />
                 )}
@@ -456,7 +456,7 @@ function DailyBonusPanel() {
                     <div className="px-3 sm:px-6">
 
                     {todayDay ? (
-                        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-[var(--radius-control)] border-2 border-[var(--color-nav-gold)] bg-[linear-gradient(180deg,var(--color-accent-50)_0%,var(--color-surface-base)_100%)] px-4 py-3 shadow-[var(--shadow-subtle)] sm:px-5">
+                        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-[var(--radius-control)] border-2 border-[var(--color-nav-accent)] bg-[linear-gradient(180deg,var(--color-accent-50)_0%,var(--color-surface-base)_100%)] px-4 py-3 shadow-[var(--shadow-subtle)] sm:px-5">
                             <div className="flex min-w-0 items-center gap-3">
                                 <span
                                     className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-cta-start)_0%,var(--color-cta-end)_100%)] shadow-[var(--shadow-subtle)] ring-1 ring-[var(--color-cta-border)]/60"

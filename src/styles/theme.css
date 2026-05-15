@@ -65,10 +65,10 @@
   --color-nav-tile-border-hover: rgb(102 203 255 / 0.3);
   --color-nav-text-soft: #d3eaff;
   --color-nav-text-accent: #8ad4ff;
-  --color-nav-gold: #ffd84d;
-  --color-nav-gold-soft: #ffe27d;
-  --color-nav-blue-icon: #1f83ff;
-  --color-nav-blue-icon-hover: #5cc4ff;
+  --color-nav-accent: #ffd84d;
+  --color-nav-accent-soft: #ffe27d;
+  --color-nav-icon: #1f83ff;
+  --color-nav-icon-hover: #5cc4ff;
   --color-nav-badge: #2c66c3;
   --color-nav-overlay: rgb(2 11 31 / 0.75);
 
@@ -777,6 +777,46 @@
     line-height: 1.6;
     color: var(--color-text-main);
     text-align: center;
+  }
+
+  /* Balance Modal Refactor Variables & Classes */
+  .balance-modal-container {
+    --balance-modal-bg: var(--color-brand-primary);
+    --balance-modal-radius: 20px;
+    --balance-item-bg: var(--color-brand-secondary);
+    --balance-text-primary: #ffffff;
+    --balance-text-secondary: var(--color-nav-accent);
+    --balance-icon-bg: var(--color-nav-badge);
+    --balance-border-color: var(--color-nav-border-soft);
+
+    background-color: var(--balance-modal-bg);
+    border-radius: var(--balance-modal-radius);
+    color: var(--balance-text-primary);
+    box-shadow: var(--shadow-nav-dropdown);
+  }
+
+  .balance-modal-item {
+    background-color: var(--balance-item-bg);
+    border: 1px solid var(--balance-border-color);
+    box-shadow: var(--inset-highlight-soft);
+  }
+
+  .balance-modal-text-primary {
+    color: var(--balance-text-primary);
+  }
+
+  .balance-modal-text-secondary {
+    color: var(--balance-text-secondary);
+  }
+
+  .balance-modal-icon-box {
+    background-color: var(--balance-icon-bg);
+    color: var(--balance-text-secondary);
+    box-shadow: var(--shadow-nav-pill);
+  }
+
+  .balance-modal-divider {
+    background-color: var(--balance-border-color);
   }
 
   /* Promotion Card - Muted/Expired State */

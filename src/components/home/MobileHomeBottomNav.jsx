@@ -53,7 +53,7 @@ export default function MobileHomeBottomNav({ activePage, authUser, onNavigate, 
                             <Icon size={30} strokeWidth={3} />
                         </button>
                         <div className="mt-auto flex flex-col items-center pb-1">
-                            <span className={`text-[10px] font-medium tracking-tighter ${activePage === 'deposit' ? 'text-[var(--color-nav-gold)]' : 'text-white/60'
+                            <span className={`text-[10px] font-medium tracking-tighter ${activePage === 'deposit' ? 'text-[var(--color-nav-accent)]' : 'text-white/60'
                                 }`}>
                                 {label}
                             </span>
@@ -80,7 +80,7 @@ export default function MobileHomeBottomNav({ activePage, authUser, onNavigate, 
                                 }
                             }}
                             className={`flex min-h-11 min-w-0 flex-1 flex-col items-center justify-center gap-1 px-0.5 py-1.5 transition select-none active:opacity-85 ${isActive
-                                ? 'text-[var(--color-nav-gold)]'
+                                ? 'text-[var(--color-nav-accent)]'
                                 : 'text-white/60'
                                 }`}
                         >

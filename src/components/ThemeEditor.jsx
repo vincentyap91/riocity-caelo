@@ -63,7 +63,7 @@ const FALLBACK_QUICK_VARS = [
     '--color-surface-base', '--color-surface-muted',
     '--color-text-strong', '--color-text-main',
     '--color-cta-start', '--color-cta-end',
-    '--color-nav-top', '--color-nav-gold',
+    '--color-nav-top', '--color-nav-accent',
     '--color-success-main', '--color-danger-main',
 ];
 

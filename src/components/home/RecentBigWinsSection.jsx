@@ -63,7 +63,7 @@ export default function RecentBigWinsSection() {
             <div className="shrink-0">
                 <SectionHeader
                     title="Recent Big Wins"
-                    icon={<Trophy size={22} className="text-[var(--color-nav-gold)]" fill="currentColor" strokeWidth={1.75} />}
+                    icon={<Trophy size={22} className="text-[var(--color-nav-accent)]" fill="currentColor" strokeWidth={1.75} />}
                 />
                 <p className="-mt-1 mb-4 text-xs font-medium leading-snug text-[var(--color-text-muted)] md:text-sm">
                     Latest player jackpot moments

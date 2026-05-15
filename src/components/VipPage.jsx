@@ -339,7 +339,7 @@ export default function VipPage({ authUser }) {
                 <div className="soft-blue-panel rounded-[28px] p-4 shadow-[var(--shadow-card-raised)] md:p-6">
                     <div>
                         <span className="inline-flex items-center gap-2 rounded-full border border-[var(--color-accent-100)] bg-[var(--color-surface-base)] px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-accent-700)] shadow-[var(--shadow-subtle)]">
-                            <Crown size={14} className="text-[var(--color-nav-gold)]" />
+                            <Crown size={14} className="text-[var(--color-nav-accent)]" />
                             VIP Group
                         </span>
                         <h1 className="mt-4 text-2xl font-semibold tracking-tight text-[var(--color-text-strong)] md:text-3xl">

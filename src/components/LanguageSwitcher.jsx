@@ -123,7 +123,7 @@ export default function LanguageSwitcher({
                                         isActive
                                             ? isLightTone
                                                 ? 'bg-[var(--color-brand-primary)] shadow-[0_0_0_4px_rgba(37,99,235,0.12)]'
-                                                : 'bg-[var(--color-nav-gold)] shadow-[0_0_0_4px_rgba(255,216,77,0.18)]'
+                                                : 'bg-[var(--color-nav-accent)] shadow-[0_0_0_4px_rgba(255,216,77,0.18)]'
                                             : isLightTone
                                                 ? 'bg-slate-400/0 opacity-0 group-hover:bg-slate-400/30 group-hover:opacity-100'
                                                 : 'bg-white/0 opacity-0 group-hover:bg-white/30 group-hover:opacity-100'

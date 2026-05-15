@@ -61,7 +61,7 @@ function NavShowcase() {
           <div key={item} style={{
             padding: '8px 12px', borderRadius: 8, fontSize: 12, fontWeight: 600,
             background: i === 0 ? 'rgba(255,255,255,0.15)' : 'transparent',
-            color: i === 0 ? 'var(--color-nav-gold)' : 'var(--color-nav-text-soft)',
+            color: i === 0 ? 'var(--color-nav-accent)' : 'var(--color-nav-text-soft)',
             cursor: 'pointer',
             border: i === 0 ? '1px solid var(--color-nav-tile-border-hover)' : '1px solid transparent',
           }}>{item}</div>
@@ -69,7 +69,7 @@ function NavShowcase() {
       </div>
       {/* Dropdown simulation */}
       <div className="dark-nav-shell" style={{ borderRadius: 10, padding: 10 }}>
-        <p style={{ fontSize: 10, fontWeight: 700, color: 'var(--color-nav-gold)', marginBottom: 6, textTransform: 'uppercase' }}>Game Providers</p>
+        <p style={{ fontSize: 10, fontWeight: 700, color: 'var(--color-nav-accent)', marginBottom: 6, textTransform: 'uppercase' }}>Game Providers</p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
           {['Pragmatic Play', 'PG Soft', 'Jili', 'Spadegaming'].map(p => (
             <div key={p} className="dark-nav-tile" style={{ padding: '6px 8px', borderRadius: 7, fontSize: 11, fontWeight: 600, color: 'var(--color-nav-text-soft)' }}>{p}</div>
