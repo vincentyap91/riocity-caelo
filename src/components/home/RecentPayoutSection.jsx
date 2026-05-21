@@ -26,7 +26,7 @@ function buildLoopPayouts(payouts) {
 }
 
 /**
- * Recent Payout — stepped carousel (one card per slide), infinite loop track.
+ * Recent Payout — stepped auto-advance carousel (all viewports); static scroll if reduced motion.
  */
 export default function RecentPayoutSection({ onNavigate, payouts = MOCK_RECENT_PAYOUTS }) {
     const reducedMotion = usePrefersReducedMotion();
@@ -43,14 +43,16 @@ export default function RecentPayoutSection({ onNavigate, payouts = MOCK_RECENT_
         setCurrentIndex((prev) => prev + 1);
     }, [cycleLength]);
 
+    const useAutoCarousel = !reducedMotion;
+
     useEffect(() => {
-        if (reducedMotion || isPaused || !cycleLength) {
+        if (!useAutoCarousel || isPaused || !cycleLength) {
             return undefined;
         }
 
         const timer = setInterval(slideNext, RECENT_PAYOUT_SLIDE_INTERVAL_MS);
         return () => clearInterval(timer);
-    }, [reducedMotion, isPaused, cycleLength, slideNext]);
+    }, [useAutoCarousel, isPaused, cycleLength, slideNext]);
 
     const handleTransitionEnd = () => {
         if (currentIndex >= cycleLength) {
@@ -71,22 +73,30 @@ export default function RecentPayoutSection({ onNavigate, payouts = MOCK_RECENT_
         return null;
     }
 
-    const trackClass = [
-        RECENT_PAYOUT_CAROUSEL_TRACK_CLASS,
-        !isTransitioning && 'recent-payout-carousel-track--instant',
-        reducedMotion && 'recent-payout-carousel-track--static',
+    const viewportClass = [
+        RECENT_PAYOUT_CAROUSEL_VIEWPORT_CLASS,
+        reducedMotion && 'recent-payout-carousel-viewport--scroll',
     ]
         .filter(Boolean)
         .join(' ');
 
-    const trackStyle = reducedMotion
-        ? undefined
-        : { transform: `translateX(calc(-1 * ${currentIndex} * var(--payout-card-step)))` };
+    const trackClass = [
+        RECENT_PAYOUT_CAROUSEL_TRACK_CLASS,
+        !useAutoCarousel && 'recent-payout-carousel-track--static',
+        useAutoCarousel && !isTransitioning && 'recent-payout-carousel-track--instant',
+    ]
+        .filter(Boolean)
+        .join(' ');
+
+    const trackStyle =
+        useAutoCarousel && isTransitioning
+            ? { transform: `translateX(calc(-1 * ${currentIndex} * var(--payout-card-step)))` }
+            : undefined;
 
     return (
-        <section aria-label="Recent payout" className="w-full pt-4">
+        <section aria-label="Recent payout" className="w-full pt-3 md:pt-4">
             <div
-                className={RECENT_PAYOUT_PANEL_CLASS}
+                className={`${RECENT_PAYOUT_PANEL_CLASS} p-6`}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
                 onFocusCapture={() => setIsPaused(true)}
@@ -98,8 +108,15 @@ export default function RecentPayoutSection({ onNavigate, payouts = MOCK_RECENT_
             >
                 <header className={RECENT_PAYOUT_HEADER_CLASS}>
                     <Trophy
+                        size={18}
+                        className="recent-payout-header__icon shrink-0 text-[var(--color-nav-accent)] md:hidden"
+                        fill="currentColor"
+                        strokeWidth={1.75}
+                        aria-hidden
+                    />
+                    <Trophy
                         size={20}
-                        className="recent-payout-header__icon shrink-0 text-[var(--color-nav-accent)]"
+                        className="recent-payout-header__icon hidden shrink-0 text-[var(--color-nav-accent)] md:block"
                         fill="currentColor"
                         strokeWidth={1.75}
                         aria-hidden
@@ -111,15 +128,15 @@ export default function RecentPayoutSection({ onNavigate, payouts = MOCK_RECENT_
 
                 <div className={RECENT_PAYOUT_CAROUSEL_WRAP_CLASS}>
                     <div
-                        className={`${RECENT_PAYOUT_CAROUSEL_VIEWPORT_CLASS}${reducedMotion ? ' recent-payout-carousel-viewport--scroll' : ''}`.trim()}
+                        className={viewportClass}
                         role="region"
                         aria-label="Recent payout games"
-                        aria-live={reducedMotion ? undefined : 'polite'}
+                        aria-live={useAutoCarousel ? 'polite' : undefined}
                     >
                         <div
                             className={trackClass}
                             style={trackStyle}
-                            onTransitionEnd={reducedMotion ? undefined : handleTransitionEnd}
+                            onTransitionEnd={useAutoCarousel ? handleTransitionEnd : undefined}
                         >
                             {loopPayouts.map((item) => (
                                 <PayoutCard

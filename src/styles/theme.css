@@ -270,7 +270,6 @@
   .recent-payout-panel {
     width: 100%;
     margin-top: 1.5rem;
-    padding: 1.25rem;
     border-radius: var(--radius-payout-panel);
     border: 1px solid var(--color-brand-primary);
     background-color: var(--payout-panel-bg);
@@ -428,46 +427,48 @@
     color: var(--payout-amount);
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 767px) {
     .recent-payout-panel {
-      padding: 0.625rem 0.625rem 0;
+      margin-top: 0.75rem;
+      --payout-carousel-gap: 0.5rem;
+      --size-payout-card-w: 9.5rem;
+      --size-payout-card-h: auto;
+      --size-payout-thumb-h: 3.25rem;
+      --size-payout-thumb-max-w: 3.25rem;
+      --text-payout-heading: 0.9375rem;
+      --text-payout-title: 0.6875rem;
+      --text-payout-user: 0.625rem;
+      --text-payout-amount: 0.875rem;
+      --space-payout-card-pad: 0.5rem;
+      --payout-card-step: calc(var(--size-payout-card-w) + var(--payout-carousel-gap));
+    }
+
+    .recent-payout-header {
+      margin-bottom: 0.5rem;
+    }
+
+    .recent-payout-carousel-wrap::after {
+      width: 1.5rem;
     }
 
     .recent-payout-card {
-      display: flex;
-      width: var(--size-payout-card-w);
-      min-width: var(--size-payout-card-w);
-      max-width: var(--size-payout-card-w);
-      min-height: 5.9375rem;
-      max-height: 5.9375rem;
-      flex-direction: row;
-      align-items: center;
-      gap: 0.625rem;
-      padding: 0.625rem;
-      text-align: left;
-    }
-
-    .recent-payout-card__thumb {
-      width: 3.75rem;
-      height: 3.75rem;
-      flex-shrink: 0;
-    }
-
-    .recent-payout-card__thumb img {
-      max-width: 3.75rem;
-      max-height: 3.75rem;
-    }
-
-    .recent-payout-card__details {
-      align-items: flex-start;
+      min-height: 0;
+      max-height: none;
+      padding: var(--space-payout-card-pad);
     }
 
     .recent-payout-card__title {
-      margin-top: 0;
+      margin-top: 0.375rem;
+      line-height: 1.2;
+      -webkit-line-clamp: 2;
+    }
+
+    .recent-payout-card__user {
+      margin-top: 0.125rem;
     }
 
     .recent-payout-card__amount {
-      font-size: 0.875rem;
+      margin-top: 0.25rem;
     }
   }
 

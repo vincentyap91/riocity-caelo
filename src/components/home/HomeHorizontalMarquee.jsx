@@ -11,7 +11,8 @@ const MARQUEE_ROW_FLEX_CLASS = 'flex shrink-0 items-stretch gap-3 md:gap-4';
 const MARQUEE_ROW_GRID_CLASS = 'grid shrink-0 auto-cols-max grid-flow-col items-stretch gap-3 md:gap-4';
 
 /**
- * Infinite horizontal marquee (md+) with touch-friendly scroll (mobile).
+ * Infinite horizontal marquee on all viewports (auto-starts via CSS).
+ * Set enableMobileScroll to show a static snap-scroll row on small screens instead.
  * Duplicates children once for seamless -50% translate loop.
  */
 export default function HomeHorizontalMarquee({
@@ -19,7 +20,7 @@ export default function HomeHorizontalMarquee({
     ariaLabel,
     className = '',
     durationSeconds = 36,
-    enableMobileScroll = true,
+    enableMobileScroll = false,
     trackLayout = 'flex',
     reverse = false,
 }) {
