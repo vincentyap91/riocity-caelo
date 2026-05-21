@@ -82,8 +82,8 @@
 
   /* 01 Primitives — Recent Payout (staging.riocity9.com / caelo theme) */
   --color-payout-panel-bg: #ffffff;
-  --color-payout-panel-border: #032ea1;
-  --color-payout-panel-shadow: 0 4px 10px rgb(0 0 0 / 0.25);
+  --color-payout-panel-border: var(--color-brand-primary);
+  --color-payout-panel-shadow: 0 4px 10px rgb(8 59 148 / 0.25);
   --color-payout-title: #0c162f;
   --color-payout-highlight: #123b94;
   --color-payout-card-bg: #eeeeff;
@@ -272,7 +272,7 @@
     margin-top: 1.5rem;
     padding: 1.25rem;
     border-radius: var(--radius-payout-panel);
-    border: 1px solid var(--payout-panel-border);
+    border: 1px solid var(--color-brand-primary);
     background-color: var(--payout-panel-bg);
     box-shadow: var(--payout-panel-shadow);
     --payout-carousel-gap: var(--space-payout-card-gap);
