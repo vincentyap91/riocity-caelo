@@ -52,6 +52,9 @@ export const TOP_GAMES = [
 
 export const TOP_GAMES_DEFAULT_VISIBLE = 6;
 
+/** Shared homepage game card grid (Top Games, Category Games). */
+export const TOP_GAMES_GRID_CLASS = 'grid grid-cols-2 gap-4 pt-2 sm:grid-cols-3 lg:grid-cols-6';
+
 export const TOP_GAME_PAGE_LABELS = {
     slots: 'Slots',
     fishing: 'Fishing',
@@ -64,4 +67,42 @@ export const TOP_GAME_PAGE_LABELS = {
 
 export function getTopGameFavouriteCategory(page) {
     return TOP_GAME_PAGE_LABELS[page] ? page : 'home-top';
+}
+
+function stableRtp(name, provider) {
+    const key = `${name}|${provider}`;
+    let hash = 0;
+    for (let i = 0; i < key.length; i += 1) {
+        hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+    }
+    return Math.round((76 + (hash % 2100) / 100) * 100) / 100;
+}
+
+const RTP_LOOKUP_POOLS = [SLOT_GAMES, FISHING_GAMES, EXTRA_GAME_DETAIL_ENTRIES];
+
+/** Badge text on category game cards, e.g. "Pragmatic Play Slot". */
+export function getCategoryGameBadgeLabel(game) {
+    const typeLabel = TOP_GAME_PAGE_LABELS[game?.page];
+    if (!typeLabel) {
+        return game?.provider ?? '';
+    }
+    const shortType = typeLabel === 'Slots' ? 'Slot' : typeLabel;
+    return `${game.provider} ${shortType}`;
+}
+
+/** Attach catalog RTP when missing (lobby/sports tiles get a stable placeholder). */
+export function enrichGameRtp(game) {
+    if (!game) return game;
+    if (typeof game.rtp === 'number') {
+        return game;
+    }
+
+    for (const pool of RTP_LOOKUP_POOLS) {
+        const match = pool.find((entry) => entry.name === game.name && entry.provider === game.provider);
+        if (match && typeof match.rtp === 'number') {
+            return { ...game, rtp: match.rtp, hot: game.hot ?? match.hot, new: game.new ?? match.new };
+        }
+    }
+
+    return { ...game, rtp: stableRtp(game.name, game.provider) };
 }

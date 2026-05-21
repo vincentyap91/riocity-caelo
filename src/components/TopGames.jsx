@@ -2,7 +2,7 @@ import React from 'react';
 import SectionHeader from './SectionHeader';
 import { Crown } from 'lucide-react';
 import TopGameCard from './game/TopGameCard';
-import { TOP_GAMES, TOP_GAMES_DEFAULT_VISIBLE } from '../constants/topGamesCatalog';
+import { TOP_GAMES, TOP_GAMES_DEFAULT_VISIBLE, TOP_GAMES_GRID_CLASS } from '../constants/topGamesCatalog';
 
 export default function TopGames({ onNavigate }) {
     const hasMoreGames = TOP_GAMES.length > TOP_GAMES_DEFAULT_VISIBLE;
@@ -18,7 +18,7 @@ export default function TopGames({ onNavigate }) {
                 onNavigate={onNavigate}
             />
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 pt-2">
+            <div className={TOP_GAMES_GRID_CLASS}>
                 {visibleGames.map((game) => (
                     <TopGameCard
                         key={`${game.name}-${game.provider}`}

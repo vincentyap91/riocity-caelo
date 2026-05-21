@@ -579,7 +579,7 @@ function AppInner() {
         <>
           <HeroSection />
 
-          <MobileHomeCategoryGames onNavigate={handleNavigate} />
+          <MobileHomeCategoryGames onNavigate={handleNavigate} variant="mobile" />
 
           <div className="mx-auto hidden w-full max-w-screen-2xl flex-col gap-8 px-4 pb-10 md:flex md:px-8">
             <FeaturesRow />
@@ -589,6 +589,7 @@ function AppInner() {
 
           <div className="mx-auto flex w-full max-w-screen-2xl max-md:pb-24 flex-col gap-8 px-4 pb-10 md:px-8">
             <VipTier onNavigate={handleNavigate} />
+            <MobileHomeCategoryGames onNavigate={handleNavigate} variant="desktop" />
             {authUser && <ReferralBannerSection onNavigate={handleNavigate} />}
             <HomeLiveActivity />
             <AppDownload />
