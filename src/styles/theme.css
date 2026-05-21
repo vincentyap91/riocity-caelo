@@ -77,6 +77,43 @@
   --color-danger-main: #ff5b2e;
   --color-hot-main: #ff4d00;
 
+  /* 01 Primitives — neutral wash (payout tiles, soft panels) */
+  --color-wash-400: #eceff8;
+
+  /* 01 Primitives — Recent Payout (staging.riocity9.com / caelo theme) */
+  --color-payout-panel-bg: #ffffff;
+  --color-payout-panel-border: #032ea1;
+  --color-payout-panel-shadow: 0 4px 10px rgb(0 0 0 / 0.25);
+  --color-payout-title: #0c162f;
+  --color-payout-highlight: #123b94;
+  --color-payout-card-bg: #eeeeff;
+  --color-payout-amount: #dd6044;
+  --radius-payout-panel: 12px;
+  --radius-payout-card: 8px;
+  --size-payout-card-w: 12.5rem;
+  --size-payout-card-h: 13.75rem;
+  --size-payout-thumb-h: 5rem;
+  --size-payout-thumb-max-w: 5rem;
+  --text-payout-heading: 1.125rem;
+  --text-payout-title: 0.875rem;
+  --text-payout-user: 0.875rem;
+  --text-payout-amount: 1.25rem;
+  --space-payout-card-pad: 0.9375rem;
+  --space-payout-card-gap: 0.9375rem;
+
+  /* 02 Semantic — use in components instead of legacy color-* where specified */
+  --base-ink: var(--color-text-strong);
+  --mono-300: var(--color-border-default);
+  --wash-400: var(--color-wash-400);
+  --state-danger-soft: var(--color-hot-main);
+  --payout-panel-bg: var(--color-payout-panel-bg);
+  --payout-panel-border: var(--color-payout-panel-border);
+  --payout-panel-shadow: var(--color-payout-panel-shadow);
+  --payout-title: var(--color-payout-title);
+  --payout-highlight: var(--color-payout-highlight);
+  --payout-card-bg: var(--color-payout-card-bg);
+  --payout-amount: var(--color-payout-amount);
+
   --color-cta-start: #ffcf4a;
   --color-cta-end: #ffb22d;
   --color-cta-strong-start: #ffcc33;
@@ -230,6 +267,210 @@
 }
 
 @layer components {
+  .recent-payout-panel {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border-radius: var(--radius-payout-panel);
+    border: 1px solid var(--payout-panel-border);
+    background-color: var(--payout-panel-bg);
+    box-shadow: var(--payout-panel-shadow);
+    --payout-carousel-gap: var(--space-payout-card-gap);
+    --payout-card-step: calc(var(--size-payout-card-w) + var(--payout-carousel-gap));
+  }
+
+  .recent-payout-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .recent-payout-header__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .recent-payout-header__title {
+    margin: 0;
+    font-size: var(--text-payout-heading);
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--payout-title);
+  }
+
+  .recent-payout-header__title span {
+    color: var(--payout-highlight);
+  }
+
+  .recent-payout-carousel-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .recent-payout-carousel-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2.5rem;
+    pointer-events: none;
+    background: linear-gradient(to left, var(--payout-panel-bg) 0%, transparent 100%);
+    z-index: 1;
+  }
+
+  .recent-payout-carousel-viewport {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .recent-payout-carousel-track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--payout-carousel-gap);
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+  }
+
+  .recent-payout-carousel-track--instant {
+    transition: none;
+  }
+
+  .recent-payout-carousel-viewport--scroll {
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .recent-payout-carousel-viewport--scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .recent-payout-carousel-track--static {
+    transform: none !important;
+  }
+
+  .recent-payout-card {
+    display: flex;
+    width: var(--size-payout-card-w);
+    min-width: var(--size-payout-card-w);
+    max-width: var(--size-payout-card-w);
+    min-height: var(--size-payout-card-h);
+    max-height: var(--size-payout-card-h);
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    border-radius: var(--radius-payout-card);
+    background-color: var(--payout-card-bg);
+    padding: var(--space-payout-card-pad);
+    text-align: center;
+  }
+
+  .recent-payout-card__thumb {
+    display: flex;
+    width: 100%;
+    height: var(--size-payout-thumb-h);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .recent-payout-card__thumb img {
+    display: block;
+    max-width: var(--size-payout-thumb-max-w);
+    width: auto;
+    height: auto;
+    max-height: var(--size-payout-thumb-h);
+    object-fit: contain;
+  }
+
+  .recent-payout-card__details {
+    display: flex;
+    width: 100%;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recent-payout-card__title {
+    margin: 0.9375rem 0 0;
+    width: 100%;
+    font-size: var(--text-payout-title);
+    font-weight: 700;
+    line-height: 1.3;
+    color: inherit;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .recent-payout-card__user {
+    margin: 0.25rem 0 0;
+    width: 100%;
+    font-size: var(--text-payout-user);
+    font-weight: 400;
+    line-height: 1.3;
+    color: inherit;
+  }
+
+  .recent-payout-card__amount {
+    margin: 0.375rem 0 0;
+    font-size: var(--text-payout-amount);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+    color: var(--payout-amount);
+  }
+
+  @media (max-width: 800px) {
+    .recent-payout-panel {
+      padding: 0.625rem 0.625rem 0;
+    }
+
+    .recent-payout-card {
+      display: flex;
+      width: var(--size-payout-card-w);
+      min-width: var(--size-payout-card-w);
+      max-width: var(--size-payout-card-w);
+      min-height: 5.9375rem;
+      max-height: 5.9375rem;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.625rem;
+      text-align: left;
+    }
+
+    .recent-payout-card__thumb {
+      width: 3.75rem;
+      height: 3.75rem;
+      flex-shrink: 0;
+    }
+
+    .recent-payout-card__thumb img {
+      max-width: 3.75rem;
+      max-height: 3.75rem;
+    }
+
+    .recent-payout-card__details {
+      align-items: flex-start;
+    }
+
+    .recent-payout-card__title {
+      margin-top: 0;
+    }
+
+    .recent-payout-card__amount {
+      font-size: 0.875rem;
+    }
+  }
+
   .auth-modal-container {
     max-width: 760px;
   }
@@ -865,13 +1106,52 @@
     }
   }
 
+  @keyframes home-marquee-horizontal-x {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @keyframes home-marquee-horizontal-x-reverse {
+    0% {
+      transform: translate3d(-50%, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .animate-home-marquee-horizontal-x {
+    animation: home-marquee-horizontal-x var(--home-marquee-duration, 36s) linear infinite;
+  }
+
+  .animate-home-marquee-horizontal-x-reverse {
+    animation: home-marquee-horizontal-x-reverse var(--home-marquee-duration, 36s) linear infinite;
+  }
+
   /* Pause only for real desktop hover / keyboard focus — avoid touch “sticky hover” freezing the feed */
   @media (hover: hover) and (pointer: fine) {
 
     .home-marquee-pausable:hover .animate-home-marquee-vertical-y,
     .home-marquee-pausable:focus-within .animate-home-marquee-vertical-y,
     .home-marquee-pausable:hover .animate-home-marquee-vertical-y-tx,
-    .home-marquee-pausable:focus-within .animate-home-marquee-vertical-y-tx {
+    .home-marquee-pausable:focus-within .animate-home-marquee-vertical-y-tx,
+    .home-marquee-pausable:hover .animate-home-marquee-horizontal-x,
+    .home-marquee-pausable:focus-within .animate-home-marquee-horizontal-x,
+    .home-marquee-pausable:hover .animate-home-marquee-horizontal-x-reverse,
+    .home-marquee-pausable:focus-within .animate-home-marquee-horizontal-x-reverse {
+      animation-play-state: paused;
+    }
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .home-marquee-pausable:active .animate-home-marquee-horizontal-x,
+    .home-marquee-pausable:active .animate-home-marquee-horizontal-x-reverse {
       animation-play-state: paused;
     }
   }
@@ -882,7 +1162,9 @@
     }
 
     /* Keep the ticker moving (system “reduce motion” must not make the homepage feeds look broken). */
-    .animate-home-marquee-vertical-y {
+    .animate-home-marquee-vertical-y,
+    .animate-home-marquee-horizontal-x,
+    .animate-home-marquee-horizontal-x-reverse {
       animation-duration: 40s !important;
       animation-timing-function: linear !important;
       animation-iteration-count: infinite !important;

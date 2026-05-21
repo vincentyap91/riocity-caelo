@@ -14,6 +14,8 @@ import GameCategories from './components/GameCategories';
 import TopGames from './components/TopGames';
 import VipTier from './components/VipTier';
 import AppDownload from './components/AppDownload';
+import ProviderShowcaseSection from './components/home/ProviderShowcaseSection';
+import RecentPayoutSection from './components/home/RecentPayoutSection';
 import Promos from './components/Promos';
 import MobileHomeCategoryGames from './components/home/MobileHomeCategoryGames';
 import MobileHomeBottomNav from './components/home/MobileHomeBottomNav';
@@ -593,6 +595,13 @@ function AppInner() {
             {authUser && <ReferralBannerSection onNavigate={handleNavigate} />}
             <HomeLiveActivity />
             <AppDownload />
+            <ProviderShowcaseSection
+              onSlotsProviderSelect={(menuProvider) => {
+                setSelectedSlotsProviderIdFromMenu(menuProvider?.id ?? null);
+                handleNavigate('slots');
+              }}
+            />
+            <RecentPayoutSection onNavigate={handleNavigate} />
             <Promos onNavigate={handleNavigate} />
           </div>
 
