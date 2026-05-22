@@ -14,13 +14,27 @@ export default function ProductBrowseControlPanel({
     onOpenFilterModal,
     resultSummary,
     providerSummaryText,
+    promoSection = null,
+    showWalletSummary = true,
 }) {
     return (
         <section className="mt-1.5 md:mt-3">
             <div className={WALLET_REBATE_BROWSE_PANEL_CLASS}>
-                <WalletRebateSummaryBar compact bare denseMobile />
+                {showWalletSummary ? <WalletRebateSummaryBar compact bare denseMobile /> : null}
 
-                <div className="mt-2 border-t border-[rgb(229_235_244)] pt-2 md:mt-3.5 md:pt-3.5">
+                {promoSection ? (
+                    <div className={showWalletSummary ? 'mt-2 md:mt-3' : ''}>{promoSection}</div>
+                ) : null}
+
+                <div
+                    className={
+                        showWalletSummary
+                            ? 'mt-2 border-t border-[rgb(229_235_244)] pt-2 md:mt-3.5 md:pt-3.5'
+                            : promoSection
+                              ? 'mt-2 md:mt-2.5'
+                              : 'pt-0.5 md:pt-1'
+                    }
+                >
                     <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-3">
                         <div className="hidden min-h-10 min-w-0 w-full md:flex md:flex-1">
                             <SearchProvider

@@ -12,6 +12,9 @@ import {
 import AccountLayout from './AccountLayout';
 import ProfilePhotoModal from './ProfilePhotoModal';
 import VipStatusPill from './VipStatusPill';
+import CurrentPromoSection from './slots/CurrentPromoSection';
+import useSlotCurrentPromo from '../hooks/useSlotCurrentPromo';
+import { PROFILE_SHOW_ACTIVE_PROMO } from '../constants/slotCurrentPromo';
 import { BANKS } from '../constants/banks';
 import { getVipStatus } from '../constants/vipStatus';
 import { PROFILE_NEXT_VIP_TIER, PROFILE_VIP_PROGRESS_PERCENT, PROFILE_VIP_TIER } from '../constants/profileVipTier';
@@ -184,6 +187,7 @@ function ProfileVipProgressSection({ targetTier, progressPercent, tier, showTier
 }
 
 export default function ProfilePage({ authUser, onLogout, onNavigate, onLiveChatClick }) {
+    const { promo, isActive: isPromoActive, progressPercent, endPromo } = useSlotCurrentPromo();
     const vipLevel = PROFILE_VIP_TIER;
     const vipProgressPercent = Math.max(0, Math.min(100, Number(PROFILE_VIP_PROGRESS_PERCENT) || 0));
     const [editing, setEditing] = useState({
@@ -388,6 +392,15 @@ export default function ProfilePage({ authUser, onLogout, onNavigate, onLiveChat
                         tier={vipLevel}
                         variant="card"
                     />
+
+                    {PROFILE_SHOW_ACTIVE_PROMO && isPromoActive && promo ? (
+                        <CurrentPromoSection
+                            variant="profile"
+                            promo={promo}
+                            progressPercent={progressPercent}
+                            onEndPromo={endPromo}
+                        />
+                    ) : null}
 
                     <div className="space-y-6">
                         <SectionCard

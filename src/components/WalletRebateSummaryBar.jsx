@@ -1,9 +1,23 @@
-﻿import React from 'react';
+import React from 'react';
 import { Lock, RefreshCw } from 'lucide-react';
 
 /** Matches ProductBrowseControlPanel: outer panel around WalletRebateSummaryBar (Slots / browse). */
 export const WALLET_REBATE_BROWSE_PANEL_CLASS =
     'rounded-[24px] border border-[rgb(223_231_242)] bg-[linear-gradient(180deg,rgba(255,255,255,0.72)_0%,rgba(247,250,255,0.82)_100%)] px-2.5 py-2 shadow-[0_8px_24px_rgba(20,43,87,0.06)] backdrop-blur-sm md:px-4 md:py-4';
+
+/** Shared inner card shell for slots browse summary tiles (wallet, promo, etc.). */
+export const BROWSE_SUMMARY_CARD_SHELL_CLASS =
+    'surface-card rounded-[var(--radius-panel)] border-[var(--color-border-default)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(250,252,255,0.94)_100%)] shadow-[var(--shadow-subtle)]';
+
+export const BROWSE_SUMMARY_CARD_COMPACT_CLASS =
+    'min-h-[56px] px-2.5 py-2.5 sm:min-h-[68px] sm:px-3.5 sm:py-3';
+
+/** Typography aligned with compact denseMobile wallet/rebate tiles. */
+export const BROWSE_SUMMARY_LABEL_COMPACT_CLASS =
+    'font-semibold tracking-[-0.01em] leading-tight text-[var(--color-text-main)] text-xs sm:text-sm';
+
+export const BROWSE_SUMMARY_VALUE_COMPACT_CLASS =
+    'tabular-nums font-bold leading-tight tracking-[-0.03em] text-[var(--color-brand-deep)] text-base sm:text-lg md:text-xl';
 
 function SummaryItem({
     title,
@@ -43,22 +57,21 @@ function SummaryItem({
 
     return (
         <article
-            className={`surface-card flex h-full min-w-0 items-center justify-between rounded-[var(--radius-panel)] border-[var(--color-border-default)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(250,252,255,0.94)_100%)] shadow-[var(--shadow-subtle)] ${compact ? compactLayoutClass : 'min-h-[86px] gap-3 px-4 py-3 sm:min-h-[92px] sm:px-4.5 sm:py-3.5'
+            className={`${BROWSE_SUMMARY_CARD_SHELL_CLASS} flex h-full min-w-0 items-center justify-between ${compact ? compactLayoutClass : 'min-h-[86px] gap-3 px-4 py-3 sm:min-h-[92px] sm:px-4.5 sm:py-3.5'
                 }`}
         >
             <div className="min-w-0 flex-1">
                 <p
-                    className={`font-semibold tracking-[-0.01em] text-[var(--color-text-main)] ${compact
-                        ? denseMobile
-                            ? 'text-[11px] leading-tight sm:text-[12px] md:text-[13px]'
-                            : 'text-[12px] sm:text-[13px]'
-                        : 'text-sm'
-                        }`}
+                    className={
+                        compact && denseMobile
+                            ? BROWSE_SUMMARY_LABEL_COMPACT_CLASS
+                            : `font-semibold tracking-[-0.01em] text-[var(--color-text-main)] ${compact ? 'text-xs sm:text-sm' : 'text-sm'}`
+                    }
                 >
                     {title}
                 </p>
                 <p
-                    className={`tabular-nums leading-tight tracking-[-0.03em] sm:leading-none ${valueClassName} ${valueSizeClass}`}
+                    className={`tabular-nums leading-tight tracking-[-0.03em] sm:leading-none ${valueClassName} ${compact && denseMobile ? BROWSE_SUMMARY_VALUE_COMPACT_CLASS : valueSizeClass}`}
                 >
                     {value}
                 </p>

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { RefreshCw, Info, ChevronDown } from 'lucide-react';
+import { BALANCE_DROPDOWN_SHOW_ACTIVE_PROMO } from '../constants/slotCurrentPromo';
+import PromoSummaryDropdown from './promo/PromoSummaryDropdown';
+import useSlotCurrentPromo from '../hooks/useSlotCurrentPromo';
 
 export default function BalanceDetailDropdown({ 
     onRefreshBalance, 
@@ -8,6 +11,7 @@ export default function BalanceDetailDropdown({
 }) {
     const [expandedMainWallet, setExpandedMainWallet] = useState(true);
     const [expandedGameWallet, setExpandedGameWallet] = useState(true);
+    const { promo, isActive: isPromoActive, progressPercent, targetPercent, endPromo } = useSlotCurrentPromo();
 
     return (
         <div className={`balance-modal-container flex w-[280px] flex-col overflow-hidden p-3 animate-in fade-in slide-in-from-top-2 duration-200 ${className}`}>
@@ -29,7 +33,7 @@ export default function BalanceDetailDropdown({
                 </button>
             </div>
 
-            <div className="relative z-10 flex flex-col gap-2">
+            <div className="relative z-10 flex flex-col gap-2.5">
                 <div className="balance-modal-item flex flex-col rounded-[18px] p-2.5">
                     <button
                         type="button"
@@ -83,6 +87,15 @@ export default function BalanceDetailDropdown({
                         </div>
                     )}
                 </div>
+
+                {BALANCE_DROPDOWN_SHOW_ACTIVE_PROMO && isPromoActive ? (
+                    <PromoSummaryDropdown
+                        promo={promo}
+                        rolloverPercent={progressPercent}
+                        targetPercent={targetPercent}
+                        onEndPromo={endPromo}
+                    />
+                ) : null}
             </div>
         </div>
     );

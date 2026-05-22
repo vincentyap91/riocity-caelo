@@ -1,25 +1,11 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { AlertTriangle, ChevronDown, ChevronRight, CircleCheckBig, ShieldAlert } from 'lucide-react';
 import {
     DEMO_ROLLOVER_STATUS,
     formatRolloverAmount,
     getRolloverProgressPercent,
 } from '../constants/rolloverStatus';
-
-function ProgressBar({ percent, dark = false }) {
-    return (
-        <div className={`h-2 overflow-hidden rounded-full ${dark ? 'bg-white/10' : 'bg-[var(--color-surface-muted)]'}`}>
-            <div
-                className={`h-full rounded-full transition-[width] duration-500 ${
-                    dark
-                        ? 'bg-[linear-gradient(90deg,#ffcf4a_0%,#f59e0b_100%)]'
-                        : 'bg-[linear-gradient(90deg,var(--color-accent-400)_0%,var(--color-accent-600)_100%)]'
-                }`}
-                style={{ width: `${percent}%` }}
-            />
-        </div>
-    );
-}
+import ProgressBar from './ui/ProgressBar';
 
 function Metric({ label, value, dark = false }) {
     return (
@@ -93,7 +79,7 @@ export default function RolloverStatusCard({
                 </div>
 
                 <div className="mt-2">
-                    <ProgressBar percent={percent} dark />
+                    <ProgressBar percent={percent} variant="dark" />
                 </div>
 
                 <div className="mt-2 flex items-center justify-between gap-3">

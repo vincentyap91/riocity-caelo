@@ -8,7 +8,9 @@ import { SLOT_GAMES as slotGames } from '../constants/gameCatalogs';
 import { buildGameDetailSlug, navigateToGameDetail } from '../utils/gameDetailRoutes';
 import SlotBrowseFilterModal from './SlotBrowseFilterModal';
 import ProductBrowseControlPanel from './ProductBrowseControlPanel';
+import CurrentPromoSection from './slots/CurrentPromoSection';
 import useProductBrowseFilters, { DEFAULT_ALL_PROVIDERS_VALUE } from '../hooks/useProductBrowseFilters';
+import useSlotCurrentPromo from '../hooks/useSlotCurrentPromo';
 
 const CDN = 'https://cdn.i8global.com/lb9/master';
 
@@ -85,6 +87,7 @@ export default function SlotsPage({ selectedProviderIdFromMenu, onNavigate }) {
     });
     const [gamesToShow, setGamesToShow] = useState(INITIAL_GAMES);
     const [filterModalOpen, setFilterModalOpen] = useState(false);
+    const { promo, isActive: isPromoActive, progressPercent, endPromo } = useSlotCurrentPromo();
 
     useEffect(() => {
         setGamesToShow(INITIAL_GAMES);
@@ -173,6 +176,16 @@ export default function SlotsPage({ selectedProviderIdFromMenu, onNavigate }) {
                     onOpenFilterModal={() => setFilterModalOpen(true)}
                     resultSummary={resultSummary}
                     providerSummaryText={activeProvider === ALL_PROVIDERS ? 'Browsing all providers' : `Provider filter: ${activeProvider}`}
+                    showWalletSummary={false}
+                    promoSection={
+                        isPromoActive ? (
+                            <CurrentPromoSection
+                                promo={promo}
+                                progressPercent={progressPercent}
+                                onEndPromo={endPromo}
+                            />
+                        ) : null
+                    }
                 />
             </section>
 
