@@ -94,7 +94,7 @@ export default function RecentPayoutSection({ onNavigate, payouts = MOCK_RECENT_
             : undefined;
 
     return (
-        <section aria-label="Recent payout" className="w-full pt-3 md:pt-4">
+        <section aria-label="Recent payout" className="w-full">
             <div
                 className={`${RECENT_PAYOUT_PANEL_CLASS} p-6`}
                 onMouseEnter={() => setIsPaused(true)}
