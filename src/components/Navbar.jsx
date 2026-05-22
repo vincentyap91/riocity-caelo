@@ -606,7 +606,7 @@ export default function Navbar({
                                                     className="flex w-full items-center justify-between"
                                                 >
                                                     <div className="flex items-center gap-3">
-                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-accent)] shadow-[var(--shadow-nav-pill)]">
+                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-[8px] bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-accent)] shadow-[var(--shadow-nav-pill)]">
                                                             <UserRound size={14} />
                                                         </div>
                                                         <span className="text-lg font-bold text-white">My Account</span>
@@ -649,7 +649,7 @@ export default function Navbar({
                                                     className="flex w-full items-center justify-between"
                                                 >
                                                     <div className="flex items-center gap-3">
-                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-accent)] shadow-[var(--shadow-nav-pill)]">
+                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-[8px] bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-accent)] shadow-[var(--shadow-nav-pill)]">
                                                             <Trophy size={14} />
                                                         </div>
                                                         <span className="text-lg font-bold text-white">Rewards</span>
@@ -693,7 +693,7 @@ export default function Navbar({
                                                     className="flex w-full items-center justify-between transition hover:opacity-90"
                                                 >
                                                     <div className="flex items-center gap-3">
-                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-text-accent)] shadow-[var(--shadow-nav-pill)]">
+                                                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-[8px] bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-accent)] shadow-[var(--shadow-nav-pill)]">
                                                             <History size={14} />
                                                         </div>
                                                         <span className="text-lg font-bold text-white">History Record</span>
@@ -731,7 +731,7 @@ export default function Navbar({
                                                     className="flex w-full items-center justify-between text-left"
                                                 >
                                                     <span className="flex items-center gap-3">
-                                                        <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-icon)]">
+                                                        <span className="inline-flex h-7 w-7 items-center justify-center rounded-[8px] bg-[linear-gradient(180deg,var(--color-brand-primary)_0%,var(--color-brand-deep)_100%)] text-[var(--color-nav-accent)] shadow-[var(--shadow-nav-pill)]">
                                                             <Settings size={14} />
                                                         </span>
                                                         <span className="text-base font-bold text-white">Settings</span>
