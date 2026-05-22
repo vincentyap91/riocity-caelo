@@ -81,7 +81,7 @@ function RebateEarnedSummary() {
 function EmptyTableNotice({ message, hint, colSpan = 2 }) {
     return (
         <td colSpan={colSpan} className="px-4 py-10 md:py-12">
-            <div className="mx-auto flex max-w-[20rem] flex-col items-center justify-center rounded-xl border border-dashed border-[var(--color-border-default)] bg-[var(--color-surface-muted)]/50 px-4 py-6">
+            <div className="mx-auto flex flex-col items-center justify-center rounded-xl border border-dashed border-[var(--color-border-default)] bg-[var(--color-surface-muted)]/50 px-4 py-6">
                 <p className="text-center text-sm font-semibold text-[var(--color-text-strong)]">{message}</p>
                 {hint ? <p className="mt-1 text-center text-xs leading-relaxed text-[var(--color-text-muted)]">{hint}</p> : null}
             </div>

@@ -86,7 +86,7 @@
   --color-payout-panel-shadow: 0 4px 10px rgb(8 59 148 / 0.25);
   --color-payout-title: #0c162f;
   --color-payout-highlight: #123b94;
-  --color-payout-card-bg: #eeeeff;
+  --color-payout-card-bg: var(--color-accent-50);
   --color-payout-amount: #dd6044;
   --radius-payout-panel: 12px;
   --radius-payout-card: 8px;
