@@ -2,7 +2,7 @@
 export const BALANCE_DROPDOWN_SHOW_ACTIVE_PROMO = false;
 
 /** Set true to show active promo on the Account Details (profile) page. */
-export const PROFILE_SHOW_ACTIVE_PROMO = false;
+export const PROFILE_SHOW_ACTIVE_PROMO = true;
 
 /** Demo active promo (slots browse + balance dropdown — replace with API when wired). */
 export const DEMO_SLOT_CURRENT_PROMO = {
