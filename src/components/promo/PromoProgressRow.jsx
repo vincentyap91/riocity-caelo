@@ -86,7 +86,7 @@ export default function PromoProgressRow({
             </div>
             <ProgressBar
                 percent={safePercent}
-                variant={isBalance ? 'dark' : 'default'}
+                variant={isBalance ? 'dark' : 'slot-promo'}
                 className="mt-1.5 h-1.5 sm:h-2"
             />
         </div>

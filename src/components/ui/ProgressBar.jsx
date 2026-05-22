@@ -10,7 +10,7 @@ const VARIANT_STYLES = {
         fill: 'bg-[linear-gradient(90deg,var(--color-cta-start)_0%,var(--color-cta-end)_100%)]',
     },
     'slot-promo': {
-        track: 'bg-[var(--color-nav-border-soft)]',
+        track: 'bg-[var(--color-accent-100)]',
         fill: 'bg-[linear-gradient(90deg,var(--color-accent-400)_0%,var(--color-accent-600)_100%)]',
     },
 };
